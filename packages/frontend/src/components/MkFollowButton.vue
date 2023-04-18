@@ -138,7 +138,7 @@ onBeforeUnmount(() => {
 	height: 31px;
 	font-size: 16px;
 	border-radius: 32px;
-	background: #fff;
+	// background: #fff;
 
 	&.full {
 		padding: 0 8px 0 12px;
@@ -178,7 +178,7 @@ onBeforeUnmount(() => {
 	}
 
 	&.active {
-		color: #fff;
+		color: var(--fgOnAccent);
 		background: var(--accent);
 
 		&:hover {
