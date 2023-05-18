@@ -1,31 +1,26 @@
-import { Inject, Injectable } from "@nestjs/common";
-import { DI } from "@/di-symbols.js";
-import type {
-	EmojisRepository,
-	NoteReactionsRepository,
-	UsersRepository,
-	NotesRepository,
-} from "@/models/index.js";
-import { IdentifiableError } from "@/misc/identifiable-error.js";
-import type { RemoteUser, User } from "@/models/entities/User.js";
-import type { Note } from "@/models/entities/Note.js";
-import { IdService } from "@/core/IdService.js";
-import type { NoteReaction } from "@/models/entities/NoteReaction.js";
-import { isDuplicateKeyValueError } from "@/misc/is-duplicate-key-value-error.js";
-import { GlobalEventService } from "@/core/GlobalEventService.js";
-import { NotificationService } from "@/core/NotificationService.js";
-import PerUserReactionsChart from "@/core/chart/charts/per-user-reactions.js";
-import { emojiRegex } from "@/misc/emoji-regex.js";
-import { ApDeliverManagerService } from "@/core/activitypub/ApDeliverManagerService.js";
-import { NoteEntityService } from "@/core/entities/NoteEntityService.js";
-import { UserEntityService } from "@/core/entities/UserEntityService.js";
-import { ApRendererService } from "@/core/activitypub/ApRendererService.js";
-import { MetaService } from "@/core/MetaService.js";
-import { bindThis } from "@/decorators.js";
-import { UtilityService } from "@/core/UtilityService.js";
-import { UserBlockingService } from "@/core/UserBlockingService.js";
-import { CustomEmojiService } from "@/core/CustomEmojiService.js";
-import { RoleService } from "@/core/RoleService.js";
+import { Inject, Injectable } from '@nestjs/common';
+import { DI } from '@/di-symbols.js';
+import type { EmojisRepository, NoteReactionsRepository, UsersRepository, NotesRepository } from '@/models/index.js';
+import { IdentifiableError } from '@/misc/identifiable-error.js';
+import type { RemoteUser, User } from '@/models/entities/User.js';
+import type { Note } from '@/models/entities/Note.js';
+import { IdService } from '@/core/IdService.js';
+import type { NoteReaction } from '@/models/entities/NoteReaction.js';
+import { isDuplicateKeyValueError } from '@/misc/is-duplicate-key-value-error.js';
+import { GlobalEventService } from '@/core/GlobalEventService.js';
+import { NotificationService } from '@/core/NotificationService.js';
+import PerUserReactionsChart from '@/core/chart/charts/per-user-reactions.js';
+import { emojiRegex } from '@/misc/emoji-regex.js';
+import { ApDeliverManagerService } from '@/core/activitypub/ApDeliverManagerService.js';
+import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
+import { UserEntityService } from '@/core/entities/UserEntityService.js';
+import { ApRendererService } from '@/core/activitypub/ApRendererService.js';
+import { MetaService } from '@/core/MetaService.js';
+import { bindThis } from '@/decorators.js';
+import { UtilityService } from '@/core/UtilityService.js';
+import { UserBlockingService } from '@/core/UserBlockingService.js';
+import { CustomEmojiService } from '@/core/CustomEmojiService.js';
+import { RoleService } from '@/core/RoleService.js';
 
 const FALLBACK = "❤";
 
@@ -94,11 +89,7 @@ export class ReactionService {
 	) {}
 
 	@bindThis
-	public async create(
-		user: { id: User["id"]; host: User["host"]; isBot: User["isBot"] },
-		note: Note,
-		_reaction?: string | null
-	) {
+	public async create(user: { id: User['id']; host: User['host']; isBot: User['isBot'] }, note: Note, _reaction?: string | null) {
 		// Check blocking
 		if (note.userId !== user.id) {
 			const blocked = await this.userBlockingService.checkBlocked(
@@ -120,44 +111,24 @@ export class ReactionService {
 
 		let reaction = _reaction ?? FALLBACK;
 
-		if (
-			note.reactionAcceptance === "likeOnly" ||
-			((note.reactionAcceptance === "likeOnlyForRemote" ||
-				note.reactionAcceptance ===
-					"nonSensitiveOnlyForLocalLikeOnlyForRemote") &&
-				user.host != null)
-		) {
-			reaction = "❤️";
+		if (note.reactionAcceptance === 'likeOnly' || ((note.reactionAcceptance === 'likeOnlyForRemote') && (user.host != null))) {
+			reaction = '❤️';
 		} else if (_reaction) {
 			const custom = reaction.match(isCustomEmojiRegexp);
 			if (custom) {
 				const reacterHost = this.utilityService.toPunyNullable(user.host);
 
 				const name = custom[1];
-				const emoji =
-					reacterHost == null
-						? (await this.customEmojiService.localEmojisCache.fetch()).get(name)
-						: await this.emojisRepository.findOneBy({
-								host: reacterHost,
-								name,
-						  });
+				const emoji = reacterHost == null
+					? (await this.customEmojiService.localEmojisCache.fetch()).get(name)
+					: await this.emojisRepository.findOneBy({
+						host: reacterHost,
+						name,
+					});
 
 				if (emoji) {
-					if (
-						emoji.roleIdsThatCanBeUsedThisEmojiAsReaction.length === 0 ||
-						(await this.roleService.getUserRoles(user.id)).some((r) =>
-							emoji.roleIdsThatCanBeUsedThisEmojiAsReaction.includes(r.id)
-						)
-					) {
+					if (emoji.roleIdsThatCanBeUsedThisEmojiAsReaction.length === 0 || (await this.roleService.getUserRoles(user.id)).some(r => emoji.roleIdsThatCanBeUsedThisEmojiAsReaction.includes(r.id))) {
 						reaction = reacterHost ? `:${name}@${reacterHost}:` : `:${name}:`;
-
-						// センシティブ
-						if (
-							note.reactionAcceptance === "nonSensitiveOnly" &&
-							emoji.isSensitive
-						) {
-							reaction = FALLBACK;
-						}
 					} else {
 						// リアクションとして使う権限がない
 						reaction = FALLBACK;
@@ -413,7 +384,7 @@ export class ReactionService {
 			const unicode = match[0];
 
 			// 異体字セレクタ除去
-			return unicode.match("\u200d") ? unicode : unicode.replace(/\ufe0f/g, "");
+			return unicode.match('\u200d') ? unicode : unicode.replace(/\ufe0f/g, '');
 		}
 
 		return FALLBACK;
