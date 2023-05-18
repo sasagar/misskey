@@ -1056,12 +1056,6 @@ update: "更新"
 rolesThatCanBeUsedThisEmojiAsReaction: "リアクションとして使えるロール"
 rolesThatCanBeUsedThisEmojiAsReactionEmptyDescription: "ロールの指定が一つもない場合、誰でもリアクションとして使えます。"
 rolesThatCanBeUsedThisEmojiAsReactionPublicRoleWarn: "ロールは公開ロールである必要があります。"
-cancelReactionConfirm: "リアクションを取り消しますか？"
-changeReactionConfirm: "リアクションを変更しますか？"
-later: "あとで"
-goToMisskey: "Misskeyへ"
-additionalEmojiDictionary: "絵文字の追加辞書"
-installed: "インストール済み"
 
 _initialAccountSetting:
   accountCreated: "アカウントの作成が完了しました！"

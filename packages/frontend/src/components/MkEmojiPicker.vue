@@ -72,6 +72,8 @@
 				:key="`custom:${category}`"
 				:initialShown="false"
 				:emojis="computed(() => customEmojis.filter(e => category === null ? (e.category === 'null' || !e.category) : e.category === category).filter(filterAvailable).map(e => `:${e.name}:`))"
+				:initialShown="false"
+				:emojis="computed(() => customEmojis.filter(e => category === null ? (e.category === 'null' || !e.category) : e.category === category).filter(filterAvailable).map(e => `:${e.name}:`))"
 				@chosen="chosen"
 			>
 				{{ category || i18n.ts.other }}
@@ -102,7 +104,7 @@ import { isTouchUsing } from '@/scripts/touch';
 import { deviceKind } from '@/scripts/device-kind';
 import { i18n } from '@/i18n';
 import { defaultStore } from '@/store';
-import { customEmojiCategories, customEmojis, customEmojisMap } from '@/custom-emojis';
+import { customEmojiCategories, customEmojis } from '@/custom-emojis';
 import { $i } from '@/account';
 
 const props = withDefaults(defineProps<{
