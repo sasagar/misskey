@@ -661,11 +661,8 @@ importers:
         specifier: 3.3.1
         version: 3.3.1
       autosize:
-        specifier: 5.0.2
-        version: 5.0.2
-      blurhash:
-        specifier: 2.0.5
-        version: 2.0.5
+        specifier: 6.0.1
+        version: 6.0.1
       broadcast-channel:
         specifier: 5.1.0
         version: 5.1.0
@@ -29654,10 +29651,7 @@ packages:
     dev: false
 
   github.com/misskey-dev/buraha/92b20c1ab15c5cb5a224cf3b1ecd4f6baca12b7c:
-    resolution:
-      {
-        tarball: https://codeload.github.com/misskey-dev/buraha/tar.gz/92b20c1ab15c5cb5a224cf3b1ecd4f6baca12b7c,
-      }
+    resolution: {tarball: https://codeload.github.com/misskey-dev/buraha/tar.gz/92b20c1ab15c5cb5a224cf3b1ecd4f6baca12b7c}
     name: buraha
     version: 0.0.0
     dev: false

@@ -8,7 +8,7 @@
 		<ImgWithBlurhash
 			:hash="image.blurhash"
 			:src="(defaultStore.state.enableDataSaverMode && hide) ? null : url"
-			:forceBlurhash="hide"
+			:force-blurhash="hide"
 			:cover="hide"
 			:alt="image.comment || image.name"
 			:title="image.comment || image.name"
@@ -32,7 +32,8 @@
 			<div v-if="image.comment" :class="$style.indicator">ALT</div>
 			<div v-if="image.isSensitive" :class="$style.indicator" style="color: var(--warn);">NSFW</div>
 		</div>
-		<button :class="$style.menu" class="_button" @click.stop="showMenu"><i class="ti ti-dots" style="vertical-align: middle;"></i></button>
+		<button v-tooltip="i18n.ts.hide" :class="$style.hide" class="_button" @click.stop.prevent="hide = true"><i class="ti ti-eye-off"></i></button>
+		<button :class="$style.menu" class="_button" @click.stop="showMenu"><i class="ti ti-dots"></i></button>
 	</template>
 </div>
 </template>
