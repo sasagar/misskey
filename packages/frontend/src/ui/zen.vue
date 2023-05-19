@@ -1,5 +1,5 @@
 <template>
-<div :class="showBottom ? $style.rootWithBottom : $style.root" style="container-type: inline-size;">
+<div :class="$style.root" style="container-type: inline-size;">
 	<RouterView/>
 
 	<XCommon/>
