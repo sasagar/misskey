@@ -2,10 +2,10 @@ name: ikaskey
 on:
   workflow_dispatch:
   push:
-    branches:
-      - "ikaskey"
+    # branches:
+    #   - "ikaskey"
     tags:
-      - "*"
+      - "*-ikaskey*"
 jobs:
   build-image:
     runs-on: ubuntu-latest
