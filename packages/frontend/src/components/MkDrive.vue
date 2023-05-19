@@ -3,7 +3,7 @@
 	<nav :class="$style.nav">
 		<div :class="$style.navPath" @contextmenu.prevent.stop="() => {}">
 			<XNavFolder
-				:class="[$style.navPathItem, { [$style.navCurrent]: folder == null }]"
+				:class="{ current: folder == null }"
 				:parentFolder="folder"
 				@move="move"
 				@upload="upload"
@@ -15,7 +15,6 @@
 				<XNavFolder
 					:folder="f"
 					:parentFolder="folder"
-					:class="[$style.navPathItem]"
 					@move="move"
 					@upload="upload"
 					@removeFile="removeFile"

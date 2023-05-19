@@ -29,6 +29,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import * as misskey from 'misskey-js';
+import VuePlyr from 'vue-plyr';
 import bytes from '@/filters/bytes';
 import { defaultStore } from '@/store';
 import { i18n } from '@/i18n';
