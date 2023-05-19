@@ -1,13 +1,7 @@
 <template>
-<MkContainer :naked="widgetProps.transparent" :showHeader="false" data-cy-mkw-clock>
-	<div
-		:class="[$style.root, {
-			[$style.small]: widgetProps.size === 'small',
-			[$style.medium]: widgetProps.size === 'medium',
-			[$style.large]: widgetProps.size === 'large',
-		}]"
-	>
-		<div v-if="widgetProps.label === 'tz' || widgetProps.label === 'timeAndTz'" class="_monospace" :class="[$style.label, $style.a]">{{ tzAbbrev }}</div>
+<MkContainer :naked="widgetProps.transparent" :showHeader="false" data-cy-mkw-clock class="mkw-clock">
+	<div class="vubelbmv" :class="widgetProps.size">
+		<div v-if="widgetProps.label === 'tz' || widgetProps.label === 'timeAndTz'" class="_monospace label a abbrev">{{ tzAbbrev }}</div>
 		<MkAnalogClock
 			:class="$style.clock"
 			:thickness="widgetProps.thickness"
@@ -17,8 +11,8 @@
 			:twentyfour="widgetProps.twentyFour"
 			:sAnimation="widgetProps.sAnimation"
 		/>
-		<MkDigitalClock v-if="widgetProps.label === 'time' || widgetProps.label === 'timeAndTz'" :class="[$style.label, $style.c]" class="_monospace" :showS="false" :offset="tzOffset"/>
-		<div v-if="widgetProps.label === 'tz' || widgetProps.label === 'timeAndTz'" class="_monospace" :class="[$style.label, $style.d]">{{ tzOffsetLabel }}</div>
+		<MkDigitalClock v-if="widgetProps.label === 'time' || widgetProps.label === 'timeAndTz'" class="_monospace label c time" :showS="false" :offset="tzOffset"/>
+		<div v-if="widgetProps.label === 'tz' || widgetProps.label === 'timeAndTz'" class="_monospace label d offset">{{ tzOffsetLabel }}</div>
 	</div>
 </MkContainer>
 </template>

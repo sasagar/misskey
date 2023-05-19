@@ -2,7 +2,7 @@
 <MkStickyContainer>
 	<template #header><MkPageHeader :actions="headerActions" :tabs="headerTabs"/></template>
 	<MkSpacer :contentMax="800">
-		<MkNotes ref="notes" class="" :pagination="pagination"/>
+		<MkNotes class="" :pagination="pagination"/>
 	</MkSpacer>
 	<template v-if="$i" #footer>
 		<div :class="$style.footer">
