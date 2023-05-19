@@ -8,10 +8,10 @@
 			[$style.veryLarge]: x.size === 'veryLarge',
 		}]"
 	>
-		<span :class="$style.name">{{ x.name }}</span>
-		<XRss v-if="x.type === 'rss'" :class="$style.body" :refreshIntervalSec="x.props.refreshIntervalSec" :marqueeDuration="x.props.marqueeDuration" :marqueeReverse="x.props.marqueeReverse" :display="x.props.display" :url="x.props.url" :shuffle="x.props.shuffle"/>
-		<XFederation v-else-if="x.type === 'federation'" :class="$style.body" :refreshIntervalSec="x.props.refreshIntervalSec" :marqueeDuration="x.props.marqueeDuration" :marqueeReverse="x.props.marqueeReverse" :display="x.props.display" :colored="x.props.colored"/>
-		<XUserList v-else-if="x.type === 'userList'" :class="$style.body" :refreshIntervalSec="x.props.refreshIntervalSec" :marqueeDuration="x.props.marqueeDuration" :marqueeReverse="x.props.marqueeReverse" :display="x.props.display" :userListId="x.props.userListId"/>
+		<span class="name">{{ x.name }}</span>
+		<XRss v-if="x.type === 'rss'" class="body" :refreshIntervalSec="x.props.refreshIntervalSec" :marqueeDuration="x.props.marqueeDuration" :marqueeReverse="x.props.marqueeReverse" :display="x.props.display" :url="x.props.url" :shuffle="x.props.shuffle"/>
+		<XFederation v-else-if="x.type === 'federation'" class="body" :refreshIntervalSec="x.props.refreshIntervalSec" :marqueeDuration="x.props.marqueeDuration" :marqueeReverse="x.props.marqueeReverse" :display="x.props.display" :colored="x.props.colored"/>
+		<XUserList v-else-if="x.type === 'userList'" class="body" :refreshIntervalSec="x.props.refreshIntervalSec" :marqueeDuration="x.props.marqueeDuration" :marqueeReverse="x.props.marqueeReverse" :display="x.props.display" :userListId="x.props.userListId"/>
 	</div>
 </div>
 </template>

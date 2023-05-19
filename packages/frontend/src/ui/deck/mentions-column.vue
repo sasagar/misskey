@@ -1,5 +1,5 @@
 <template>
-<XColumn :column="column" :isStacked="isStacked">
+<XColumn :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
 	<template #header><i class="ti ti-at" style="margin-right: 8px;"></i>{{ column.name }}</template>
 
 	<MkNotes :pagination="pagination"/>

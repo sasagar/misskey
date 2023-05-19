@@ -1,5 +1,5 @@
 <template>
-<XColumn :menu="menu" :naked="true" :column="column" :isStacked="isStacked">
+<XColumn :menu="menu" :naked="true" :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
 	<template #header><i class="ti ti-apps" style="margin-right: 8px;"></i>{{ column.name }}</template>
 
 	<div :class="$style.root">

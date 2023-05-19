@@ -1,5 +1,5 @@
 <template>
-<XColumn :column="column" :isStacked="isStacked" :menu="menu">
+<XColumn :column="column" :isStacked="isStacked" :menu="menu" @parentFocus="$event => emit('parent-focus', $event)">
 	<template #header><i class="ti ti-bell" style="margin-right: 8px;"></i>{{ column.name }}</template>
 
 	<XNotifications :includeTypes="column.includingTypes"/>

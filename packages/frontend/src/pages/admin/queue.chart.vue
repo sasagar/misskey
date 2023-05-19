@@ -17,6 +17,8 @@
 		</div>
 		<div :class="$style.chart">
 			<div :class="$style.chartTitle">Delayed</div>
+		<div :class="$style.chart">
+			<div :class="$style.chartTitle">Delayed</div>
 			<XChart ref="chartDelayed" type="delayed"/>
 		</div>
 		<div :class="$style.chart">
@@ -149,5 +151,8 @@ onUnmounted(() => {
 .statusLabel {
 	font-size: 80%;
 	opacity: 0.6;
+}
+
+.jobs {
 }
 </style>

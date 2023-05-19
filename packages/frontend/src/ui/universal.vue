@@ -8,8 +8,8 @@
 		<div :class="$style.spacer"></div>
 	</MkStickyContainer>
 
-	<div v-if="isDesktop" :class="$style.widgets">
-		<XWidgets/>
+	<div v-if="isDesktop" ref="widgetsEl" :class="$style.widgets">
+		<XWidgets :marginTop="'var(--margin)'" @mounted="attachSticky"/>
 	</div>
 
 	<button v-if="!isDesktop && !isMobile" :class="$style.widgetButton" class="_button" @click="widgetsShowing = true"><i class="ti ti-apps"></i></button>

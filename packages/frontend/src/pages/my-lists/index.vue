@@ -2,16 +2,14 @@
 <MkStickyContainer>
 	<template #header><MkPageHeader :actions="headerActions" :tabs="headerTabs"/></template>
 	<MkSpacer :contentMax="700">
-		<div class="_gaps">
-			<MkButton primary rounded style="margin: 0 auto;" @click="create"><i class="ti ti-plus"></i> {{ i18n.ts.createList }}</MkButton>
+		<div class="qkcjvfiv">
+			<MkButton primary class="add" @click="create"><i class="ti ti-plus"></i> {{ i18n.ts.createList }}</MkButton>
 
-			<MkPagination v-slot="{items}" ref="pagingComponent" :pagination="pagination">
-				<div class="_gaps">
-					<MkA v-for="list in items" :key="list.id" class="_panel" :class="$style.list" :to="`/my/lists/${ list.id }`">
-						<div style="margin-bottom: 4px;">{{ list.name }}</div>
-						<MkAvatars :userIds="list.userIds"/>
-					</MkA>
-				</div>
+			<MkPagination v-slot="{items}" ref="pagingComponent" :pagination="pagination" class="lists">
+				<MkA v-for="list in items" :key="list.id" class="list _panel" :to="`/my/lists/${ list.id }`">
+					<div class="name">{{ list.name }}</div>
+					<MkAvatars :userIds="list.userIds"/>
+				</MkA>
 			</MkPagination>
 		</div>
 	</MkSpacer>
