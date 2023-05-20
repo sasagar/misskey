@@ -4,25 +4,22 @@
 
 	<div :class="$style.main">
 		<XStatusBars/>
-		<div ref="columnsEl" :class="[$style.columns, deckStore.reactiveState.columnAlign.value, { [$style.snapScroll]: snapScroll }]" @contextmenu.self.prevent="onContextmenu">
-			<template v-for="ids in layout">
-				<!-- sectionを利用しているのは、deck.vue側でcolumnに対してfirst-of-typeを効かせるため -->
-				<section
-					v-if="ids.length > 1"
-					:class="$style.folder"
-					:style="columns.filter(c => ids.includes(c.id)).some(c => c.flexible) ? { flex: 1, minWidth: '350px' } : { width: Math.max(...columns.filter(c => ids.includes(c.id)).map(c => c.width)) + 'px' }"
-				>
-					<DeckColumnCore v-for="id in ids" :ref="id" :key="id" :column="columns.find(c => c.id === id)" :isStacked="true" @parentFocus="moveFocus(id, $event)"/>
-				</section>
-				<DeckColumnCore
-					v-else
-					:ref="ids[0]"
-					:key="ids[0]"
+		<div ref="columnsEl" :class="[$style.sections, deckStore.reactiveState.columnAlign.value, { [$style.snapScroll]: snapScroll }]" @contextmenu.self.prevent="onContextmenu">
+			<!-- sectionを利用しているのは、deck.vue側でcolumnに対してfirst-of-typeを効かせるため -->
+			<section
+				v-for="ids in layout"
+				:class="$style.section"
+				:style="columns.filter(c => ids.includes(c.id)).some(c => c.flexible) ? { flex: 1, minWidth: '350px' } : { width: Math.max(...columns.filter(c => ids.includes(c.id)).map(c => c.width)) + 'px' }"
+			>
+				<component
+					:is="columnComponents[columns.find(c => c.id === id)!.type] ?? XTlColumn"
+					v-for="id in ids"
+					:ref="id"
+					:key="id"
 					:class="$style.column"
-					:column="columns.find(c => c.id === ids[0])"
-					:isStacked="false"
-					:style="columns.find(c => c.id === ids[0])!.flexible ? { flex: 1, minWidth: '350px' } : { width: columns.find(c => c.id === ids[0])!.width + 'px' }"
-					@parentFocus="moveFocus(ids[0], $event)"
+					:column="columns.find(c => c.id === id)"
+					:isStacked="ids.length > 1"
+					@parentFocus="moveFocus(id, $event)"
 				/>
 			</section>
 			<div v-if="layout.length === 0" class="_panel" :class="$style.onboarding">
@@ -315,11 +312,11 @@ async function deleteProfile() {
 
 	&.center {
 		> .section:first-of-type {
-			margin-left: auto !important;
+			margin-left: auto;
 		}
 
 		> .section:last-of-type {
-			margin-right: auto !important;
+			margin-right: auto;
 		}
 	}
 
@@ -337,8 +334,18 @@ async function deleteProfile() {
 	padding-bottom: var(--columnGap);
 	padding-left: var(--columnGap);
 
-	> .column:not(:last-of-type) {
-		margin-bottom: var(--columnGap);
+	&:first-of-type {
+		border-left: solid var(--deckDividerThickness) var(--deckDivider);
+	}
+}
+
+.folder {
+	composes: column;
+	display: flex;
+	flex-direction: column;
+
+	> *:not(:last-of-type) {
+		border-bottom: solid var(--deckDividerThickness) var(--deckDivider);
 	}
 }
 
