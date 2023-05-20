@@ -19,7 +19,6 @@
 					:class="$style.column"
 					:column="columns.find(c => c.id === id)"
 					:isStacked="ids.length > 1"
-					@parentFocus="moveFocus(id, $event)"
 				/>
 			</section>
 			<div v-if="layout.length === 0" class="_panel" :class="$style.onboarding">

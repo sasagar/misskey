@@ -1,5 +1,5 @@
 <template>
-<XColumn :menu="menu" :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
+<XColumn :menu="menu" :column="column" :isStacked="isStacked">
 	<template #header>
 		<i class="ti ti-badge"></i><span style="margin-left: 8px;">{{ column.name }}</span>
 	</template>
@@ -19,6 +19,10 @@ import { i18n } from '@/i18n';
 const props = defineProps<{
 	column: Column;
 	isStacked: boolean;
+}>();
+
+const emit = defineEmits<{
+	(ev: 'loaded'): void;
 }>();
 
 let timeline = $shallowRef<InstanceType<typeof MkTimeline>>();

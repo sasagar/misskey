@@ -1,5 +1,5 @@
 <template>
-<XColumn :menu="menu" :naked="true" :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
+<XColumn :menu="menu" :naked="true" :column="column" :isStacked="isStacked">
 	<template #header><i class="ti ti-apps" style="margin-right: 8px;"></i>{{ column.name }}</template>
 
 	<div :class="$style.root">
@@ -19,6 +19,9 @@ import { i18n } from '@/i18n';
 const props = defineProps<{
 	column: Column;
 	isStacked: boolean;
+}>();
+
+const emit = defineEmits<{
 }>();
 
 let edit = $ref(false);

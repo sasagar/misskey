@@ -1,5 +1,5 @@
 <template>
-<XColumn v-if="deckStore.state.alwaysShowMainColumn || mainRouter.currentRoute.value.name !== 'index'" :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
+<XColumn v-if="deckStore.state.alwaysShowMainColumn || mainRouter.currentRoute.value.name !== 'index'" :column="column" :isStacked="isStacked">
 	<template #header>
 		<template v-if="pageMetadata?.value">
 			<i :class="pageMetadata?.value.icon"></i>
@@ -23,6 +23,9 @@ import { PageMetadata, provideMetadataReceiver } from '@/scripts/page-metadata';
 defineProps<{
 	column: Column;
 	isStacked: boolean;
+}>();
+
+const emit = defineEmits<{
 }>();
 
 let pageMetadata = $ref<null | ComputedRef<PageMetadata>>();

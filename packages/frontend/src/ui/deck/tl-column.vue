@@ -1,5 +1,5 @@
 <template>
-<XColumn :menu="menu" :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
+<XColumn :menu="menu" :column="column" :isStacked="isStacked">
 	<template #header>
 		<i v-if="column.tl === 'home'" class="ti ti-home"></i>
 		<i v-else-if="column.tl === 'local'" class="ti ti-planet"></i>
@@ -32,6 +32,10 @@ import { instance } from '@/instance';
 const props = defineProps<{
 	column: Column;
 	isStacked: boolean;
+}>();
+
+const emit = defineEmits<{
+	(ev: 'loaded'): void;
 }>();
 
 let disabled = $ref(false);

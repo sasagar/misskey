@@ -1,5 +1,5 @@
 <template>
-<XColumn :column="column" :isStacked="isStacked" @parentFocus="$event => emit('parent-focus', $event)">
+<XColumn :column="column" :isStacked="isStacked">
 	<template #header><i class="ti ti-at" style="margin-right: 8px;"></i>{{ column.name }}</template>
 
 	<MkNotes :pagination="pagination"/>
@@ -15,6 +15,9 @@ import MkNotes from '@/components/MkNotes.vue';
 defineProps<{
 	column: Column;
 	isStacked: boolean;
+}>();
+
+const emit = defineEmits<{
 }>();
 
 const pagination = {
