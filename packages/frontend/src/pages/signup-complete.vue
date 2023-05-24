@@ -1,5 +1,5 @@
 <template>
-<div>
+<div :class="$style.root">
 	<MkAnimBg style="position: fixed; top: 0;"/>
 	<div :class="$style.formContainer">
 		<form :class="$style.form" class="_panel" @submit.prevent="submit()">
@@ -53,6 +53,9 @@ function submit() {
 </script>
 
 <style lang="scss" module>
+.root {
+}
+
 .formContainer {
 	min-height: 100svh;
 	padding: 32px 32px 64px 32px;
