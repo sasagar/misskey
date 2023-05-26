@@ -306,7 +306,6 @@ async function deleteProfile() {
 	display: flex;
 	overflow-x: auto;
 	overflow-y: clip;
-	overscroll-behavior: contain;
 	background: var(--deckBg);
 
 	&.center {
@@ -329,22 +328,17 @@ async function deleteProfile() {
 	flex-direction: column;
 	scroll-snap-align: start;
 	flex-shrink: 0;
-	padding-top: var(--columnGap);
-	padding-bottom: var(--columnGap);
-	padding-left: var(--columnGap);
+	margin-top: var(--columnGap);
+	margin-bottom: var(--columnGap);
+	margin-right: var(--columnGap);
 
 	&:first-of-type {
-		border-left: solid var(--deckDividerThickness) var(--deckDivider);
+		margin-left: var(--columnGap);
 	}
 }
 
-.folder {
-	composes: column;
-	display: flex;
-	flex-direction: column;
-
-	> *:not(:last-of-type) {
-		border-bottom: solid var(--deckDividerThickness) var(--deckDivider);
+	> .column:not(:last-of-type) {
+		margin-bottom: var(--columnGap);
 	}
 }
 
