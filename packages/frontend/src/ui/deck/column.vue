@@ -15,10 +15,9 @@
 	>
 		<svg viewBox="0 0 256 128" :class="$style.tabShape">
 			<g transform="matrix(6.2431,0,0,6.2431,-677.417,-29.3839)">
-				<path d="M149.512,4.707L108.507,4.707C116.252,4.719 118.758,14.958 118.758,14.958C118.758,14.958 121.381,25.283 129.009,25.209L149.512,25.209L149.512,4.707Z" style="fill:var(--deckBg);"/>
+				<path d="M149.512,4.707L108.507,4.707C116.252,4.719 118.758,14.958 118.758,14.958C118.758,14.958 121.381,25.283 129.009,25.209L149.512,25.209L149.512,4.707Z" style="fill:var(--deckDivider);"/>
 			</g>
 		</svg>
-		<div :class="$style.color"></div>
 		<button v-if="isStacked && !isMainColumn" :class="$style.toggleActive" class="_button" @click="toggleActive">
 			<template v-if="active"><i class="ti ti-chevron-up"></i></template>
 			<template v-else><i class="ti ti-chevron-down"></i></template>
@@ -335,16 +334,6 @@ function onDrop(ev) {
 	box-shadow: 0 1px 0 0 var(--panelHeaderDivider);
 	cursor: pointer;
 	user-select: none;
-}
-
-.color {
-	position: absolute;
-	top: 12px;
-	left: 12px;
-	width: 3px;
-	height: calc(100% - 24px);
-	background: var(--accent);
-	border-radius: 999px;
 }
 
 .tabShape {
