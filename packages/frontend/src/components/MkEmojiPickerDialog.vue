@@ -14,8 +14,8 @@
 >
 	<MkEmojiPicker
 		ref="picker"
-		class="ryghynhb _popup _shadow"
-		:class="{ drawer: type === 'drawer' }"
+		class="_popup _shadow"
+		:class="{ [$style.drawer]: type === 'drawer' }"
 		:showPinned="showPinned"
 		:asReactionPicker="asReactionPicker"
 		:asDrawer="type === 'drawer'"

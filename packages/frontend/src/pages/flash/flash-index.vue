@@ -2,7 +2,7 @@
 <MkStickyContainer>
 	<template #header><MkPageHeader v-model:tab="tab" :actions="headerActions" :tabs="headerTabs"/></template>
 	<MkSpacer :contentMax="700">
-		<div v-if="tab === 'featured'" class="">
+		<div v-if="tab === 'featured'">
 			<MkPagination v-slot="{items}" :pagination="featuredFlashsPagination">
 				<div class="_gaps_s">
 					<MkFlashPreview v-for="flash in items" :key="flash.id" :flash="flash"/>
