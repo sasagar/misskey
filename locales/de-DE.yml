@@ -990,10 +990,10 @@ emailNotSupported: "Diese Instanz unterstützt das Versenden von Emails nicht"
 postToTheChannel: "In Kanal senden"
 cannotBeChangedLater: "Kann später nicht mehr geändert werden."
 reactionAcceptance: "Reaktionsannahme"
-likeOnly: 'Nur "Gefällt mir"'
-likeOnlyForRemote: 'Nur "Gefällt mir" für fremde Instanzen'
+likeOnly: "Nur \"Gefällt mir\""
+likeOnlyForRemote: "Nur \"Gefällt mir\" für fremde Instanzen"
 nonSensitiveOnly: "Keine Sensitiven"
-nonSensitiveOnlyForLocalLikeOnlyForRemote: 'Keine Sensitiven (Nur "Gefällt mir" von fremden Instanzen)'
+nonSensitiveOnlyForLocalLikeOnlyForRemote: "Keine Sensitiven (Nur \"Gefällt mir\" von fremden Instanzen)"
 rolesAssignedToMe: "Mir zugewiesene Rollen"
 resetPasswordConfirm: "Wirklich Passwort zurücksetzen?"
 sensitiveWords: "Sensible Wörter"
@@ -1060,8 +1060,6 @@ cancelReactionConfirm: "Möchtest du deine Reaktion wirklich löschen?"
 changeReactionConfirm: "Möchtest du deine Reaktion wirklich ändern?"
 later: "Später"
 goToMisskey: "Zu Misskey"
-additionalEmojiDictionary: "Zusätzliche Emoji-Wörterbücher"
-installed: "Installiert"
 _initialAccountSetting:
   accountCreated: "Dein Konto wurde erfolgreich erstellt!"
   letsStartAccountSetup: "Lass uns nun dein Konto einrichten."
