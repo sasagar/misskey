@@ -24,7 +24,7 @@
 		</button>
 	</div>
 
-	<div v-if="type === 'and' || type === 'or'" class="_gaps">
+	<div v-if="type === 'and' || type === 'or'" :class="$style.values" class="_gaps">
 		<Sortable v-model="v.values" tag="div" class="_gaps" itemKey="id" handle=".drag-handle" :group="{ name: 'roleFormula' }" :animation="150" :swapThreshold="0.5">
 			<template #item="{element}">
 				<div :class="$style.item">
