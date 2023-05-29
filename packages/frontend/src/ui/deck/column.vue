@@ -299,8 +299,10 @@ function onDrop(ev) {
 		}
 
 		> .body {
+			background: transparent !important;
+
 			&::-webkit-scrollbar-track {
-				background: inherit;
+				background: transparent;
 			}
 		}
 	}
@@ -309,6 +311,8 @@ function onDrop(ev) {
 		background: var(--bg) !important;
 
 		> .body {
+			background: var(--bg) !important;
+
 			&::-webkit-scrollbar-track {
 				background: inherit;
 			}
