@@ -27,10 +27,6 @@ const props = defineProps<{
 	isStacked: boolean;
 }>();
 
-const emit = defineEmits<{
-	(ev: 'loaded'): void;
-}>();
-
 let timeline = $shallowRef<InstanceType<typeof MkTimeline>>();
 let channel = $shallowRef<misskey.entities.Channel>();
 

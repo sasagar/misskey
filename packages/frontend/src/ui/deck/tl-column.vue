@@ -34,10 +34,6 @@ const props = defineProps<{
 	isStacked: boolean;
 }>();
 
-const emit = defineEmits<{
-	(ev: 'loaded'): void;
-}>();
-
 let disabled = $ref(false);
 
 const isLocalTimelineAvailable = (($i == null && instance.policies.ltlAvailable) || ($i != null && $i.policies.ltlAvailable));
