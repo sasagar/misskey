@@ -4,7 +4,7 @@
 	v-show="!isDeleted"
 	ref="el"
 	v-hotkey="keymap"
-	:class="$style.root"
+	:class="[$style.root, { [$style.renote]: isRenote }]"
 >
 	<MkNoteSub v-for="note in conversation" :key="note.id" :class="$style.replyToMore" :note="note"/>
 	<MkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo"/>
@@ -52,35 +52,28 @@
 					</div>
 				</div>
 				<div :class="$style.noteHeaderUsername"><MkAcct :user="appearNote.user"/></div>
-				<MkInstanceTicker v-if="showTicker" :instance="appearNote.user.instance"/>
+				<MkInstanceTicker v-if="showTicker" :class="$style.ticker" :instance="appearNote.user.instance"/>
 			</div>
 		</header>
-		<div class="main">
-			<div class="body">
-				<p v-if="appearNote.cw != null" class="cw">
-					<Mfm v-if="appearNote.cw != ''" class="text" :text="appearNote.cw" :author="appearNote.user" :i="$i"/>
-					<MkCwButton v-model="showContent" :note="appearNote"/>
-				</p>
-				<div v-show="appearNote.cw == null || showContent" class="content">
-					<div class="text">
-						<span v-if="appearNote.isHidden" style="opacity: 0.5">({{ i18n.ts.private }})</span>
-						<MkA v-if="appearNote.replyId" class="reply" :to="`/notes/${appearNote.replyId}`"><i class="ti ti-arrow-back-up"></i></MkA>
-						<Mfm v-if="appearNote.text" :text="appearNote.text" :author="appearNote.user" :i="$i" :emojiUrls="appearNote.emojis"/>
-						<a v-if="appearNote.renote != null" class="rp">RN:</a>
-						<div v-if="translating || translation" class="translation">
-							<MkLoading v-if="translating" mini/>
-							<div v-else class="translated">
-								<b>{{ i18n.t('translatedFrom', { x: translation.sourceLang }) }}: </b>
-								<Mfm :text="translation.text" :author="appearNote.user" :i="$i" :emojiUrls="appearNote.emojis"/>
-							</div>
-						</div>
+		<div :class="$style.noteContent">
+			<p v-if="appearNote.cw != null" :class="$style.cw">
+				<Mfm v-if="appearNote.cw != ''" style="margin-right: 8px;" :text="appearNote.cw" :author="appearNote.user" :i="$i"/>
+				<MkCwButton v-model="showContent" :note="appearNote"/>
+			</p>
+			<div v-show="appearNote.cw == null || showContent">
+				<span v-if="appearNote.isHidden" style="opacity: 0.5">({{ i18n.ts.private }})</span>
+				<MkA v-if="appearNote.replyId" :class="$style.noteReplyTarget" :to="`/notes/${appearNote.replyId}`"><i class="ti ti-arrow-back-up"></i></MkA>
+				<Mfm v-if="appearNote.text" :text="appearNote.text" :author="appearNote.user" :i="$i" :emojiUrls="appearNote.emojis"/>
+				<a v-if="appearNote.renote != null" :class="$style.rn">RN:</a>
+				<div v-if="translating || translation" :class="$style.translation">
+					<MkLoading v-if="translating" mini/>
+					<div v-else>
+						<b>{{ i18n.t('translatedFrom', { x: translation.sourceLang }) }}: </b>
+						<Mfm :text="translation.text" :author="appearNote.user" :i="$i" :emojiUrls="appearNote.emojis"/>
 					</div>
-					<div v-if="appearNote.files.length > 0" class="files">
-						<MkMediaList :mediaList="appearNote.files"/>
-					</div>
-					<MkPoll v-if="appearNote.poll" ref="pollViewer" :note="appearNote" class="poll"/>
-					<MkUrlPreview v-for="url in urls" :key="url" :url="url" :compact="true" :detail="true" class="url-preview"/>
-					<div v-if="appearNote.renote" class="renote"><MkNoteSimple :note="appearNote.renote" class="note"/></div>
+				</div>
+				<div v-if="appearNote.files.length > 0" :class="$style.files">
+					<MkMediaList :mediaList="appearNote.files"/>
 				</div>
 				<MkPoll v-if="appearNote.poll" ref="pollViewer" :note="appearNote" :class="$style.poll"/>
 				<MkUrlPreview v-for="url in urls" :key="url" :url="url" :compact="true" :detail="true" style="margin-top: 6px;"/>
