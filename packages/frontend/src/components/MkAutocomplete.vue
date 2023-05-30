@@ -71,19 +71,6 @@ const emojiDb = computed(() => {
 		url: char2path(x.char),
 	}));
 
-	for (const index of Object.values(defaultStore.state.additionalUnicodeEmojiIndexes)) {
-		for (const [emoji, keywords] of Object.entries(index)) {
-			for (const k of keywords) {
-				unicodeEmojiDB.push({
-					emoji: emoji,
-					name: k,
-					aliasOf: getEmojiName(emoji)!,
-					url: char2path(emoji),
-				});
-			}
-		}
-	}
-
 	unicodeEmojiDB.sort((a, b) => a.name.length - b.name.length);
 	//#endregion
 
