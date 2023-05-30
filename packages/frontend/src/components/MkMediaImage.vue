@@ -32,7 +32,6 @@
 			<div v-if="image.comment" :class="$style.indicator">ALT</div>
 			<div v-if="image.isSensitive" :class="$style.indicator" style="color: var(--warn);">NSFW</div>
 		</div>
-		<button v-tooltip="i18n.ts.hide" :class="$style.hide" class="_button" @click.stop.prevent="hide = true"><i class="ti ti-eye-off"></i></button>
 		<button :class="$style.menu" class="_button" @click.stop="showMenu"><i class="ti ti-dots"></i></button>
 	</template>
 </div>
@@ -88,7 +87,6 @@ function showMenu(ev: MouseEvent) {
 	}, ...(iAmModerator ? [{
 		text: i18n.ts.markAsSensitive,
 		icon: 'ti ti-eye-exclamation',
-		danger: true,
 		action: () => {
 			os.apiWithDialog('drive/files/update', { fileId: props.image.id, isSensitive: true });
 		},
