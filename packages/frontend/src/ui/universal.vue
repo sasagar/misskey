@@ -8,8 +8,8 @@
 		<div :class="$style.spacer"></div>
 	</MkStickyContainer>
 
-	<div v-if="isDesktop" ref="widgetsEl" :class="$style.widgets">
-		<XWidgets :marginTop="'var(--margin)'" @mounted="attachSticky"/>
+	<div v-if="isDesktop" :class="$style.widgets">
+		<XWidgets :marginTop="'var(--margin)'"/>
 	</div>
 
 	<button v-if="!isDesktop && !isMobile" :class="$style.widgetButton" class="_button" @click="widgetsShowing = true"><i class="ti ti-apps"></i></button>
@@ -193,10 +193,7 @@ const onContextmenu = (ev) => {
 };
 
 function top() {
-	contents.value.rootEl.scrollTo({
-		top: 0,
-		behavior: 'smooth',
-	});
+	// TODO
 }
 
 let navFooterHeight = $ref(0);
@@ -266,7 +263,6 @@ $widgets-hide-threshold: 1090px;
 .root {
 	height: 100dvh;
 	overflow: clip;
-	contain: strict;
 	box-sizing: border-box;
 	display: flex;
 }
@@ -281,7 +277,6 @@ $widgets-hide-threshold: 1090px;
 	min-width: 0;
 	overflow: auto;
 	overflow-y: scroll;
-	overscroll-behavior: contain;
 	background: var(--bg);
 }
 
