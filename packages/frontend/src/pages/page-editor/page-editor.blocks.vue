@@ -3,7 +3,7 @@
 	<template #item="{element}">
 		<div :class="$style.item">
 			<!-- divが無いとエラーになる https://github.com/SortableJS/vue.draggable.next/issues/189 -->
-			<component :is="'x-' + element.type" :modelValue="element" @update:modelValue="updateItem" @remove="() => removeItem(element)"/>
+			<component :is="getComponent(element.type)" :modelValue="element" @update:modelValue="updateItem" @remove="() => removeItem(element)"/>
 		</div>
 	</template>
 </Sortable>
