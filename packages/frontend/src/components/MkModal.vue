@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, normalizeClass, onMounted, onUnmounted, provide, watch } from 'vue';
+import { nextTick, onMounted, watch, provide, onUnmounted } from 'vue';
 import * as os from '@/os';
 import { isTouchUsing } from '@/scripts/touch';
 import { defaultStore } from '@/store';
