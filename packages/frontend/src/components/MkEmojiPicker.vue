@@ -104,7 +104,7 @@ import { isTouchUsing } from '@/scripts/touch';
 import { deviceKind } from '@/scripts/device-kind';
 import { i18n } from '@/i18n';
 import { defaultStore } from '@/store';
-import { customEmojiCategories, customEmojis } from '@/custom-emojis';
+import { customEmojiCategories, customEmojis, customEmojisMap } from '@/custom-emojis';
 import { $i } from '@/account';
 
 const props = withDefaults(defineProps<{
