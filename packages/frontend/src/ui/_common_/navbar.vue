@@ -144,80 +144,15 @@ function more(ev: MouseEvent) {
 		position: absolute;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
-		background-size: cover;
-		background-position: center center;
-		-webkit-mask-image: linear-gradient(0deg, rgba(0,0,0,0) 15%, rgba(0,0,0,0.75) 100%);
-		mask-image: linear-gradient(0deg, rgba(0,0,0,0) 15%, rgba(0,0,0,0.75) 100%);
-	}
-
-	.instance {
-		position: relative;
-		display: block;
-		text-align: center;
-		width: 100%;
-	}
-
-	.instanceIcon {
-		display: inline-block;
-		width: 38px;
-		aspect-ratio: 1;
-	}
-
-	.bottom {
-		position: sticky;
-		bottom: 0;
-		padding: 20px 0;
-		background: var(--X14);
-		-webkit-backdrop-filter: var(--blur, blur(8px));
-		backdrop-filter: var(--blur, blur(8px));
-	}
-
-	.post {
-		position: relative;
-		display: block;
-		width: 100%;
-		height: 40px;
-		color: var(--fgOnAccent);
-		font-weight: bold;
-		text-align: left;
-
-		&:before {
-			content: "";
-			display: block;
-			width: calc(100% - 38px);
-			height: 100%;
-			margin: auto;
-			position: absolute;
-			top: 0;
-			left: 0;
-			right: 0;
-			bottom: 0;
-			border-radius: 999px;
-			background: linear-gradient(90deg, var(--buttonGradateA), var(--buttonGradateB));
-		}
-
-		&:hover, &.active {
-			&:before {
-				background: var(--accentLighten);
-			}
-		}
-	}
-
-	.postIcon {
-		position: relative;
-		margin-left: 30px;
-		margin-right: 8px;
-		width: 32px;
-	}
-
-	.postText {
-		position: relative;
-	}
-
-	.account {
-		position: relative;
+		z-index: 1001;
+		width: $nav-icon-only-width;
+		height: 100dvh;
+		box-sizing: border-box;
+		overflow: auto;
+		overflow-x: clip;
+		overscroll-behavior: contain;
+		background: var(--navBg);
+		contain: strict;
 		display: flex;
 		align-items: center;
 		padding-left: 30px;
