@@ -193,7 +193,10 @@ const onContextmenu = (ev) => {
 };
 
 function top() {
-	// TODO
+	contents.value.rootEl.scrollTo({
+		top: 0,
+		behavior: 'smooth',
+	});
 }
 
 let navFooterHeight = $ref(0);
