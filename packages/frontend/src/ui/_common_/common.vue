@@ -10,7 +10,15 @@
 <XUpload v-if="uploads.length > 0"/>
 
 <TransitionGroup
-	tag="div" :class="[$style.notifications, $style[`notificationsPosition-${defaultStore.state.notificationPosition}`], $style[`notificationsStackAxis-${defaultStore.state.notificationStackAxis}`]]"
+	tag="div"
+	:class="[$style.notifications, {
+		[$style.notificationsPosition_leftTop]: defaultStore.state.notificationPosition === 'leftTop',
+		[$style.notificationsPosition_leftBottom]: defaultStore.state.notificationPosition === 'leftBottom',
+		[$style.notificationsPosition_rightTop]: defaultStore.state.notificationPosition === 'rightTop',
+		[$style.notificationsPosition_rightBottom]: defaultStore.state.notificationPosition === 'rightBottom',
+		[$style.notificationsStackAxis_vertical]: defaultStore.state.notificationStackAxis === 'vertical',
+		[$style.notificationsStackAxis_horizontal]: defaultStore.state.notificationStackAxis === 'horizontal',
+	}]"
 	:moveClass="defaultStore.state.animation ? $style.transition_notification_move : ''"
 	:enterActiveClass="defaultStore.state.animation ? $style.transition_notification_enterActive : ''"
 	:leaveActiveClass="defaultStore.state.animation ? $style.transition_notification_leaveActive : ''"

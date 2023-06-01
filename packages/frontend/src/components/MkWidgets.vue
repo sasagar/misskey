@@ -15,7 +15,7 @@
 			handle=".handle"
 			:animation="150"
 			:group="{ name: 'SortableMkWidgets' }"
-			:class="$style['edit-editing']"
+			:class="$style.editEditing"
 			@update:modelValue="v => emit('updateWidgets', v)"
 		>
 			<template #item="{element}">
@@ -23,7 +23,7 @@
 					<button :class="$style.customizeContainerConfig" class="_button" @click.prevent.stop="configWidget(element.id)"><i class="ti ti-settings"></i></button>
 					<button :class="$style.customizeContainerRemove" data-cy-customize-container-remove class="_button" @click.prevent.stop="removeWidget(element)"><i class="ti ti-x"></i></button>
 					<div class="handle">
-						<component :is="`widget-${element.name}`" :ref="el => widgetRefs[element.id] = el" class="widget" :class="$style['customize-container-handle-widget']" :widget="element" @updateProps="updateWidget(element.id, $event)"/>
+						<component :is="`widget-${element.name}`" :ref="el => widgetRefs[element.id] = el" class="widget" :class="$style.customizeContainerHandleWidget" :widget="element" @updateProps="updateWidget(element.id, $event)"/>
 					</div>
 				</div>
 			</template>

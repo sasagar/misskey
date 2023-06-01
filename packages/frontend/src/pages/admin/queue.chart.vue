@@ -152,7 +152,4 @@ onUnmounted(() => {
 	font-size: 80%;
 	opacity: 0.6;
 }
-
-.jobs {
-}
 </style>
