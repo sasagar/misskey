@@ -19,6 +19,8 @@ import type * as http from 'node:http';
 @Injectable()
 export class StreamingApiServerService {
 	#wss: WebSocket.WebSocketServer;
+	#connections = new Map<WebSocket.WebSocket, number>();
+	#cleanConnectionsIntervalId: NodeJS.Timeout | null = null;
 
 	constructor(
 		@Inject(DI.config)
@@ -109,7 +111,9 @@ export class StreamingApiServerService {
 
 			await stream.listen(ev, connection);
 
-			const intervalId = user ? setInterval(() => {
+			this.#connections.set(connection, Date.now());
+
+			const userUpdateIntervalId = user ? setInterval(() => {
 				this.usersRepository.update(user.id, {
 					lastActiveDate: new Date(),
 				});
@@ -128,6 +132,7 @@ export class StreamingApiServerService {
 			});
 
 			connection.on('message', async (data) => {
+				this.#connections.set(connection, Date.now());
 				if (data.toString() === 'ping') {
 					connection.send('pong');
 				}
@@ -151,13 +156,6 @@ export class StreamingApiServerService {
 			clearInterval(this.#cleanConnectionsIntervalId);
 			this.#cleanConnectionsIntervalId = null;
 		}
-		return new Promise((resolve) => {
-			this.#wss.close(() => resolve());
-		});
-	}
-
-	@bindThis
-	public detach(): Promise<void> {
 		return new Promise((resolve) => {
 			this.#wss.close(() => resolve());
 		});
