@@ -2,7 +2,7 @@
 <MkPagination ref="pagingComponent" :pagination="pagination">
 	<template #empty>
 		<div class="_fullinfo">
-			<img src="https://ikaskey-s3.bktsk.com/icons/info.png" class="_ghost"/>
+			<img src="https://xn--931a.moe/assets/info.jpg" class="_ghost"/>
 			<div>{{ i18n.ts.noNotifications }}</div>
 		</div>
 	</template>

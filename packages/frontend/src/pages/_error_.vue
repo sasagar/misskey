@@ -20,45 +20,40 @@
 </template>
 
 <script lang="ts" setup>
-import {} from "vue";
-import * as misskey from "misskey-js";
-import MkButton from "@/components/MkButton.vue";
-import { version } from "@/config";
-import * as os from "@/os";
-import { unisonReload } from "@/scripts/unison-reload";
-import { i18n } from "@/i18n";
-import { definePageMetadata } from "@/scripts/page-metadata";
-import { miLocalStorage } from "@/local-storage";
-import { defaultStore } from "@/store";
+import { } from 'vue';
+import * as misskey from 'misskey-js';
+import MkButton from '@/components/MkButton.vue';
+import { version } from '@/config';
+import * as os from '@/os';
+import { unisonReload } from '@/scripts/unison-reload';
+import { i18n } from '@/i18n';
+import { definePageMetadata } from '@/scripts/page-metadata';
+import { miLocalStorage } from '@/local-storage';
+import { defaultStore } from '@/store';
 
-const props = withDefaults(
-  defineProps<{
-    error?: Error;
-  }>(),
-  {}
-);
+const props = withDefaults(defineProps<{
+	error?: Error;
+}>(), {
+});
 
 let loaded = $ref(false);
 let serverIsDead = $ref(false);
 let meta = $ref<misskey.entities.LiteInstanceMetadata | null>(null);
 
-os.api("meta", {
-  detail: false,
-}).then(
-  (res) => {
-    loaded = true;
-    serverIsDead = false;
-    meta = res;
-    miLocalStorage.setItem("v", res.version);
-  },
-  () => {
-    loaded = true;
-    serverIsDead = true;
-  }
-);
+os.api('meta', {
+	detail: false,
+}).then(res => {
+	loaded = true;
+	serverIsDead = false;
+	meta = res;
+	miLocalStorage.setItem('v', res.version);
+}, () => {
+	loaded = true;
+	serverIsDead = true;
+});
 
 function reload() {
-  unisonReload();
+	unisonReload();
 }
 
 const headerActions = $computed(() => []);
@@ -66,8 +61,8 @@ const headerActions = $computed(() => []);
 const headerTabs = $computed(() => []);
 
 definePageMetadata({
-  title: i18n.ts.error,
-  icon: "ti ti-alert-triangle",
+	title: i18n.ts.error,
+	icon: 'ti ti-alert-triangle',
 });
 </script>
 

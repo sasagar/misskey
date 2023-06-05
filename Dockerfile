@@ -26,7 +26,7 @@ COPY --link ["packages/sw/package.json", "./packages/sw/"]
 COPY --link ["packages/misskey-js/package.json", "./packages/misskey-js/"]
 
 RUN --mount=type=cache,target=/root/.local/share/pnpm/store,sharing=locked \
-	pnpm i --no-frozen-lockfile --aggregate-output
+	pnpm i --frozen-lockfile --aggregate-output
 
 COPY --link . ./
 
