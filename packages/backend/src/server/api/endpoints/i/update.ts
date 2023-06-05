@@ -207,6 +207,42 @@ export const paramDef = {
 				type: "string",
 			},
 		},
+		isLocked: { type: "boolean" },
+		isExplorable: { type: "boolean" },
+		hideOnlineStatus: { type: "boolean" },
+		publicReactions: { type: "boolean" },
+		carefulBot: { type: "boolean" },
+		autoAcceptFollowed: { type: "boolean" },
+		noCrawle: { type: "boolean" },
+		preventAiLearning: { type: "boolean" },
+		isBot: { type: "boolean" },
+		isCat: { type: "boolean" },
+		injectFeaturedNote: { type: "boolean" },
+		receiveAnnouncementEmail: { type: "boolean" },
+		alwaysMarkNsfw: { type: "boolean" },
+		autoSensitive: { type: "boolean" },
+		ffVisibility: { type: "string", enum: ["public", "followers", "private"] },
+		pinnedPageId: { type: "string", format: "misskey:id", nullable: true },
+		mutedWords: { type: "array" },
+		mutedInstances: {
+			type: "array",
+			items: {
+				type: "string",
+			},
+		},
+		mutingNotificationTypes: {
+			type: "array",
+			items: {
+				type: "string",
+				enum: notificationTypes,
+			},
+		},
+		emailNotificationTypes: {
+			type: "array",
+			items: {
+				type: "string",
+			},
+		},
 		alsoKnownAs: {
 			type: "array",
 			maxItems: 10,
@@ -303,14 +339,14 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 			if (typeof ps.publicReactions === "boolean")
 				profileUpdates.publicReactions = ps.publicReactions;
 			if (typeof ps.isBot === "boolean") updates.isBot = ps.isBot;
-			if (typeof ps.showTimelineReplies === "boolean")
-				updates.showTimelineReplies = ps.showTimelineReplies;
 			if (typeof ps.carefulBot === "boolean")
 				profileUpdates.carefulBot = ps.carefulBot;
 			if (typeof ps.autoAcceptFollowed === "boolean")
 				profileUpdates.autoAcceptFollowed = ps.autoAcceptFollowed;
 			if (typeof ps.noCrawle === "boolean")
 				profileUpdates.noCrawle = ps.noCrawle;
+			if (typeof ps.preventAiLearning === "boolean")
+				profileUpdates.preventAiLearning = ps.preventAiLearning;
 			if (typeof ps.isCat === "boolean") updates.isCat = ps.isCat;
 			if (typeof ps.injectFeaturedNote === "boolean")
 				profileUpdates.injectFeaturedNote = ps.injectFeaturedNote;

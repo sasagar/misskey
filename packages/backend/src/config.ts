@@ -153,7 +153,7 @@ export function loadConfig() {
 					"utf-8"
 				)
 		  )
-		: { "src/init.ts": { file: "src/init.ts" } };
+		: { "src/_boot_.ts": { file: "src/_boot_.ts" } };
 	const config = yaml.load(fs.readFileSync(path, "utf-8")) as Source;
 
 	const mixin = {} as Mixin;
@@ -174,7 +174,7 @@ export function loadConfig() {
 	mixin.authUrl = `${mixin.scheme}://${mixin.host}/auth`;
 	mixin.driveUrl = `${mixin.scheme}://${mixin.host}/files`;
 	mixin.userAgent = `Misskey/${meta.version} (${config.url})`;
-	mixin.clientEntry = clientManifest["src/init.ts"];
+	mixin.clientEntry = clientManifest["src/_boot_.ts"];
 	mixin.clientManifestExists = clientManifestExists;
 
 	const externalMediaProxy = config.mediaProxy
@@ -207,6 +207,6 @@ function tryCreateUrl(url: string) {
 	try {
 		return new URL(url);
 	} catch (e) {
-		throw `url="${url}" is not a valid URL.`;
+		throw new Error(`url="${url}" is not a valid URL.`);
 	}
 }

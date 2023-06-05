@@ -1,13 +1,10 @@
 <template>
-  <div class="ipledcug">
-    <div class="_fullinfo">
-      <img
-        src="https://ikaskey-s3.bktsk.com/icons/not-found.png"
-        class="_ghost"
-      />
-      <div>{{ i18n.ts.notFoundDescription }}</div>
-    </div>
-  </div>
+<div>
+	<div class="_fullinfo">
+		<img src="https://xn--931a.moe/assets/not-found.jpg" class="_ghost"/>
+		<div>{{ i18n.ts.notFoundDescription }}</div>
+	</div>
+</div>
 </template>
 
 <script lang="ts" setup>
