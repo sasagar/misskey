@@ -17,8 +17,6 @@
 		</div>
 		<div :class="$style.chart">
 			<div :class="$style.chartTitle">Delayed</div>
-		<div :class="$style.chart">
-			<div :class="$style.chartTitle">Delayed</div>
 			<XChart ref="chartDelayed" type="delayed"/>
 		</div>
 		<div :class="$style.chart">
