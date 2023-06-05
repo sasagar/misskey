@@ -11,7 +11,7 @@
 	<MkSpacer :marginMin="20" :marginMax="28">
 		<div v-if="renotes" class="_gaps">
 			<div v-if="renotes.length === 0" class="_fullinfo">
-				<img src="https://xn--931a.moe/assets/info.jpg" class="_ghost"/>
+				<img src="https://ikaskey-s3.bktsk.com/icons/info.png" class="_ghost"/>
 				<div>{{ i18n.ts.nothing }}</div>
 			</div>
 			<template v-else>
