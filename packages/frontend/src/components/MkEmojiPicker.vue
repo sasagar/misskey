@@ -72,8 +72,6 @@
 				:key="`custom:${category}`"
 				:initialShown="false"
 				:emojis="computed(() => customEmojis.filter(e => category === null ? (e.category === 'null' || !e.category) : e.category === category).filter(filterAvailable).map(e => `:${e.name}:`))"
-				:initialShown="false"
-				:emojis="computed(() => customEmojis.filter(e => category === null ? (e.category === 'null' || !e.category) : e.category === category).filter(filterAvailable).map(e => `:${e.name}:`))"
 				@chosen="chosen"
 			>
 				{{ category || i18n.ts.other }}
