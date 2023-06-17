@@ -8,9 +8,10 @@
 		appear @afterLeave="emit('closed')"
 	>
 		<div v-if="showing" class="_acrylic" :class="$style.root" :style="{ zIndex }">
-			<div style="padding: 16px 24px;">
+			<!-- <div style="padding: 16px 24px;">
 				{{ message }}
-			</div>
+			</div> -->
+			<Mfm class="toast_message" :text="message" :is-note="false"></Mfm>
 		</div>
 	</Transition>
 </div>
@@ -65,5 +66,9 @@ onMounted(() => {
 	overflow: clip;
 	text-align: center;
 	pointer-events: none;
+}
+
+.toast_message {
+	padding: 16px 24px;
 }
 </style>
