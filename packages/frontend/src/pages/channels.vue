@@ -2,10 +2,10 @@
 <MkStickyContainer>
 	<template #header>
 		<template v-if="$i.isAdmin || $i.isModerator">
-		<MkPageHeader v-model:tab="tab" :actions="headerActions" />
+		<MkPageHeader v-model:tab="tab" :actions="headerActions" :tabs="headerTabs" />
 		</template>
 		<template v-else>
-		<MkPageHeader v-model:tab="tab" :actions="headerActions" :tabs="headerTabs"/>
+		<MkPageHeader v-model:tab="tab" :tabs="headerTabs"/>
 		</template>
 	</template>
 	<MkSpacer :contentMax="700">
