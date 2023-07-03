@@ -35,7 +35,7 @@
 			</MkPagination>
 		</div>
 		<div v-else-if="tab === 'owned'">
-			<MkButton class="new" @click="create()"><i class="ti ti-plus"></i></MkButton>
+			<MkButton v-if="$i.isAdmin || $i.isModerator" class="new" @click="create()"><i class="ti ti-plus"></i></MkButton>
 			<MkPagination v-slot="{items}" :pagination="ownedPagination">
 				<MkChannelPreview v-for="channel in items" :key="channel.id" class="_margin" :channel="channel"/>
 			</MkPagination>
@@ -56,6 +56,9 @@ import MkFoldableSection from '@/components/MkFoldableSection.vue';
 import { useRouter } from '@/router';
 import { definePageMetadata } from '@/scripts/page-metadata';
 import { i18n } from '@/i18n';
+
+import { $i } from '@/account';
+
 
 const router = useRouter();
 
