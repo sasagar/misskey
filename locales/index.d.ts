@@ -139,8 +139,10 @@ export interface Locale {
     "suspendConfirm": string;
     "unsuspendConfirm": string;
     "selectList": string;
+    "editList": string;
     "selectChannel": string;
     "selectAntenna": string;
+    "editAntenna": string;
     "selectWidget": string;
     "editWidgets": string;
     "editWidgetsExit": string;
@@ -1066,6 +1068,8 @@ export interface Locale {
     "additionalEmojiDictionary": string;
     "installed": string;
     "branding": string;
+    "enableServerMachineStats": string;
+    "enableIdenticonGeneration": string;
     "_initialAccountSetting": {
         "accountCreated": string;
         "letsStartAccountSetup": string;
