@@ -66,3 +66,6 @@ temp
 *.blend5
 
 .devcontainer/init.sh
+
+# VSCode addon
+.favorites.json
