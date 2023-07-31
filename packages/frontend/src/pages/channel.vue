@@ -171,7 +171,7 @@ const headerActions = $computed(() => {
 				if (isApple) {
 					navigator.share({
 						title: channel.name,
-						text: `${channel.name}\n${channel.description}\n${url}/channels/${channel.id}`,
+						text: `${url}/channels/${channel.id}\n${channel.name}\n${channel.description}`,
 						url: `${url}/channels/${channel.id}`,
 					});
 				} else {
