@@ -162,15 +162,25 @@ async function search() {
 
 const headerActions = $computed(() => {
 	if (channel && channel.userId) {
+		const ua = navigator.userAgent.toLowerCase();
+		const isApple = /mac/.test(ua) || /ios/.test(ua) || /ipad/.test(ua);
 		const share = {
 			icon: 'ti ti-share',
 			text: i18n.ts.share,
 			handler: async (): Promise<void> => {
-				navigator.share({
-					title: channel.name,
-					text: channel.description,
-					url: `${url}/channels/${channel.id}`,
-				});
+				if (isApple) {
+					navigator.share({
+						title: channel.name,
+						text: `${channel.name}\n${channel.description}\n${url}/channels/${channel.id}`,
+						url: `${url}/channels/${channel.id}`,
+					});
+				} else {
+					navigator.share({
+						title: channel.name,
+						text: channel.description,
+						url: `${url}/channels/${channel.id}`,
+					});
+				}
 			},
 		};
 
