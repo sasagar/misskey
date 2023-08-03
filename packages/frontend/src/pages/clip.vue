@@ -116,11 +116,21 @@ const headerActions = $computed(() => clip && isOwned ? [{
 	icon: 'ti ti-share',
 	text: i18n.ts.share,
 	handler: async (): Promise<void> => {
-		navigator.share({
-			title: clip.name,
-			text: clip.description,
-			url: `${url}/clips/${clip.id}`,
-		});
+		const ua = navigator.userAgent.toLowerCase();
+		const isApple = /mac/.test(ua) || /ios/.test(ua) || /ipad/.test(ua);
+		if (isApple) {
+			navigator.share({
+				title: clip.name,
+				text: `${url}/clips/${clip.id}\n${clip.name}\n${clip.description}`,
+				url: `${url}/clips/${clip.id}`,
+			});
+		} else {
+			navigator.share({
+				title: clip.name,
+				text: clip.description,
+				url: `${url}/clips/${clip.id}`,
+			});
+		}
 	},
 }] : []), {
 	icon: 'ti ti-trash',
