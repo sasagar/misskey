@@ -139,10 +139,10 @@ useTooltip(buttonEl, async (showing) => {
 	}
 
 	&.reacted {
-		background: var(--accent);
+		background: color-mix(in srgb, var(--accent) 70%, transparent);
 
 		&:hover {
-			background: var(--accent);
+			background: color-mix(in srgb, var(--accent) 80%, transparent);
 		}
 
 		> .count {
