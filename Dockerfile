@@ -82,7 +82,7 @@ COPY --chown=misskey:misskey --from=native-builder /misskey/fluent-emojis /missk
 COPY --chown=misskey:misskey . ./
 
 ENV NODE_ENV=production
-ENV LD_PRELOAD=/usr/lib64/libjemalloc.so.2
+ENV LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libjemalloc.so.2
 HEALTHCHECK --interval=5s --retries=20 CMD ["/bin/bash", "/misskey/healthcheck.sh"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD ["pnpm", "run", "migrateandstart"]
