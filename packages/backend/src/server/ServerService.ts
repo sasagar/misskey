@@ -5,6 +5,7 @@ import { Inject, Injectable, OnApplicationShutdown } from "@nestjs/common";
 import Fastify, { FastifyInstance } from "fastify";
 import fastifyStatic from "@fastify/static";
 import { IsNull } from "typeorm";
+import fastifyGracefulShutdown from "fastify-graceful-shutdown";
 import { GlobalEventService } from "@/core/GlobalEventService.js";
 import type { Config } from "@/config.js";
 import type {
@@ -29,7 +30,6 @@ import { WellKnownServerService } from "./WellKnownServerService.js";
 import { FileServerService } from "./FileServerService.js";
 import { ClientServerService } from "./web/ClientServerService.js";
 import { OpenApiServerService } from "./api/openapi/OpenApiServerService.js";
-import fastifyGracefulShutdown from "fastify-graceful-shutdown";
 
 const _dirname = fileURLToPath(new URL(".", import.meta.url));
 
