@@ -56,10 +56,13 @@ process.on("uncaughtException", (err) => {
 });
 
 // Dying away...
-process.on("exit", (code) => {
-	logger.info(`The process is going to exit with code ${code}`);
+// process.on("exit", (code) => {
+// 	logger.info(`The process is going to exit with code ${code}`);
+// });
+process.on("SIGTERM", (signal: string, value: number) => {
+	logger.info(`SEGTERM ${signal} ${value}`);
+	process.exit(value);
 });
-
 //#endregion
 
 if (cluster.isPrimary || envOption.disableClustering) {
