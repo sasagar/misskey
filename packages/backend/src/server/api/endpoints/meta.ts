@@ -166,19 +166,16 @@ export const meta = {
 					properties: {
 						place: {
 							type: 'string',
-							optional: false,
-							nullable: false,
+							optional: false, nullable: false,
 						},
 						url: {
 							type: 'string',
-							optional: false,
-							nullable: false,
+							optional: false, nullable: false,
 							format: 'url',
 						},
 						imageUrl: {
 							type: 'string',
-							optional: false,
-							nullable: false,
+							optional: false, nullable: false,
 							format: 'url',
 						},
 					},
@@ -287,10 +284,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				.where('ads.expiresAt > :now', { now: new Date() })
 				.andWhere('ads.startsAt <= :now', { now: new Date() })
 				.andWhere(new Brackets(qb => {
-						// 曜日のビットフラグを確認する
-						qb.where('ads.dayOfWeek & :dayOfWeek > 0', { dayOfWeek: 1 << new Date().getDay() })
-							.orWhere('ads.dayOfWeek = 0');
-					}))
+					// 曜日のビットフラグを確認する
+					qb.where('ads.dayOfWeek & :dayOfWeek > 0', { dayOfWeek: 1 << new Date().getDay() })
+						.orWhere('ads.dayOfWeek = 0');
+				}))
 				.getMany();
 
 			const response: any = {
@@ -329,7 +326,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				logoImageUrl: instance.logoImageUrl,
 				maxNoteTextLength: MAX_NOTE_TEXT_LENGTH,
 				// クライアントの手間を減らすためあらかじめJSONに変換しておく
-				defaultLightTheme: instance.defaultLightTheme ? JSON.stringify(JSON5.parse(instance.defaultLightTheme))	: null,
+				defaultLightTheme: instance.defaultLightTheme ? JSON.stringify(JSON5.parse(instance.defaultLightTheme)) : null,
 				defaultDarkTheme: instance.defaultDarkTheme ? JSON.stringify(JSON5.parse(instance.defaultDarkTheme)) : null,
 				ads: ads.map(ad => ({
 					id: ad.id,
@@ -352,12 +349,12 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				mediaProxy: this.config.mediaProxy,
 
 				...(ps.detail ? {
-							cacheRemoteFiles: instance.cacheRemoteFiles,
-							cacheRemoteSensitiveFiles: instance.cacheRemoteSensitiveFiles,
-							requireSetup: (await this.usersRepository.countBy({
-									host: IsNull(),
-								})) === 0,
-					  } : {}),
+					cacheRemoteFiles: instance.cacheRemoteFiles,
+					cacheRemoteSensitiveFiles: instance.cacheRemoteSensitiveFiles,
+					requireSetup: (await this.usersRepository.countBy({
+						host: IsNull(),
+					})) === 0,
+				} : {}),
 			};
 
 			if (ps.detail) {
