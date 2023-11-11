@@ -30,17 +30,17 @@ const ev = new Xev();
 //#region Events
 
 // Listen new workers
-cluster.on('fork', (worker) => {
+cluster.on('fork', worker => {
 	clusterLogger.debug(`Process forked: [${worker.id}]`);
 });
 
 // Listen online workers
-cluster.on('online', (worker) => {
+cluster.on('online', worker => {
 	clusterLogger.debug(`Process is now online: [${worker.id}]`);
 });
 
 // Listen for dying workers
-cluster.on('exit', (worker) => {
+cluster.on('exit', worker => {
 	// Replace the dead worker,
 	// we're not sentimental
 	clusterLogger.error(chalk.red(`[${worker.id}] died :(`));
@@ -53,15 +53,15 @@ if (!envOption.quiet) {
 }
 
 // Display detail of uncaught exception
-process.on('uncaughtException', (err) => {
+process.on('uncaughtException', err => {
 	try {
 		logger.error(err);
 		console.trace(err);
-	} catch {}
+	} catch { }
 });
 
 // Dying away...
-process.on('exit', (code) => {
+process.on('exit', code => {
 	logger.info(`The process is going to exit with code ${code}`);
 });
 
