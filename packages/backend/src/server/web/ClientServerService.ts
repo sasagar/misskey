@@ -3,27 +3,27 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import { randomUUID } from "node:crypto";
-import { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-import { Inject, Injectable } from "@nestjs/common";
-import { createBullBoard } from "@bull-board/api";
-import { BullMQAdapter } from "@bull-board/api/bullMQAdapter.js";
-import { FastifyAdapter } from "@bull-board/fastify";
-import ms from "ms";
-import sharp from "sharp";
-import pug from "pug";
-import { In, IsNull } from "typeorm";
-import fastifyStatic from "@fastify/static";
-import fastifyView from "@fastify/view";
-import fastifyCookie from "@fastify/cookie";
-import fastifyProxy from "@fastify/http-proxy";
-import vary from "vary";
-import type { Config } from "@/config.js";
-import { getNoteSummary } from "@/misc/get-note-summary.js";
-import { DI } from "@/di-symbols.js";
-import * as Acct from "@/misc/acct.js";
-import { MetaService } from "@/core/MetaService.js";
+import { randomUUID } from 'node:crypto';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { Inject, Injectable } from '@nestjs/common';
+import { createBullBoard } from '@bull-board/api';
+import { BullMQAdapter } from '@bull-board/api/bullMQAdapter.js';
+import { FastifyAdapter } from '@bull-board/fastify';
+import ms from 'ms';
+import sharp from 'sharp';
+import pug from 'pug';
+import { In, IsNull } from 'typeorm';
+import fastifyStatic from '@fastify/static';
+import fastifyView from '@fastify/view';
+import fastifyCookie from '@fastify/cookie';
+import fastifyProxy from '@fastify/http-proxy';
+import vary from 'vary';
+import type { Config } from '@/config.js';
+import { getNoteSummary } from '@/misc/get-note-summary.js';
+import { DI } from '@/di-symbols.js';
+import * as Acct from '@/misc/acct.js';
+import { MetaService } from '@/core/MetaService.js';
 import type {
 	DbQueue,
 	DeliverQueue,
@@ -32,13 +32,13 @@ import type {
 	ObjectStorageQueue,
 	SystemQueue,
 	WebhookDeliverQueue,
-} from "@/core/QueueModule.js";
-import { UserEntityService } from "@/core/entities/UserEntityService.js";
-import { NoteEntityService } from "@/core/entities/NoteEntityService.js";
-import { PageEntityService } from "@/core/entities/PageEntityService.js";
-import { GalleryPostEntityService } from "@/core/entities/GalleryPostEntityService.js";
-import { ClipEntityService } from "@/core/entities/ClipEntityService.js";
-import { ChannelEntityService } from "@/core/entities/ChannelEntityService.js";
+} from '@/core/QueueModule.js';
+import { UserEntityService } from '@/core/entities/UserEntityService.js';
+import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
+import { PageEntityService } from '@/core/entities/PageEntityService.js';
+import { GalleryPostEntityService } from '@/core/entities/GalleryPostEntityService.js';
+import { ClipEntityService } from '@/core/entities/ClipEntityService.js';
+import { ChannelEntityService } from '@/core/entities/ChannelEntityService.js';
 import type {
 	ChannelsRepository,
 	ClipsRepository,
@@ -49,20 +49,20 @@ import type {
 	PagesRepository,
 	UserProfilesRepository,
 	UsersRepository,
-} from "@/models/_.js";
-import type Logger from "@/logger.js";
-import { deepClone } from "@/misc/clone.js";
-import { bindThis } from "@/decorators.js";
-import { FlashEntityService } from "@/core/entities/FlashEntityService.js";
-import { RoleService } from "@/core/RoleService.js";
-import { FeedService } from "./FeedService.js";
-import { UrlPreviewService } from "./UrlPreviewService.js";
-import { ClientLoggerService } from "./ClientLoggerService.js";
+} from '@/models/_.js';
+import type Logger from '@/logger.js';
+import { deepClone } from '@/misc/clone.js';
+import { bindThis } from '@/decorators.js';
+import { FlashEntityService } from '@/core/entities/FlashEntityService.js';
+import { RoleService } from '@/core/RoleService.js';
+import { FeedService } from './FeedService.js';
+import { UrlPreviewService } from './UrlPreviewService.js';
+import { ClientLoggerService } from './ClientLoggerService.js';
 import type {
 	FastifyInstance,
 	FastifyPluginOptions,
 	FastifyReply,
-} from "fastify";
+} from 'fastify';
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
@@ -118,15 +118,15 @@ export class ClientServerService {
 		private roleService: RoleService,
 		private clientLoggerService: ClientLoggerService,
 
-		@Inject("queue:system") public systemQueue: SystemQueue,
-		@Inject("queue:endedPollNotification")
+		@Inject('queue:system') public systemQueue: SystemQueue,
+		@Inject('queue:endedPollNotification')
 		public endedPollNotificationQueue: EndedPollNotificationQueue,
-		@Inject("queue:deliver") public deliverQueue: DeliverQueue,
-		@Inject("queue:inbox") public inboxQueue: InboxQueue,
-		@Inject("queue:db") public dbQueue: DbQueue,
-		@Inject("queue:objectStorage")
+		@Inject('queue:deliver') public deliverQueue: DeliverQueue,
+		@Inject('queue:inbox') public inboxQueue: InboxQueue,
+		@Inject('queue:db') public dbQueue: DbQueue,
+		@Inject('queue:objectStorage')
 		public objectStorageQueue: ObjectStorageQueue,
-		@Inject("queue:webhookDeliver")
+		@Inject('queue:webhookDeliver')
 		public webhookDeliverQueue: WebhookDeliverQueue
 	) {
 		//this.createServer = this.createServer.bind(this);
@@ -143,44 +143,44 @@ export class ClientServerService {
 			// 空文字列の場合右辺を使いたいため
 			// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
 			name: instance.name || this.config.host,
-			start_url: "/",
-			display: "standalone",
-			background_color: "#313a42",
+			start_url: '/',
+			display: 'standalone',
+			background_color: '#313a42',
 			// 空文字列の場合右辺を使いたいため
 			// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-			theme_color: instance.themeColor || "#86b300",
+			theme_color: instance.themeColor || '#86b300',
 			icons: [
 				{
 					// 空文字列の場合右辺を使いたいため
 					// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-					src: instance.app192IconUrl || "/static-assets/icons/192.png",
-					sizes: "192x192",
-					type: "image/png",
-					purpose: "maskable",
+					src: instance.app192IconUrl || '/static-assets/icons/192.png',
+					sizes: '192x192',
+					type: 'image/png',
+					purpose: 'maskable',
 				},
 				{
 					// 空文字列の場合右辺を使いたいため
 					// eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-					src: instance.app512IconUrl || "/static-assets/icons/512.png",
-					sizes: "512x512",
-					type: "image/png",
-					purpose: "maskable",
+					src: instance.app512IconUrl || '/static-assets/icons/512.png',
+					sizes: '512x512',
+					type: 'image/png',
+					purpose: 'maskable',
 				},
 				{
-					src: "/static-assets/splash.png",
-					sizes: "300x300",
-					type: "image/png",
-					purpose: "any",
+					src: '/static-assets/splash.png',
+					sizes: '300x300',
+					type: 'image/png',
+					purpose: 'any',
 				},
 			],
 			share_target: {
-				action: "/share/",
-				method: "GET",
-				enctype: "application/x-www-form-urlencoded",
+				action: '/share/',
+				method: 'GET',
+				enctype: 'application/x-www-form-urlencoded',
 				params: {
-					title: "title",
-					text: "text",
-					url: "url",
+					title: 'title',
+					text: 'text',
+					url: 'url',
 				},
 			},
 		};
@@ -188,28 +188,28 @@ export class ClientServerService {
 		manifest = {
 			...manifest,
 			...JSON.parse(
-				instance.manifestJsonOverride === ""
-					? "{}"
+				instance.manifestJsonOverride === ''
+					? '{}'
 					: instance.manifestJsonOverride
 			),
 		};
 
-		reply.header("Cache-Control", "max-age=300");
+		reply.header('Cache-Control', 'max-age=300');
 		return manifest;
 	}
 
 	@bindThis
 	private generateCommonPugData(meta: MiMeta) {
 		return {
-			instanceName: meta.name ?? "Misskey",
+			instanceName: meta.name ?? 'Misskey',
 			icon: meta.iconUrl,
 			appleTouchIcon: meta.app512IconUrl,
 			themeColor: meta.themeColor,
 			serverErrorImageUrl:
-				meta.serverErrorImageUrl ?? "https://xn--931a.moe/assets/error.jpg",
-			infoImageUrl: meta.infoImageUrl ?? "https://xn--931a.moe/assets/info.jpg",
+				meta.serverErrorImageUrl ?? 'https://xn--931a.moe/assets/error.jpg',
+			infoImageUrl: meta.infoImageUrl ?? 'https://xn--931a.moe/assets/info.jpg',
 			notFoundImageUrl:
-				meta.notFoundImageUrl ?? "https://xn--931a.moe/assets/not-found.jpg",
+				meta.notFoundImageUrl ?? 'https://xn--931a.moe/assets/not-found.jpg',
 		};
 	}
 
@@ -222,26 +222,26 @@ export class ClientServerService {
 		fastify.register(fastifyCookie, {});
 
 		//#region Bull Dashboard
-		const bullBoardPath = "/queue";
+		const bullBoardPath = '/queue';
 
 		// Authenticate
-		fastify.addHook("onRequest", async (request, reply) => {
+		fastify.addHook('onRequest', async (request, reply) => {
 			// %71ueueとかでリクエストされたら困るため
 			const url = decodeURI(request.routeOptions.url);
 			if (url === bullBoardPath || url.startsWith(bullBoardPath + '/')) {
 				const token = request.cookies.token;
 				if (token == null) {
-					reply.code(401).send("Login required");
+					reply.code(401).send('Login required');
 					return;
 				}
 				const user = await this.usersRepository.findOneBy({ token });
 				if (user == null) {
-					reply.code(403).send("No such user");
+					reply.code(403).send('No such user');
 					return;
 				}
 				const isAdministrator = await this.roleService.isAdministrator(user);
 				if (!isAdministrator) {
-					reply.code(403).send("Access denied");
+					reply.code(403).send('Access denied');
 					return;
 				}
 			}
@@ -269,7 +269,7 @@ export class ClientServerService {
 		//#endregion
 
 		fastify.register(fastifyView, {
-			root: _dirname + "/views",
+			root: _dirname + '/views',
 			engine: {
 				pug: pug,
 			},
@@ -279,9 +279,9 @@ export class ClientServerService {
 			},
 		});
 
-		fastify.addHook("onRequest", (request, reply, done) => {
+		fastify.addHook('onRequest', (request, reply, done) => {
 			// クリックジャッキング防止のためiFrameの中に入れられないようにする
-			reply.header("X-Frame-Options", "DENY");
+			reply.header('X-Frame-Options', 'DENY');
 			done();
 		});
 
@@ -289,8 +289,8 @@ export class ClientServerService {
 		if (this.config.clientManifestExists) {
 			fastify.register(fastifyStatic, {
 				root: viteOut,
-				prefix: "/vite/",
-				maxAge: ms("30 days"),
+				prefix: '/vite/',
+				maxAge: ms('30 days'),
 				decorateReply: false,
 			});
 		} else {
@@ -307,35 +307,35 @@ export class ClientServerService {
 
 		fastify.register(fastifyStatic, {
 			root: staticAssets,
-			prefix: "/static-assets/",
-			maxAge: ms("7 days"),
+			prefix: '/static-assets/',
+			maxAge: ms('7 days'),
 			decorateReply: false,
 		});
 
 		fastify.register(fastifyStatic, {
 			root: clientAssets,
-			prefix: "/client-assets/",
-			maxAge: ms("7 days"),
+			prefix: '/client-assets/',
+			maxAge: ms('7 days'),
 			decorateReply: false,
 		});
 
 		fastify.register(fastifyStatic, {
 			root: assets,
-			prefix: "/assets/",
-			maxAge: ms("7 days"),
+			prefix: '/assets/',
+			maxAge: ms('7 days'),
 			decorateReply: false,
 		});
 
-		fastify.get("/favicon.ico", async (request, reply) => {
-			return reply.sendFile("/favicon.ico", staticAssets);
+		fastify.get('/favicon.ico', async (request, reply) => {
+			return reply.sendFile('/favicon.ico', staticAssets);
 		});
 
-		fastify.get("/apple-touch-icon.png", async (request, reply) => {
-			return reply.sendFile("/apple-touch-icon.png", staticAssets);
+		fastify.get('/apple-touch-icon.png', async (request, reply) => {
+			return reply.sendFile('/apple-touch-icon.png', staticAssets);
 		});
 
 		fastify.get<{ Params: { path: string } }>(
-			"/fluent-emoji/:path(.*)",
+			'/fluent-emoji/:path(.*)',
 			async (request, reply) => {
 				const path = request.params.path;
 
@@ -345,22 +345,22 @@ export class ClientServerService {
 				}
 
 				reply.header(
-					"Content-Security-Policy",
-					"default-src 'none'; style-src 'unsafe-inline'"
+					'Content-Security-Policy',
+					'default-src 'none'; style-src 'unsafe-inline''
 				);
 
 				return await reply.sendFile(
 					path,
 					`${_dirname}/../../../../../fluent-emojis/dist/`,
 					{
-						maxAge: ms("30 days"),
+						maxAge: ms('30 days'),
 					}
 				);
 			}
 		);
 
 		fastify.get<{ Params: { path: string } }>(
-			"/twemoji/:path(.*)",
+			'/twemoji/:path(.*)',
 			async (request, reply) => {
 				const path = request.params.path;
 
@@ -370,22 +370,22 @@ export class ClientServerService {
 				}
 
 				reply.header(
-					"Content-Security-Policy",
-					"default-src 'none'; style-src 'unsafe-inline'"
+					'Content-Security-Policy',
+					'default-src 'none'; style-src 'unsafe-inline''
 				);
 
 				return await reply.sendFile(
 					path,
 					`${_dirname}/../../../node_modules/@discordapp/twemoji/dist/svg/`,
 					{
-						maxAge: ms("30 days"),
+						maxAge: ms('30 days'),
 					}
 				);
 			}
 		);
 
 		fastify.get<{ Params: { path: string } }>(
-			"/twemoji-badge/:path(.*)",
+			'/twemoji-badge/:path(.*)',
 			async (request, reply) => {
 				const path = request.params.path;
 
@@ -396,8 +396,8 @@ export class ClientServerService {
 
 				const mask = await sharp(
 					`${_dirname}/../../../node_modules/@discordapp/twemoji/dist/svg/${path.replace(
-						".png",
-						""
+						'.png',
+						''
 					)}.svg`,
 					{ density: 1000 }
 				)
@@ -405,15 +405,15 @@ export class ClientServerService {
 					.greyscale()
 					.normalise()
 					.linear(1.75, -(128 * 1.75) + 128) // 1.75x contrast
-					.flatten({ background: "#000" })
+					.flatten({ background: '#000' })
 					.extend({
 						top: 12,
 						bottom: 12,
 						left: 12,
 						right: 12,
-						background: "#000",
+						background: '#000',
 					})
-					.toColorspace("b-w")
+					.toColorspace('b-w')
 					.png()
 					.toBuffer();
 
@@ -425,55 +425,55 @@ export class ClientServerService {
 						background: { r: 0, g: 0, b: 0, alpha: 0 },
 					},
 				})
-					.pipelineColorspace("b-w")
-					.boolean(mask, "eor")
+					.pipelineColorspace('b-w')
+					.boolean(mask, 'eor')
 					.resize(96, 96)
 					.png()
 					.toBuffer();
 
 				reply.header(
-					"Content-Security-Policy",
-					"default-src 'none'; style-src 'unsafe-inline'"
+					'Content-Security-Policy',
+					'default-src 'none'; style-src 'unsafe-inline''
 				);
-				reply.header("Cache-Control", "max-age=2592000");
-				reply.header("Content-Type", "image/png");
+				reply.header('Cache-Control', 'max-age=2592000');
+				reply.header('Content-Type', 'image/png');
 				return buffer;
 			}
 		);
 
 		// ServiceWorker
-		fastify.get("/sw.js", async (request, reply) => {
-			return await reply.sendFile("/sw.js", swAssets, {
-				maxAge: ms("10 minutes"),
+		fastify.get('/sw.js', async (request, reply) => {
+			return await reply.sendFile('/sw.js', swAssets, {
+				maxAge: ms('10 minutes'),
 			});
 		});
 
 		// Manifest
 		fastify.get(
-			"/manifest.json",
+			'/manifest.json',
 			async (request, reply) => await this.manifestHandler(reply)
 		);
 
-		fastify.get("/robots.txt", async (request, reply) => {
-			return await reply.sendFile("/robots.txt", staticAssets);
+		fastify.get('/robots.txt', async (request, reply) => {
+			return await reply.sendFile('/robots.txt', staticAssets);
 		});
 
 		// OpenSearch XML
-		fastify.get("/opensearch.xml", async (request, reply) => {
+		fastify.get('/opensearch.xml', async (request, reply) => {
 			const meta = await this.metaService.fetch();
 
-			const name = meta.name ?? "Misskey";
-			let content = "";
+			const name = meta.name ?? 'Misskey';
+			let content = '';
 			content +=
-				'<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/" xmlns:moz="http://www.mozilla.org/2006/browser/search/">';
+				'<OpenSearchDescription xmlns='http://a9.com/-/spec/opensearch/1.1/' xmlns:moz='http://www.mozilla.org/2006/browser/search/'>';
 			content += `<ShortName>${name}</ShortName>`;
 			content += `<Description>${name} Search</Description>`;
-			content += "<InputEncoding>UTF-8</InputEncoding>";
-			content += `<Image width="16" height="16" type="image/x-icon">${this.config.url}/favicon.ico</Image>`;
-			content += `<Url type="text/html" template="${this.config.url}/search?q={searchTerms}"/>`;
-			content += "</OpenSearchDescription>";
+			content += '<InputEncoding>UTF-8</InputEncoding>';
+			content += `<Image width='16' height='16' type='image/x-icon'>${this.config.url}/favicon.ico</Image>`;
+			content += `<Url type='text/html' template='${this.config.url}/search?q={searchTerms}'/>`;
+			content += '</OpenSearchDescription>';
 
-			reply.header("Content-Type", "application/opensearchdescription+xml");
+			reply.header('Content-Type', 'application/opensearchdescription+xml');
 			return await reply.send(content);
 		});
 
@@ -481,11 +481,11 @@ export class ClientServerService {
 
 		const renderBase = async (reply: FastifyReply) => {
 			const meta = await this.metaService.fetch();
-			reply.header("Cache-Control", "public, max-age=30");
-			return await reply.view("base", {
+			reply.header('Cache-Control', 'public, max-age=30');
+			return await reply.view('base', {
 				img: meta.bannerUrl,
 				url: this.config.url,
-				title: meta.name ?? "Misskey",
+				title: meta.name ?? 'Misskey',
 				desc: meta.description,
 				...this.generateCommonPugData(meta),
 			});
@@ -493,7 +493,7 @@ export class ClientServerService {
 
 		// URL preview endpoint
 		fastify.get<{ Querystring: { url: string; lang: string } }>(
-			"/url",
+			'/url',
 			(request, reply) => this.urlPreviewService.handle(request, reply)
 		);
 
@@ -510,12 +510,12 @@ export class ClientServerService {
 
 		// Atom
 		fastify.get<{ Params: { user: string } }>(
-			"/@:user.atom",
+			'/@:user.atom',
 			async (request, reply) => {
 				const feed = await getFeed(request.params.user);
 
 				if (feed) {
-					reply.header("Content-Type", "application/atom+xml; charset=utf-8");
+					reply.header('Content-Type', 'application/atom+xml; charset=utf-8');
 					return feed.atom1();
 				} else {
 					reply.code(404);
@@ -526,12 +526,12 @@ export class ClientServerService {
 
 		// RSS
 		fastify.get<{ Params: { user: string } }>(
-			"/@:user.rss",
+			'/@:user.rss',
 			async (request, reply) => {
 				const feed = await getFeed(request.params.user);
 
 				if (feed) {
-					reply.header("Content-Type", "application/rss+xml; charset=utf-8");
+					reply.header('Content-Type', 'application/rss+xml; charset=utf-8');
 					return feed.rss2();
 				} else {
 					reply.code(404);
@@ -542,12 +542,12 @@ export class ClientServerService {
 
 		// JSON
 		fastify.get<{ Params: { user: string } }>(
-			"/@:user.json",
+			'/@:user.json',
 			async (request, reply) => {
 				const feed = await getFeed(request.params.user);
 
 				if (feed) {
-					reply.header("Content-Type", "application/json; charset=utf-8");
+					reply.header('Content-Type', 'application/json; charset=utf-8');
 					return feed.json1();
 				} else {
 					reply.code(404);
@@ -559,7 +559,7 @@ export class ClientServerService {
 		//#region SSR (for crawlers)
 		// User
 		fastify.get<{ Params: { user: string; sub?: string } }>(
-			"/@:user/:sub?",
+			'/@:user/:sub?',
 			async (request, reply) => {
 				const { username, host } = Acct.parse(request.params.user);
 				const user = await this.usersRepository.findOneBy({
@@ -582,12 +582,12 @@ export class ClientServerService {
 								.map((field) => field.value)
 						: [];
 
-					reply.header("Cache-Control", "public, max-age=15");
+					reply.header('Cache-Control', 'public, max-age=15');
 					if (profile.preventAiLearning) {
-						reply.header("X-Robots-Tag", "noimageai");
-						reply.header("X-Robots-Tag", "noai");
+						reply.header('X-Robots-Tag', 'noimageai');
+						reply.header('X-Robots-Tag', 'noai');
 					}
-					return await reply.view("user", {
+					return await reply.view('user', {
 						user,
 						profile,
 						me,
@@ -605,7 +605,7 @@ export class ClientServerService {
 		);
 
 		fastify.get<{ Params: { user: string } }>(
-			"/users/:user",
+			'/users/:user',
 			async (request, reply) => {
 				const user = await this.usersRepository.findOneBy({
 					id: request.params.user,
@@ -619,20 +619,20 @@ export class ClientServerService {
 				}
 
 				reply.redirect(
-					`/@${user.username}${user.host == null ? "" : "@" + user.host}`
+					`/@${user.username}${user.host == null ? '' : '@' + user.host}`
 				);
 			}
 		);
 
 		// Note
 		fastify.get<{ Params: { note: string } }>(
-			"/notes/:note",
+			'/notes/:note',
 			async (request, reply) => {
-				vary(reply.raw, "Accept");
+				vary(reply.raw, 'Accept');
 
 				const note = await this.notesRepository.findOneBy({
 					id: request.params.note,
-					visibility: In(["public", "home"]),
+					visibility: In(['public', 'home']),
 				});
 
 				if (note) {
@@ -641,12 +641,12 @@ export class ClientServerService {
 						userId: note.userId,
 					});
 					const meta = await this.metaService.fetch();
-					reply.header("Cache-Control", "public, max-age=15");
+					reply.header('Cache-Control', 'public, max-age=15');
 					if (profile.preventAiLearning) {
-						reply.header("X-Robots-Tag", "noimageai");
-						reply.header("X-Robots-Tag", "noai");
+						reply.header('X-Robots-Tag', 'noimageai');
+						reply.header('X-Robots-Tag', 'noai');
 					}
-					return await reply.view("note", {
+					return await reply.view('note', {
 						note: _note,
 						profile,
 						avatarUrl: _note.user.avatarUrl,
@@ -662,7 +662,7 @@ export class ClientServerService {
 
 		// Page
 		fastify.get<{ Params: { user: string; page: string } }>(
-			"/@:user/pages/:page",
+			'/@:user/pages/:page',
 			async (request, reply) => {
 				const { username, host } = Acct.parse(request.params.user);
 				const user = await this.usersRepository.findOneBy({
@@ -683,19 +683,19 @@ export class ClientServerService {
 						userId: page.userId,
 					});
 					const meta = await this.metaService.fetch();
-					if (["public"].includes(page.visibility)) {
-						reply.header("Cache-Control", "public, max-age=15");
+					if (['public'].includes(page.visibility)) {
+						reply.header('Cache-Control', 'public, max-age=15');
 					} else {
 						reply.header(
-							"Cache-Control",
-							"private, max-age=0, must-revalidate"
+							'Cache-Control',
+							'private, max-age=0, must-revalidate'
 						);
 					}
 					if (profile.preventAiLearning) {
-						reply.header("X-Robots-Tag", "noimageai");
-						reply.header("X-Robots-Tag", "noai");
+						reply.header('X-Robots-Tag', 'noimageai');
+						reply.header('X-Robots-Tag', 'noai');
 					}
-					return await reply.view("page", {
+					return await reply.view('page', {
 						page: _page,
 						profile,
 						avatarUrl: _page.user.avatarUrl,
@@ -709,7 +709,7 @@ export class ClientServerService {
 
 		// Flash
 		fastify.get<{ Params: { id: string } }>(
-			"/play/:id",
+			'/play/:id',
 			async (request, reply) => {
 				const flash = await this.flashsRepository.findOneBy({
 					id: request.params.id,
@@ -721,12 +721,12 @@ export class ClientServerService {
 						userId: flash.userId,
 					});
 					const meta = await this.metaService.fetch();
-					reply.header("Cache-Control", "public, max-age=15");
+					reply.header('Cache-Control', 'public, max-age=15');
 					if (profile.preventAiLearning) {
-						reply.header("X-Robots-Tag", "noimageai");
-						reply.header("X-Robots-Tag", "noai");
+						reply.header('X-Robots-Tag', 'noimageai');
+						reply.header('X-Robots-Tag', 'noai');
 					}
-					return await reply.view("flash", {
+					return await reply.view('flash', {
 						flash: _flash,
 						profile,
 						avatarUrl: _flash.user.avatarUrl,
@@ -740,7 +740,7 @@ export class ClientServerService {
 
 		// Clip
 		fastify.get<{ Params: { clip: string } }>(
-			"/clips/:clip",
+			'/clips/:clip',
 			async (request, reply) => {
 				const clip = await this.clipsRepository.findOneBy({
 					id: request.params.clip,
@@ -752,12 +752,12 @@ export class ClientServerService {
 						userId: clip.userId,
 					});
 					const meta = await this.metaService.fetch();
-					reply.header("Cache-Control", "public, max-age=15");
+					reply.header('Cache-Control', 'public, max-age=15');
 					if (profile.preventAiLearning) {
-						reply.header("X-Robots-Tag", "noimageai");
-						reply.header("X-Robots-Tag", "noai");
+						reply.header('X-Robots-Tag', 'noimageai');
+						reply.header('X-Robots-Tag', 'noai');
 					}
-					return await reply.view("clip", {
+					return await reply.view('clip', {
 						clip: _clip,
 						profile,
 						avatarUrl: _clip.user.avatarUrl,
@@ -771,7 +771,7 @@ export class ClientServerService {
 
 		// Gallery post
 		fastify.get<{ Params: { post: string } }>(
-			"/gallery/:post",
+			'/gallery/:post',
 			async (request, reply) => {
 				const post = await this.galleryPostsRepository.findOneBy({
 					id: request.params.post,
@@ -783,12 +783,12 @@ export class ClientServerService {
 						userId: post.userId,
 					});
 					const meta = await this.metaService.fetch();
-					reply.header("Cache-Control", "public, max-age=15");
+					reply.header('Cache-Control', 'public, max-age=15');
 					if (profile.preventAiLearning) {
-						reply.header("X-Robots-Tag", "noimageai");
-						reply.header("X-Robots-Tag", "noai");
+						reply.header('X-Robots-Tag', 'noimageai');
+						reply.header('X-Robots-Tag', 'noai');
 					}
-					return await reply.view("gallery-post", {
+					return await reply.view('gallery-post', {
 						post: _post,
 						profile,
 						avatarUrl: _post.user.avatarUrl,
@@ -802,7 +802,7 @@ export class ClientServerService {
 
 		// Channel
 		fastify.get<{ Params: { channel: string } }>(
-			"/channels/:channel",
+			'/channels/:channel',
 			async (request, reply) => {
 				const channel = await this.channelsRepository.findOneBy({
 					id: request.params.channel,
@@ -811,8 +811,8 @@ export class ClientServerService {
 				if (channel) {
 					const _channel = await this.channelEntityService.pack(channel);
 					const meta = await this.metaService.fetch();
-					reply.header("Cache-Control", "public, max-age=15");
-					return await reply.view("channel", {
+					reply.header('Cache-Control', 'public, max-age=15');
+					return await reply.view('channel', {
 						channel: _channel,
 						...this.generateCommonPugData(meta),
 					});
@@ -823,12 +823,12 @@ export class ClientServerService {
 		);
 		//#endregion
 
-		fastify.get("/_info_card_", async (request, reply) => {
+		fastify.get('/_info_card_', async (request, reply) => {
 			const meta = await this.metaService.fetch(true);
 
-			reply.removeHeader("X-Frame-Options");
+			reply.removeHeader('X-Frame-Options');
 
-			return await reply.view("info-card", {
+			return await reply.view('info-card', {
 				version: this.config.version,
 				host: this.config.host,
 				meta: meta,
@@ -841,14 +841,14 @@ export class ClientServerService {
 			});
 		});
 
-		fastify.get("/bios", async (request, reply) => {
-			return await reply.view("bios", {
+		fastify.get('/bios', async (request, reply) => {
+			return await reply.view('bios', {
 				version: this.config.version,
 			});
 		});
 
-		fastify.get("/cli", async (request, reply) => {
-			return await reply.view("cli", {
+		fastify.get('/cli', async (request, reply) => {
+			return await reply.view('cli', {
 				version: this.config.version,
 			});
 		});
@@ -856,25 +856,25 @@ export class ClientServerService {
 		const override = (source: string, target: string, depth = 0) =>
 			[
 				,
-				...target.split("/").filter((x) => x),
+				...target.split('/').filter((x) => x),
 				...source
-					.split("/")
+					.split('/')
 					.filter((x) => x)
 					.splice(depth),
-			].join("/");
+			].join('/');
 
-		fastify.get("/flush", async (request, reply) => {
-			return await reply.view("flush");
+		fastify.get('/flush', async (request, reply) => {
+			return await reply.view('flush');
 		});
 
 		// streamingに非WebSocketリクエストが来た場合にbase htmlをキャシュ付きで返すと、Proxy等でそのパスがキャッシュされておかしくなる
-		fastify.get("/streaming", async (request, reply) => {
+		fastify.get('/streaming', async (request, reply) => {
 			reply.code(503);
-			reply.header("Cache-Control", "private, max-age=0");
+			reply.header('Cache-Control', 'private, max-age=0');
 		});
 
 		// Render base html for all requests
-		fastify.get("*", async (request, reply) => {
+		fastify.get('*', async (request, reply) => {
 			return await renderBase(reply);
 		});
 
@@ -892,8 +892,8 @@ export class ClientServerService {
 				}
 			);
 			reply.code(500);
-			reply.header("Cache-Control", "max-age=10, must-revalidate");
-			return await reply.view("error", {
+			reply.header('Cache-Control', 'max-age=10, must-revalidate');
+			return await reply.view('error', {
 				code: error.code,
 				id: errId,
 			});
