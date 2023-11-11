@@ -166,20 +166,28 @@ export const meta = {
 					properties: {
 						place: {
 							type: 'string',
-							optional: false, nullable: false,
+							optional: false,
+							nullable: false,
 						},
 						url: {
 							type: 'string',
-							optional: false, nullable: false,
+							optional: false,
+							nullable: false,
 							format: 'url',
 						},
 						imageUrl: {
 							type: 'string',
-							optional: false, nullable: false,
+							optional: false,
+							nullable: false,
 							format: 'url',
 						},
 					},
 				},
+			},
+			notesPerOneAd: {
+				type: 'number',
+				optional: false, nullable: false,
+				default: 0,
 			},
 			requireSetup: {
 				type: 'boolean',
@@ -214,11 +222,11 @@ export const meta = {
 						type: 'boolean',
 						optional: false, nullable: false,
 					},
-					localTimeLine: {
+					localTimeline: {
 						type: 'boolean',
 						optional: false, nullable: false,
 					},
-					globalTimeLine: {
+					globalTimeline: {
 						type: 'boolean',
 						optional: false, nullable: false,
 					},
@@ -279,10 +287,10 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				.where('ads.expiresAt > :now', { now: new Date() })
 				.andWhere('ads.startsAt <= :now', { now: new Date() })
 				.andWhere(new Brackets(qb => {
-					// 曜日のビットフラグを確認する
-					qb.where('ads.dayOfWeek & :dayOfWeek > 0', { dayOfWeek: 1 << new Date().getDay() })
-						.orWhere('ads.dayOfWeek = 0');
-				}))
+						// 曜日のビットフラグを確認する
+						qb.where('ads.dayOfWeek & :dayOfWeek > 0', { dayOfWeek: 1 << new Date().getDay() })
+							.orWhere('ads.dayOfWeek = 0');
+					}))
 				.getMany();
 
 			const response: any = {
@@ -299,6 +307,8 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				tosUrl: instance.termsOfServiceUrl,
 				repositoryUrl: instance.repositoryUrl,
 				feedbackUrl: instance.feedbackUrl,
+				impressumUrl: instance.impressumUrl,
+				privacyPolicyUrl: instance.privacyPolicyUrl,
 				disableRegistration: instance.disableRegistration,
 				emailRequiredForSignup: instance.emailRequiredForSignup,
 				enableHcaptcha: instance.enableHcaptcha,
@@ -319,7 +329,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				logoImageUrl: instance.logoImageUrl,
 				maxNoteTextLength: MAX_NOTE_TEXT_LENGTH,
 				// クライアントの手間を減らすためあらかじめJSONに変換しておく
-				defaultLightTheme: instance.defaultLightTheme ? JSON.stringify(JSON5.parse(instance.defaultLightTheme)) : null,
+				defaultLightTheme: instance.defaultLightTheme ? JSON.stringify(JSON5.parse(instance.defaultLightTheme))	: null,
 				defaultDarkTheme: instance.defaultDarkTheme ? JSON.stringify(JSON5.parse(instance.defaultDarkTheme)) : null,
 				ads: ads.map(ad => ({
 					id: ad.id,
@@ -329,6 +339,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 					imageUrl: ad.imageUrl,
 					dayOfWeek: ad.dayOfWeek,
 				})),
+				notesPerOneAd: instance.notesPerOneAd,
 				enableEmail: instance.enableEmail,
 				enableServiceWorker: instance.enableServiceWorker,
 
@@ -341,12 +352,12 @@ export default class extends Endpoint<typeof meta, typeof paramDef> { // eslint-
 				mediaProxy: this.config.mediaProxy,
 
 				...(ps.detail ? {
-					cacheRemoteFiles: instance.cacheRemoteFiles,
-					cacheRemoteSensitiveFiles: instance.cacheRemoteSensitiveFiles,
-					requireSetup: (await this.usersRepository.countBy({
-						host: IsNull(),
-					})) === 0,
-				} : {}),
+							cacheRemoteFiles: instance.cacheRemoteFiles,
+							cacheRemoteSensitiveFiles: instance.cacheRemoteSensitiveFiles,
+							requireSetup: (await this.usersRepository.countBy({
+									host: IsNull(),
+								})) === 0,
+					  } : {}),
 			};
 
 			if (ps.detail) {
