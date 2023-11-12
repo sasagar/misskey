@@ -13,9 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 			appear @afterLeave="emit('closed')"
 		>
 			<div v-if="showing" class="_acrylic" :class="$style.root" :style="{ zIndex }">
-				<div style="padding: 16px 24px;">
-					{{ message }}
-				</div>
+				<Mfm class="toast_message" :text="message" :is-note="false"></Mfm>
 			</div>
 		</Transition>
 	</div>
