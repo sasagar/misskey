@@ -19,10 +19,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 	</div>
 	</template>
 
-	<script lang="ts" setup>
-	import { onMounted } from 'vue';
-	import * as os from '@/os.js';
-	import { defaultStore } from '@/store.js';
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
+import * as os from '@/os.js';
+import { defaultStore } from '@/store.js';
 
 	defineProps<{
 		message: string;
@@ -32,15 +32,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 		(ev: 'closed'): void;
 	}>();
 
-	const zIndex = os.claimZIndex('high');
-	let showing = $ref(true);
+const zIndex = os.claimZIndex('high');
+const showing = ref(true);
 
-	onMounted(() => {
-		window.setTimeout(() => {
-			showing = false;
-		}, 4000);
-	});
-	</script>
+onMounted(() => {
+	window.setTimeout(() => {
+		showing.value = false;
+	}, 4000);
+});
+</script>
 
 	<style lang="scss" module>
 	.transition_toast_enterActive,
