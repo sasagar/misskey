@@ -72,6 +72,8 @@ import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { i18n } from '@/i18n.js';
 import { useRouter } from '@/router/supplier.js';
 
+import { $i } from '@/account';
+
 const router = useRouter();
 
 const props = defineProps<{
