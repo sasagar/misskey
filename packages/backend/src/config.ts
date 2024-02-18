@@ -54,7 +54,7 @@ type Source = {
 		apiKey: string;
 		ssl?: boolean;
 		index: string;
-		scope?: 'local' | 'global' | string[];
+		scope?: "local" | "global" | string[];
 	};
 
 	publishTarballInsteadOfProvideRepositoryUrl?: boolean;
@@ -72,7 +72,7 @@ type Source = {
 	id: string;
 
 	outgoingAddress?: string;
-	outgoingAddressFamily?: 'ipv4' | 'ipv6' | 'dual';
+	outgoingAddressFamily?: "ipv4" | "ipv6" | "dual";
 
 	deliverJobConcurrency?: number;
 	inboxJobConcurrency?: number;
@@ -93,6 +93,7 @@ type Source = {
 	perUserNotificationsMaxCount?: number;
 	deactivateAntennaThreshold?: number;
 	pidFile: string;
+	misskeyBlockMentionsFromUnfamiliarRemoteUsers?: boolean;
 };
 
 export type Config = {
@@ -111,21 +112,25 @@ export type Config = {
 		extra?: { [x: string]: string };
 	};
 	dbReplications: boolean | undefined;
-	dbSlaves: {
-		host: string;
-		port: number;
-		db: string;
-		user: string;
-		pass: string;
-	}[] | undefined;
-	meilisearch: {
-		host: string;
-		port: string;
-		apiKey: string;
-		ssl?: boolean;
-		index: string;
-		scope?: 'local' | 'global' | string[];
-	} | undefined;
+	dbSlaves:
+		| {
+				host: string;
+				port: number;
+				db: string;
+				user: string;
+				pass: string;
+		  }[]
+		| undefined;
+	meilisearch:
+		| {
+				host: string;
+				port: string;
+				apiKey: string;
+				ssl?: boolean;
+				index: string;
+				scope?: "local" | "global" | string[];
+		  }
+		| undefined;
 	proxy: string | undefined;
 	proxySmtp: string | undefined;
 	proxyBypassHosts: string[] | undefined;
@@ -134,7 +139,7 @@ export type Config = {
 	clusterLimit: number | undefined;
 	id: string;
 	outgoingAddress: string | undefined;
-	outgoingAddressFamily: 'ipv4' | 'ipv6' | 'dual' | undefined;
+	outgoingAddressFamily: "ipv4" | "ipv6" | "dual" | undefined;
 	deliverJobConcurrency: number | undefined;
 	inboxJobConcurrency: number | undefined;
 	relationshipJobConcurrency: number | undefined;
@@ -170,6 +175,7 @@ export type Config = {
 	perUserNotificationsMaxCount: number;
 	deactivateAntennaThreshold: number;
 	pidFile: string;
+	misskeyBlockMentionsFromUnfamiliarRemoteUsers: boolean;
 };
 
 const _filename = fileURLToPath(import.meta.url);
@@ -212,9 +218,10 @@ export function loadConfig(): Config {
 
 	return {
 		version,
-		publishTarballInsteadOfProvideRepositoryUrl: !!config.publishTarballInsteadOfProvideRepositoryUrl,
+		publishTarballInsteadOfProvideRepositoryUrl:
+			!!config.publishTarballInsteadOfProvideRepositoryUrl,
 		url: url.origin,
-		port: config.port ?? parseInt(process.env.PORT ?? '', 10),
+		port: config.port ?? parseInt(process.env.PORT ?? "", 10),
 		socket: config.socket,
 		chmodSocket: config.chmodSocket,
 		disableHsts: config.disableHsts,
@@ -231,9 +238,15 @@ export function loadConfig(): Config {
 		dbSlaves: config.dbSlaves,
 		meilisearch: config.meilisearch,
 		redis,
-		redisForPubsub: config.redisForPubsub ? convertRedisOptions(config.redisForPubsub, host) : redis,
-		redisForJobQueue: config.redisForJobQueue ? convertRedisOptions(config.redisForJobQueue, host) : redis,
-		redisForTimelines: config.redisForTimelines ? convertRedisOptions(config.redisForTimelines, host) : redis,
+		redisForPubsub: config.redisForPubsub
+			? convertRedisOptions(config.redisForPubsub, host)
+			: redis,
+		redisForJobQueue: config.redisForJobQueue
+			? convertRedisOptions(config.redisForJobQueue, host)
+			: redis,
+		redisForTimelines: config.redisForTimelines
+			? convertRedisOptions(config.redisForTimelines, host)
+			: redis,
 		id: config.id,
 		proxy: config.proxy,
 		proxySmtp: config.proxySmtp,
@@ -254,17 +267,26 @@ export function loadConfig(): Config {
 		proxyRemoteFiles: config.proxyRemoteFiles,
 		signToActivityPubGet: config.signToActivityPubGet,
 		mediaProxy: externalMediaProxy ?? internalMediaProxy,
-		externalMediaProxyEnabled: externalMediaProxy !== null && externalMediaProxy !== internalMediaProxy,
-		videoThumbnailGenerator: config.videoThumbnailGenerator ?
-			config.videoThumbnailGenerator.endsWith('/') ? config.videoThumbnailGenerator.substring(0, config.videoThumbnailGenerator.length - 1) : config.videoThumbnailGenerator
+		externalMediaProxyEnabled:
+			externalMediaProxy !== null && externalMediaProxy !== internalMediaProxy,
+		videoThumbnailGenerator: config.videoThumbnailGenerator
+			? config.videoThumbnailGenerator.endsWith("/")
+				? config.videoThumbnailGenerator.substring(
+						0,
+						config.videoThumbnailGenerator.length - 1
+				  )
+				: config.videoThumbnailGenerator
 			: null,
 		userAgent: `Misskey/${version} (${config.url})`,
-		clientEntry: clientManifest['src/_boot_.ts'],
+		clientEntry: clientManifest["src/_boot_.ts"],
 		clientManifestExists: clientManifestExists,
 		perChannelMaxNoteCacheCount: config.perChannelMaxNoteCacheCount ?? 1000,
 		perUserNotificationsMaxCount: config.perUserNotificationsMaxCount ?? 500,
-		deactivateAntennaThreshold: config.deactivateAntennaThreshold ?? (1000 * 60 * 60 * 24 * 7),
+		deactivateAntennaThreshold:
+			config.deactivateAntennaThreshold ?? 1000 * 60 * 60 * 24 * 7,
 		pidFile: config.pidFile,
+		misskeyBlockMentionsFromUnfamiliarRemoteUsers:
+			config.misskeyBlockMentionsFromUnfamiliarRemoteUsers ?? false,
 	};
 }
 
