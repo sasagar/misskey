@@ -138,7 +138,7 @@ redis:
 # ONCE YOU HAVE STARTED THE INSTANCE, DO NOT CHANGE THE
 # ID SETTINGS AFTER THAT!
 
-id: "aidx"
+id: 'aidx'
 
 #   ┌────────────────┐
 #───┘ Error tracking └──────────────────────────────────────────
@@ -203,6 +203,9 @@ proxyRemoteFiles: true
 # Sign to ActivityPub GET request (default: true)
 signToActivityPubGet: true
 
-allowedPrivateNetworks: ["127.0.0.1/32"]
+allowedPrivateNetworks: [
+  '127.0.0.1/32'
+]
+
 # Upload or download file size limits (bytes)
 #maxFileSize: 262144000
