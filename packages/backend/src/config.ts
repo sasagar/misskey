@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-import * as fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
-import * as yaml from 'js-yaml';
-import * as Sentry from '@sentry/node';
-import type { RedisOptions } from 'ioredis';
+import * as fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, resolve } from "node:path";
+import * as yaml from "js-yaml";
+import type * as Sentry from "@sentry/node";
+import type { RedisOptions } from "ioredis";
 
 type RedisOptionsSource = Partial<RedisOptions> & {
 	host: string;
@@ -50,6 +50,9 @@ type Source = {
 	redisForJobQueue?: RedisOptionsSource;
 	redisForTimelines?: RedisOptionsSource;
 	redisForReactions?: RedisOptionsSource;
+	fulltextSearch?: {
+		provider?: FulltextSearchProvider;
+	};
 	meilisearch?: {
 		host: string;
 		port: string;
@@ -58,7 +61,10 @@ type Source = {
 		index: string;
 		scope?: "local" | "global" | string[];
 	};
-	sentryForBackend?: { options: Partial<Sentry.NodeOptions>; enableNodeProfiling: boolean; };
+	sentryForBackend?: {
+		options: Partial<Sentry.NodeOptions>;
+		enableNodeProfiling: boolean;
+	};
 	sentryForFrontend?: { options: Partial<Sentry.NodeOptions> };
 
 	publishTarballInsteadOfProvideRepositoryUrl?: boolean;
@@ -99,7 +105,13 @@ type Source = {
 	perUserNotificationsMaxCount?: number;
 	deactivateAntennaThreshold?: number;
 	pidFile: string;
-	misskeyBlockMentionsFromUnfamiliarRemoteUsers?: boolean;
+
+	logging?: {
+		sql?: {
+			disableQueryTruncation?: boolean;
+			enableQueryParamLogging?: boolean;
+		};
+	};
 };
 
 export type Config = {
@@ -127,6 +139,9 @@ export type Config = {
 				pass: string;
 		  }[]
 		| undefined;
+	fulltextSearch?: {
+		provider?: FulltextSearchProvider;
+	};
 	meilisearch:
 		| {
 				host: string;
@@ -156,6 +171,12 @@ export type Config = {
 	inboxJobMaxAttempts: number | undefined;
 	proxyRemoteFiles: boolean | undefined;
 	signToActivityPubGet: boolean | undefined;
+	logging?: {
+		sql?: {
+			disableQueryTruncation?: boolean;
+			enableQueryParamLogging?: boolean;
+		};
+	};
 
 	version: string;
 	publishTarballInsteadOfProvideRepositoryUrl: boolean;
@@ -181,7 +202,9 @@ export type Config = {
 	redisForJobQueue: RedisOptions & RedisOptionsSource;
 	redisForTimelines: RedisOptions & RedisOptionsSource;
 	redisForReactions: RedisOptions & RedisOptionsSource;
-	sentryForBackend: { options: Partial<Sentry.NodeOptions>; enableNodeProfiling: boolean; } | undefined;
+	sentryForBackend:
+		| { options: Partial<Sentry.NodeOptions>; enableNodeProfiling: boolean }
+		| undefined;
 	sentryForFrontend: { options: Partial<Sentry.NodeOptions> } | undefined;
 	perChannelMaxNoteCacheCount: number;
 	perUserNotificationsMaxCount: number;
@@ -189,6 +212,8 @@ export type Config = {
 	pidFile: string;
 	misskeyBlockMentionsFromUnfamiliarRemoteUsers: boolean;
 };
+
+export type FulltextSearchProvider = "sqlLike" | "sqlPgroonga" | "meilisearch";
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
@@ -203,47 +228,66 @@ const dir = `${_dirname}/../../../.config`;
  */
 const path = process.env.MISSKEY_CONFIG_YML
 	? resolve(dir, process.env.MISSKEY_CONFIG_YML)
-	: process.env.NODE_ENV === 'test'
-		? resolve(dir, 'test.yml')
-		: resolve(dir, 'default.yml');
+	: process.env.NODE_ENV === "test"
+		? resolve(dir, "test.yml")
+		: resolve(dir, "default.yml");
 
 export function loadConfig(): Config {
-	const meta = JSON.parse(fs.readFileSync(`${_dirname}/../../../built/meta.json`, 'utf-8'));
+	const meta = JSON.parse(
+		fs.readFileSync(`${_dirname}/../../../built/meta.json`, "utf-8"),
+	);
 
-	const frontendManifestExists = fs.existsSync(_dirname + '/../../../built/_frontend_vite_/manifest.json');
-	const frontendEmbedManifestExists = fs.existsSync(_dirname + '/../../../built/_frontend_embed_vite_/manifest.json');
-	const frontendManifest = frontendManifestExists ?
-		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_frontend_vite_/manifest.json`, 'utf-8'))
-		: { 'src/_boot_.ts': { file: 'src/_boot_.ts' } };
-	const frontendEmbedManifest = frontendEmbedManifestExists ?
-		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_frontend_embed_vite_/manifest.json`, 'utf-8'))
-		: { 'src/boot.ts': { file: 'src/boot.ts' } };
+	const frontendManifestExists = fs.existsSync(
+		_dirname + "/../../../built/_frontend_vite_/manifest.json",
+	);
+	const frontendEmbedManifestExists = fs.existsSync(
+		_dirname + "/../../../built/_frontend_embed_vite_/manifest.json",
+	);
+	const frontendManifest = frontendManifestExists
+		? JSON.parse(
+				fs.readFileSync(
+					`${_dirname}/../../../built/_frontend_vite_/manifest.json`,
+					"utf-8",
+				),
+			)
+		: { "src/_boot_.ts": { file: "src/_boot_.ts" } };
+	const frontendEmbedManifest = frontendEmbedManifestExists
+		? JSON.parse(
+				fs.readFileSync(
+					`${_dirname}/../../../built/_frontend_embed_vite_/manifest.json`,
+					"utf-8",
+				),
+			)
+		: { "src/boot.ts": { file: "src/boot.ts" } };
 
-	const config = yaml.load(fs.readFileSync(path, 'utf-8')) as Source;
+	const config = yaml.load(fs.readFileSync(path, "utf-8")) as Source;
 
-	const url = tryCreateUrl(config.url ?? process.env.MISSKEY_URL ?? '');
+	const url = tryCreateUrl(config.url ?? process.env.MISSKEY_URL ?? "");
 	const version = meta.version;
 	const host = url.host;
 	const hostname = url.hostname;
-	const scheme = url.protocol.replace(/:$/, '');
-	const wsScheme = scheme.replace('http', 'ws');
+	const scheme = url.protocol.replace(/:$/, "");
+	const wsScheme = scheme.replace("http", "ws");
 
-	const dbDb = config.db.db ?? process.env.DATABASE_DB ?? '';
-	const dbUser = config.db.user ?? process.env.DATABASE_USER ?? '';
-	const dbPass = config.db.pass ?? process.env.DATABASE_PASSWORD ?? '';
+	const dbDb = config.db.db ?? process.env.DATABASE_DB ?? "";
+	const dbUser = config.db.user ?? process.env.DATABASE_USER ?? "";
+	const dbPass = config.db.pass ?? process.env.DATABASE_PASSWORD ?? "";
 
-	const externalMediaProxy = config.mediaProxy ?
-		config.mediaProxy.endsWith('/') ? config.mediaProxy.substring(0, config.mediaProxy.length - 1) : config.mediaProxy
+	const externalMediaProxy = config.mediaProxy
+		? config.mediaProxy.endsWith("/")
+			? config.mediaProxy.substring(0, config.mediaProxy.length - 1)
+			: config.mediaProxy
 		: null;
 	const internalMediaProxy = `${scheme}://${host}/proxy`;
 	const redis = convertRedisOptions(config.redis, host);
 
 	return {
 		version,
-		publishTarballInsteadOfProvideRepositoryUrl: !!config.publishTarballInsteadOfProvideRepositoryUrl,
+		publishTarballInsteadOfProvideRepositoryUrl:
+			!!config.publishTarballInsteadOfProvideRepositoryUrl,
 		setupPassword: config.setupPassword,
 		url: url.origin,
-		port: config.port ?? parseInt(process.env.PORT ?? "", 10),
+		port: config.port ?? Number.parseInt(process.env.PORT ?? "", 10),
 		socket: config.socket,
 		chmodSocket: config.chmodSocket,
 		disableHsts: config.disableHsts,
@@ -258,12 +302,21 @@ export function loadConfig(): Config {
 		db: { ...config.db, db: dbDb, user: dbUser, pass: dbPass },
 		dbReplications: config.dbReplications,
 		dbSlaves: config.dbSlaves,
+		fulltextSearch: config.fulltextSearch,
 		meilisearch: config.meilisearch,
 		redis,
-		redisForPubsub: config.redisForPubsub ? convertRedisOptions(config.redisForPubsub, host) : redis,
-		redisForJobQueue: config.redisForJobQueue ? convertRedisOptions(config.redisForJobQueue, host) : redis,
-		redisForTimelines: config.redisForTimelines ? convertRedisOptions(config.redisForTimelines, host) : redis,
-		redisForReactions: config.redisForReactions ? convertRedisOptions(config.redisForReactions, host) : redis,
+		redisForPubsub: config.redisForPubsub
+			? convertRedisOptions(config.redisForPubsub, host)
+			: redis,
+		redisForJobQueue: config.redisForJobQueue
+			? convertRedisOptions(config.redisForJobQueue, host)
+			: redis,
+		redisForTimelines: config.redisForTimelines
+			? convertRedisOptions(config.redisForTimelines, host)
+			: redis,
+		redisForReactions: config.redisForReactions
+			? convertRedisOptions(config.redisForReactions, host)
+			: redis,
 		sentryForBackend: config.sentryForBackend,
 		sentryForFrontend: config.sentryForFrontend,
 		id: config.id,
@@ -292,22 +345,21 @@ export function loadConfig(): Config {
 			? config.videoThumbnailGenerator.endsWith("/")
 				? config.videoThumbnailGenerator.substring(
 						0,
-						config.videoThumbnailGenerator.length - 1
-				  )
+						config.videoThumbnailGenerator.length - 1,
+					)
 				: config.videoThumbnailGenerator
 			: null,
 		userAgent: `Misskey/${version} (${config.url})`,
-		frontendEntry: frontendManifest['src/_boot_.ts'],
+		frontendEntry: frontendManifest["src/_boot_.ts"],
 		frontendManifestExists: frontendManifestExists,
-		frontendEmbedEntry: frontendEmbedManifest['src/boot.ts'],
+		frontendEmbedEntry: frontendEmbedManifest["src/boot.ts"],
 		frontendEmbedManifestExists: frontendEmbedManifestExists,
 		perChannelMaxNoteCacheCount: config.perChannelMaxNoteCacheCount ?? 1000,
 		perUserNotificationsMaxCount: config.perUserNotificationsMaxCount ?? 500,
 		deactivateAntennaThreshold:
 			config.deactivateAntennaThreshold ?? 1000 * 60 * 60 * 24 * 7,
 		pidFile: config.pidFile,
-		misskeyBlockMentionsFromUnfamiliarRemoteUsers:
-			config.misskeyBlockMentionsFromUnfamiliarRemoteUsers ?? false,
+		logging: config.logging,
 	};
 }
 
@@ -319,7 +371,10 @@ function tryCreateUrl(url: string) {
 	}
 }
 
-function convertRedisOptions(options: RedisOptionsSource, host: string): RedisOptions & RedisOptionsSource {
+function convertRedisOptions(
+	options: RedisOptionsSource,
+	host: string,
+): RedisOptions & RedisOptionsSource {
 	return {
 		...options,
 		password: options.pass,
