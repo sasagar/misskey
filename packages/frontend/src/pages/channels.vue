@@ -73,7 +73,8 @@ import { definePageMetadata } from '@/scripts/page-metadata.js';
 import { i18n } from '@/i18n.js';
 import { useRouter } from '@/router/supplier.js';
 
-import { $i } from '@/account';
+import { $i } from '@/account.js';
+import { isDate } from 'date-fns';
 
 const router = useRouter();
 
@@ -135,11 +136,17 @@ function create() {
 	router.push('/channels/new');
 }
 
-const headerActions = computed(() => [{
-	icon: 'ti ti-plus',
-	text: i18n.ts.create,
-	handler: create,
-}]);
+// ikaskey changed
+const headerActions = computed(() => {
+	if ($i.isAdmin || $i.isModerator) {
+		return [{
+			icon: 'ti ti-plus',
+			text: i18n.ts.create,
+			handler: create,
+		}];
+	}
+	return [];
+});
 
 const headerTabs = computed(() => [{
 	key: 'search',
