@@ -188,9 +188,9 @@ export type Config = {
 	authUrl: string;
 	driveUrl: string;
 	userAgent: string;
-	frontendEntry: string;
+	frontendEntry: { file: string | null };
 	frontendManifestExists: boolean;
-	frontendEmbedEntry: string;
+	frontendEmbedEntry: { file: string | null };
 	frontendEmbedManifestExists: boolean;
 	mediaProxy: string;
 	externalMediaProxyEnabled: boolean;
@@ -238,28 +238,14 @@ export function loadConfig(): Config {
 		fs.readFileSync(`${_dirname}/../../../built/meta.json`, "utf-8"),
 	);
 
-	const frontendManifestExists = fs.existsSync(
-		_dirname + "/../../../built/_frontend_vite_/manifest.json",
-	);
-	const frontendEmbedManifestExists = fs.existsSync(
-		_dirname + "/../../../built/_frontend_embed_vite_/manifest.json",
-	);
-	const frontendManifest = frontendManifestExists
-		? JSON.parse(
-				fs.readFileSync(
-					`${_dirname}/../../../built/_frontend_vite_/manifest.json`,
-					"utf-8",
-				),
-			)
-		: { "src/_boot_.ts": { file: "src/_boot_.ts" } };
-	const frontendEmbedManifest = frontendEmbedManifestExists
-		? JSON.parse(
-				fs.readFileSync(
-					`${_dirname}/../../../built/_frontend_embed_vite_/manifest.json`,
-					"utf-8",
-				),
-			)
-		: { "src/boot.ts": { file: "src/boot.ts" } };
+	const frontendManifestExists = fs.existsSync(_dirname + '/../../../built/_frontend_vite_/manifest.json');
+	const frontendEmbedManifestExists = fs.existsSync(_dirname + '/../../../built/_frontend_embed_vite_/manifest.json');
+	const frontendManifest = frontendManifestExists ?
+		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_frontend_vite_/manifest.json`, 'utf-8'))
+		: { 'src/_boot_.ts': { file: null } };
+	const frontendEmbedManifest = frontendEmbedManifestExists ?
+		JSON.parse(fs.readFileSync(`${_dirname}/../../../built/_frontend_embed_vite_/manifest.json`, 'utf-8'))
+		: { 'src/boot.ts': { file: null } };
 
 	const config = yaml.load(fs.readFileSync(path, "utf-8")) as Source;
 
