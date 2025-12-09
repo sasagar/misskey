@@ -54,11 +54,6 @@ const pageHeaderPropsWithoutTabs = computed(() => {
 	return rest;
 });
 
-const pageHeaderPropsWithoutTabs = computed(() => {
-	const { reversed, tabs, ...rest } = props;
-	return rest;
-});
-
 const tab = defineModel<string>('tab');
 const rootEl = useTemplateRef('rootEl');
 
