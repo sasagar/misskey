@@ -1,6 +1,165 @@
+## 2025.12.0
+
+### Note
+
+- configの`trustProxy`のデフォルト値を`false`に変更しました。アップデート前に現在のconfigをご確認の上、必要に応じて値を変更してください。
+
+### Client
+
+- Fix: stacking router viewで連続して戻る操作を行うと何も表示されなくなる問題を修正
+
+### Server
+
+- Enhance: メモリ使用量を削減しました
+- Enhance: ActivityPubアクティビティを送信する際のパフォーマンス向上
+- Enhance: 依存関係の更新
+- Fix: セキュリティに関する修正
+
+## 2025.11.1
+
+### Client
+
+- Enhance: リアクションの受け入れ設定にキャプションを追加 #15921
+- Fix: ページの内容がはみ出ることがある問題を修正
+- Fix: ナビゲーションバーを下に表示しているときに、項目数が多いと表示が崩れる問題を修正
+- Fix: ヘッダーメニューのチャンネルの新規作成の項目でチャンネル作成ページに飛べない問題を修正 #16816
+- Fix: ラジオボタンに空白の選択肢が表示される問題を修正  
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/1105>)
+- Fix: 一部のシチュエーションで投稿フォームのツアーが正しく表示されない問題を修正
+- Fix: 投稿フォームのリセットボタンで注釈がリセットされない問題を修正
+- Fix: PlayのAiScriptバージョン判定（v0.x系・v1.x系の判定）が正しく動作しない問題を修正  
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/1129>)
+- Fix: フォロー申請をキャンセルする際の確認ダイアログの文言が不正確な問題を修正
+- Fix: 初回読み込み時にエラーになることがある問題を修正
+- Fix: お気に入りクリップの一覧表示が正しく動作しない問題を修正
+- Fix: AiScript Misskey 拡張APIにおいて、各種関数の引数で明示的に `null` が指定されている場合のハンドリングを修正
+
+### Server
+
+- Enhance: メモリ使用量を削減しました
+- Enhance: 依存関係の更新
+- Fix: ワードミュートの文字数計算を修正  
+- Fix: チャンネルのリアルタイム更新時に、ロックダウン設定にて非ログイン時にノートを表示しない設定にしている場合でもノートが表示されてしまう問題を修正
+- Fix: DeepL APIのAPIキー指定方式変更に対応  
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/1096>)
+ 	- 内部実装の変更にて対応可能な更新です。Misskey側の設定方法に変更はありません。
+- Fix: DBレプリケーションを利用する環境でクエリーが失敗する問題を修正  
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/1123>)
+
+## 2025.11.0
+
+### General
+
+- Feat: チャンネルミュート機能の実装 #10649
+ 	- チャンネルの概要画面の右上からミュートできます（リンクコピー、共有、設定と同列）
+- Enhance: Node.js 24.10.0をサポートするようになりました
+- Enhance: DockerのNode.jsが24.10.0に更新されました
+- 依存関係の更新
+
+### Client
+
+- Feat: 画像にメタデータを含むフレームをつけられる機能
+- Enhance: プリセットを作成しなくても画像にウォーターマークを付与できるように
+- Enhance: 管理しているチャンネルの見分けがつきやすくなるように
+- Enhance: プロフィールへのリンクをユーザーポップアップのアバターに追加
+- Enhance: ユーザーのノート、フォロー、フォロワーページへのリンクをユーザーポップアップに追加
+- Enhance: プッシュ通知を行うための権限確認をより確実に行うように
+- Enhance: 投稿フォームのチュートリアルを追加
+- Enhance: 「自動でもっと見る」をほとんどの箇所で利用可能に
+- Enhance: アンテナ・リスト設定画面とタイムラインの動線を改善
+ 	- アンテナ・リスト一覧画面の項目を選択すると、設定画面ではなくタイムラインに移動するようになりました
+ 	- アンテナ・リストの設定画面の右上にタイムラインに移動するボタンを追加しました
+- Fix: 紙吹雪エフェクトがアニメーション設定を考慮せず常に表示される問題を修正
+- Fix: ナビゲーションバーのリアルタイムモード切替ボタンの状態をよりわかりやすく表示するように
+- Fix: ページのタイトルが長いとき、はみ出る問題を修正
+- Fix: 投稿フォームのアバターが正しく表示されない問題を修正 #16789
+- FIx: カスタム絵文字(β)画面で変更行が正しくハイライトされない問題を修正 #16626
+
+### Server
+
+- Enhance: Remote Notes Cleaningが複雑度が高いノートの処理を中断せずに次のノートから再開するように
+- Fix: チャンネルの説明欄の最小文字数制約を除去
+
+## 2025.10.2
+
+### Client
+
+- Fix: アプリ内からキャッシュをクリアするとテーマ再適用するまでレンダリングが正しく行われない問題を修正
+- Fix: 期限が無期限のアンケートに投票できない問題を修正
+
+## 2025.10.1
+
+### General
+
+- Enhance: リモートユーザーに付与したロールバッジを表示できるように（オプトイン）  
+  パフォーマンス上の問題からデフォルトで無効化されています。「コントロールパネル > パフォーマンス」から有効化できます。
+- 依存関係の更新
+
+### Client
+
+- Enhance: デッキのメインカラムのヘッダをクリックしてページ上部/下部にスクロールできるように
+- Enhance: 下書き/予約投稿一覧は投稿フォームのアカウントメニュー内に移動し、下書き保存は「...」メニュー内に移動されました
+- Fix: カスタム絵文字画面(beta)のaliasesで使用される区切り文字が一致していないのを修正 #15614
+- Fix: バナー画像の幅が表示領域と一致していない問題を修正
+- Fix: 一部のブラウザでバナー画像が上下中央に表示されない問題を修正
+- Fix: ナビゲーションバーの設定で削除した項目をその場で再追加できない問題を修正
+- Fix: ロールポリシーによりダイレクトメッセージが無効化されている際のデッキのダイレクトメッセージカラムの挙動を改善
+- Fix: 画像のマスクでタッチ操作が不安定な問題を修正
+- Fix: ウォーターマークの各種挙動修正
+  - ウォーターマークを回転させると歪む問題を修正
+  - ウォーターマークを敷き詰めると上下左右反転した画像/文字が表示される問題を修正
+  - ウォーターマークを回転させた際に画面からはみ出た部分を考慮できるように
+- Fix: 投票が終了した後に投票結果が正しく表示されない問題を修正
+- Fix: ダークモードの同期が機能しない場合がある問題を修正
+- Fix: iOSで動画の圧縮を行うと音声トラックが失われる問題を修正
+
+### Server
+
+- Enhance: 管理者/モデレーターはファイルのアップロード制限をバイパスするように
+- Enhance: セキュリティの向上
+
+## 2025.10.0
+
+### NOTE
+
+- pnpm 10.16.0 が必要です
+- ロールのインポート機能の利用可否ポリシーのデフォルト値が「いいえ」に変わったため、デフォルトから変更していないサーバーでは適宜設定を変更してください。
+- ロールのアップロード可能なファイル種別ポリシーのデフォルト値に「text/*」が追加されたため、デフォルトから変更していないサーバーでは適宜設定を変更してください。
+
+### General
+
+- Feat: 予約投稿ができるようになりました
+ 	- デフォルトで作成可能数は1になっています。適宜ロールのポリシーで設定を行ってください。
+- Enhance: 広告ごとにセンシティブフラグを設定できるようになりました
+- Enhance: 依存関係の更新
+- Enhance: 翻訳の更新
+
+### Client
+
+- Feat: アカウントのQRコードを表示・読み取りできるようになりました
+- Feat: 動画を圧縮してアップロードできるようになりました
+- Feat: (実験的) ブラウザ上でノートの翻訳を行えるように
+- Enhance: チャットの日本語名称がダイレクトメッセージに戻るとともに、ベータ版機能ではなくなりました
+- Enhance: 画像編集にマスクエフェクト(塗りつぶし、ぼかし、モザイク)を追加
+- Enhance: 画像編集の集中線エフェクトを強化
+- Enhance: ウォーターマークにアカウントのQRコードを追加できるように
+- Enhance: テーマをドラッグ&ドロップできるように
+- Enhance: 絵文字ピッカーのサイズをより大きくできるように
+- Enhance: カスタム絵文字が多い場合にサーバーの絵文字一覧ページがフリーズしないように
+- Enhance: 時刻計算のための基準値を一か所で管理するようにし、パフォーマンスを向上
+- Enhance: 「お問い合わせ」ページから、バグの調査等に役立つ情報（OSやブラウザのバージョン等）を取得・コピーできるように
+- Fix: iOSで、デバイスがダークモードだと初回読み込み時にエラーになる問題を修正
+- Fix: アクティビティウィジェットのグラフモードが動作しない問題を修正
+- Fix: ユニコード絵文字の追加辞書をインストールするとユニコード絵文字が絵文字ピッカーで検索できなくなる絵文字があるバグを修正
+
+### Server
+
+- Enhance: ユーザーIPを確実に取得できるために設定ファイルにFastifyOptions.trustProxyを追加しました
+
 ## 2025.9.0
 
 ### Client
+
 - Enhance: AiScriptAppウィジェットで構文エラーを検知してもダイアログではなくウィジェット内にエラーを表示するように
 - Enhance: /flushページでサイトキャッシュをクリアできるようになりました
 - Enhance: クリップ/リスト/アンテナ/ロール追加系メニュー項目において、表示件数を拡張
@@ -12,21 +171,24 @@
 - Fix: エラー画像が横に引き伸ばされてしまう問題に対応
 
 ### Server
+
 - Fix: webpなどの画像に対してセンシティブなメディアの検出が適用されていなかった問題を修正
 
 ## 2025.8.0
 
 ### Note
+
 - サポートされるNode.jsの最小バージョンが**22.15.0**になりました
 
 ### General
+
 - ノートを削除した際、関連するノートが同時に削除されないようになりました
-	- APIで、「replyIdが存在しているのにreplyがnull」や「renoteIdが存在しているのにrenoteがnull」であるという、今までにはなかったパターンが表れることになります
+ 	- APIで、「replyIdが存在しているのにreplyがnull」や「renoteIdが存在しているのにrenoteがnull」であるという、今までにはなかったパターンが表れることになります
 - 定期的に古いリモートの投稿を削除する機能が実装されました
-	- コントロールパネル→パフォーマンス→Remote Notes Cleaning で有効化できます
-	- データベースの肥大化を防止することが可能です
-	- 既存のサーバーで当機能を有効化した場合は、処理量が多くなるため、一時的にストレージ使用量が増加する可能性があります。
-		- 増加量を抑えるには、最大処理継続時間をデフォルトより短くしてください。
+ 	- コントロールパネル→パフォーマンス→Remote Notes Cleaning で有効化できます
+ 	- データベースの肥大化を防止することが可能です
+ 	- 既存のサーバーで当機能を有効化した場合は、処理量が多くなるため、一時的にストレージ使用量が増加する可能性があります。
+  		- 増加量を抑えるには、最大処理継続時間をデフォルトより短くしてください。
   - データベースサイズへの効果が見られない場合はautovacuumが有効になっているか確認してください
 - サーバーの初期設定が完了するまでは連合がオンにならないようになりました
 - 日本語における公開範囲名称の「ダイレクト」が「指名」に改称されました
@@ -40,19 +202,20 @@
 - Enhance: ユーザー検索をロールポリシーで制限できるように
 
 ### Client
+
 - Feat: AiScriptが1.1.0に更新されました
-	- プラグインは1.xに対応したものが必要です
-	- Playはそのまま動作しますが、新規に作られるプリセットは1.xになります
-	- 以前のバージョンから無効化されていた note_view_interruptor が有効になりました
-		- ハンドラは同期的である必要があります
+ 	- プラグインは1.xに対応したものが必要です
+ 	- Playはそのまま動作しますが、新規に作られるプリセットは1.xになります
+ 	- 以前のバージョンから無効化されていた note_view_interruptor が有効になりました
+  		- ハンドラは同期的である必要があります
 - Feat: セーフモード
-	- プラグイン・テーマ・カスタムCSSの使用でクライアントの起動に問題が発生した際に、これらを無効にして起動できます
-	- 以下の方法でセーフモードを起動できます
-		- `g` キーを連打する
-		- URLに`?safemode=true`を付ける
-		- PWAのショートカットで Safemode を選択して起動する
+ 	- プラグイン・テーマ・カスタムCSSの使用でクライアントの起動に問題が発生した際に、これらを無効にして起動できます
+ 	- 以下の方法でセーフモードを起動できます
+  		- `g` キーを連打する
+  		- URLに`?safemode=true`を付ける
+  		- PWAのショートカットで Safemode を選択して起動する
 - Feat: 非ログイン時に表示されるトップページのスタイルを選択できるように
-	- コントロールパネル→ブランディング→エントランスページのスタイル
+ 	- コントロールパネル→ブランディング→エントランスページのスタイル
 - Feat: ページのタブバーを下部に表示できるように
 - Feat: (実験的)iOSでの触覚フィードバックを有効にできるように
 - Feat: コントロールパネルを検索できるように
@@ -67,7 +230,7 @@
 - Enhance: 依存ソフトウェアの更新
 - Fix: 投稿フォームでファイルのアップロードが中止または失敗した際のハンドリングを修正
 - Fix: 一部の設定検索結果が存在しないパスになる問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/1171)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/1171>)
 - Fix: テーマエディタが動作しない問題を修正
 - Fix: チャンネルのハイライトページにノートが表示されない問題を修正
 - Fix: カラムの名前が正しくリスト/チャンネルの名前にならない問題を修正
@@ -81,10 +244,11 @@
 - Fix: lookupページでリモートURLを指定した際に正しく動作しない問題を修正
 
 ### Server
+
 - Feat: サーバー管理コマンド
-	- `pnpm cli foo` の形式で実行可能です
-	- 現在以下のコマンドが利用可能です
-		- `reset-captcha` - CAPTCHA設定をリセットします
+ 	- `pnpm cli foo` の形式で実行可能です
+ 	- 現在以下のコマンドが利用可能です
+  		- `reset-captcha` - CAPTCHA設定をリセットします
 - Enhance: ノートの削除処理の効率化
 - Enhance: 全体的なパフォーマンスの向上
 - Enhance: 依存ソフトウェアの更新
@@ -95,14 +259,15 @@
 - Fix: Pageのアイキャッチ画像をドライブから消してもPageごと消えないように
 - Fix: タイムラインAPIの withRenotes: false 時のレスポンスを修正
 
-
 ## 2025.7.0
 
 ### Note
+
 - Node.jsの最小バージョンを20.10.0から20.18.1に引き上げました
   - なお、特に必要がない限りNode.jsは推奨バージョンであるv22を使用するようにしてください
 
 ### General
+
 - Feat: ノートの下書き機能
 - Feat: クリップ内でノートを検索できるように
 - Feat: Playを検索できるように
@@ -110,6 +275,7 @@
 - Enhance: ウォーターマーク機能をロールで制御可能に
 
 ### Client
+
 - Note: 「自動でもっと見る」オプションは無効になっています
 - Feat: モデログを検索できるように
 - Enhance: 設定の自動バックアップをオンにした直後に自動バックアップするように
@@ -127,29 +293,33 @@
 - Fix: Pull to refreshが有効なときに横スクロールができない問題を修正
 
 ### Server
+
 - Enhance: sinceId/untilIdが指定可能なエンドポイントにおいて、sinceDate/untilDateも指定可能に
 - Enhance: メールの送信者としてサーバー名を表示するように (サーバー名が設定されている場合)
 - Fix: ジョブキューのProgressの値を正しく計算する
 
-
 ## 2025.6.3
 
 ### Client
+
 - Fix: キャッシュを削除しないとクライアントが使用できないことがある問題を修正
 
 ## 2025.6.2
 
 ### Client
+
 - Fix: キャッシュを削除しないとクライアントが使用できないことがある問題を修正
 - 翻訳の更新
 
 ## 2025.6.1
 
 ### Note
+
 - AiScript Misskey拡張API（Misskey Webプラグイン）の[note_view_interruptor](https://misskey-hub.net/ja/docs/for-developers/plugin/plugin-api-reference/#pluginregister_note_view_interruptorfn)は不具合の影響により現在一時的に無効化されています。
 - Misskey Web投稿フォームのプレビュー切り替えは「...」メニュー内に配置されました
 
 ### Client
+
 - Feat: 画像にウォーターマークを付与できるようになりました
 - Feat: 画像の加工ができるようになりました(実験的)
 - Enhance: ノートのリアクション一覧で、押せるリアクションを優先して表示できるようにするオプションを追加
@@ -163,26 +333,217 @@
 - Fix: デッキのタイムラインカラムで新着ノート時のサウンドが再生されない問題を修正
 
 ### Server
+
 - Feat: 全てのチャットメッセージを既読にするAPIを追加(chat/read-all)
 - Fix: アカウント削除が正常に行われないことがあった問題を修正
 - Fix: outboxのページネーションが正しく行われない問題を修正
 
 ### Misskey.js
+
+- Fix: misskey-jsの drive/file/create でファイルアップロードができない問題を修正
+
+## 2025.9.0
+
+### Client
+
+- Enhance: AiScriptAppウィジェットで構文エラーを検知してもダイアログではなくウィジェット内にエラーを表示するように
+- Enhance: /flushページでサイトキャッシュをクリアできるようになりました
+- Enhance: クリップ/リスト/アンテナ/ロール追加系メニュー項目において、表示件数を拡張
+- Enhance: 「キャッシュを削除」ボタンでブラウザの内部キャッシュの削除も行えるように
+- Enhance: Ctrlキー（Commandキー）を押下しながらリンクをクリックすると新しいタブで開くように
+- Fix: プッシュ通知を有効にできない問題を修正
+- Fix: RSSティッカーウィジェットが正しく動作しない問題を修正
+- Fix: プロファイルを復元後アカウントの切り替えができない問題を修正
+- Fix: エラー画像が横に引き伸ばされてしまう問題に対応
+
+### Server
+
+- Fix: webpなどの画像に対してセンシティブなメディアの検出が適用されていなかった問題を修正
+
+## 2025.8.0
+
+### Note
+
+- サポートされるNode.jsの最小バージョンが**22.15.0**になりました
+
+### General
+
+- ノートを削除した際、関連するノートが同時に削除されないようになりました
+ 	- APIで、「replyIdが存在しているのにreplyがnull」や「renoteIdが存在しているのにrenoteがnull」であるという、今までにはなかったパターンが表れることになります
+- 定期的に古いリモートの投稿を削除する機能が実装されました
+ 	- コントロールパネル→パフォーマンス→Remote Notes Cleaning で有効化できます
+ 	- データベースの肥大化を防止することが可能です
+ 	- 既存のサーバーで当機能を有効化した場合は、処理量が多くなるため、一時的にストレージ使用量が増加する可能性があります。
+  		- 増加量を抑えるには、最大処理継続時間をデフォルトより短くしてください。
+  - データベースサイズへの効果が見られない場合はautovacuumが有効になっているか確認してください
+- サーバーの初期設定が完了するまでは連合がオンにならないようになりました
+- 日本語における公開範囲名称の「ダイレクト」が「指名」に改称されました
+  - 実際の動作に即した名称になり、馴染みのない人でも理解しやすくなりました
+  - 他サービスにおける「ダイレクトメッセージ」に相当するMisskeyの機能は「チャット」ですが(過去のバージョンのMisskeyでも、当該機能は「チャット」ではなく「ダイレクトメッセージ」でした)、「ダイレクト投稿」という名称の機能が存在するとそちらがダイレクトメッセージ機能であるような誤解を生んでいました
+    - 今後、「チャット」の名称を「ダイレクトメッセージ」に戻す可能性があります
+- mfm.jsをアップデートしました
+  - Enhance: Unicode 15.1 および 16.0 に収録されている絵文字に対応
+  - Enhance: acctに `.` が入っているユーザーのメンションに対応
+  - Fix: Unicode絵文字に隣接する異体字セレクタ（`U+FE0F`）が絵文字として認識される問題を修正
+- Enhance: ユーザー検索をロールポリシーで制限できるように
+
+### Client
+
+- Feat: AiScriptが1.1.0に更新されました
+ 	- プラグインは1.xに対応したものが必要です
+ 	- Playはそのまま動作しますが、新規に作られるプリセットは1.xになります
+ 	- 以前のバージョンから無効化されていた note_view_interruptor が有効になりました
+  		- ハンドラは同期的である必要があります
+- Feat: セーフモード
+ 	- プラグイン・テーマ・カスタムCSSの使用でクライアントの起動に問題が発生した際に、これらを無効にして起動できます
+ 	- 以下の方法でセーフモードを起動できます
+  		- `g` キーを連打する
+  		- URLに`?safemode=true`を付ける
+  		- PWAのショートカットで Safemode を選択して起動する
+- Feat: 非ログイン時に表示されるトップページのスタイルを選択できるように
+ 	- コントロールパネル→ブランディング→エントランスページのスタイル
+- Feat: ページのタブバーを下部に表示できるように
+- Feat: (実験的)iOSでの触覚フィードバックを有効にできるように
+- Feat: コントロールパネルを検索できるように
+- Enhance: 「自動でもっと見る」オプションが有効になり、安定性が向上しました
+- Enhance: トルコ語 (tr-TR) に対応
+- Enhance: 不必要な翻訳データを読み込まなくなり、パフォーマンスが向上しました
+- Enhance: 画像エフェクトのパラメータ名の多言語対応
+- Enhance: ノートを非表示にする相対期間を1ヶ月単位で自由に指定できるように
+- Enhance: メールアドレス確認画面のUIを改善
+- Enhance: アイコンのスクロール追従を無効化する際の適用範囲を強化
+- Enhance: レンダリングパフォーマンスの向上
+- Enhance: 依存ソフトウェアの更新
+- Fix: 投稿フォームでファイルのアップロードが中止または失敗した際のハンドリングを修正
+- Fix: 一部の設定検索結果が存在しないパスになる問題を修正  
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/1171>)
+- Fix: テーマエディタが動作しない問題を修正
+- Fix: チャンネルのハイライトページにノートが表示されない問題を修正
+- Fix: カラムの名前が正しくリスト/チャンネルの名前にならない問題を修正
+- Fix: 複数のメンションを1行に記述した場合に、サジェストが正しく表示されない問題を修正
+- Fix: メンションとしての条件を満たしていても、特定の条件(`-`が含まれる場合など)で正しくサジェストされない問題を一部修正
+- Fix: ユーザーの前後ノートを閲覧する機能が動作しない問題を修正
+- Fix: 照会ダイアログでap/showでローカルユーザーを解決した際@username@nullに飛ばされる問題を修正
+- Fix: アイコンのデコレーションを付ける際にデコレーションが表示されなくなる問題を修正
+- Fix: タッチ操作時にマウスホバー時のユーザープレビューが開くことがある問題を修正
+- Fix: 管理中アカウント一覧で正しい表示が行われない問題を修正
+- Fix: lookupページでリモートURLを指定した際に正しく動作しない問題を修正
+
+### Server
+
+- Feat: サーバー管理コマンド
+ 	- `pnpm cli foo` の形式で実行可能です
+ 	- 現在以下のコマンドが利用可能です
+  		- `reset-captcha` - CAPTCHA設定をリセットします
+- Enhance: ノートの削除処理の効率化
+- Enhance: 全体的なパフォーマンスの向上
+- Enhance: 依存ソフトウェアの更新
+- Enhance: `clips/list` APIがページネーションに対応しました
+- Fix: `notes/mentions` で場合によっては並び順が正しく返されない問題を修正
+- Fix: SystemWebhook設定でsecretを空に出来ない問題を修正
+- Fix: 削除されたユーザーがチャットメッセージにリアクションしている場合`chat/history`などでエラーになる問題を修正
+- Fix: Pageのアイキャッチ画像をドライブから消してもPageごと消えないように
+- Fix: タイムラインAPIの withRenotes: false 時のレスポンスを修正
+
+## 2025.7.0
+
+### Note
+
+- Node.jsの最小バージョンを20.10.0から20.18.1に引き上げました
+  - なお、特に必要がない限りNode.jsは推奨バージョンであるv22を使用するようにしてください
+
+### General
+
+- Feat: ノートの下書き機能
+- Feat: クリップ内でノートを検索できるように
+- Feat: Playを検索できるように
+- Feat: モデレーションにおいて、特定のドライブファイルを添付しているチャットメッセージを一覧できるように
+- Enhance: ウォーターマーク機能をロールで制御可能に
+
+### Client
+
+- Note: 「自動でもっと見る」オプションは無効になっています
+- Feat: モデログを検索できるように
+- Enhance: 設定の自動バックアップをオンにした直後に自動バックアップするように
+- Enhance: ファイルアップロード前にキャプション設定を行えるように
+- Enhance: ファイルアップロード時にセンシティブ設定されているか表示するように
+- Enhance: 投稿フォームにファイルをペースト/ドロップした際のUXを改善
+- Enhance: ページネーション(一覧表示)の並び順を逆にできるように
+- Enhance: ページネーション(一覧表示)の基準日時を指定できるように
+- Enhance: レンダリングパフォーマンスの向上
+- Fix: ファイルがドライブの既定アップロード先に指定したフォルダにアップロードされない問題を修正
+- Fix: プラグインをアンインストールしてもセーブデータが残る問題を修正
+- Fix: 数時間後Misskeyのタブに戻った際に、タブがスロットリングされている間の更新アニメーションを延々見せ続けられる問題を修正
+- Fix: 非ログイン時のハイライトノートの画像がCWの有無を考慮せず表示される問題を修正
+- Fix: レンジ選択・ドロップダウンにて、操作を無効にすべきところで無効にならない問題を修正
+- Fix: Pull to refreshが有効なときに横スクロールができない問題を修正
+
+### Server
+
+- Enhance: sinceId/untilIdが指定可能なエンドポイントにおいて、sinceDate/untilDateも指定可能に
+- Enhance: メールの送信者としてサーバー名を表示するように (サーバー名が設定されている場合)
+- Fix: ジョブキューのProgressの値を正しく計算する
+
+## 2025.6.3
+
+### Client
+
+- Fix: キャッシュを削除しないとクライアントが使用できないことがある問題を修正
+
+## 2025.6.2
+
+### Client
+
+- Fix: キャッシュを削除しないとクライアントが使用できないことがある問題を修正
+- 翻訳の更新
+
+## 2025.6.1
+
+### Note
+
+- AiScript Misskey拡張API（Misskey Webプラグイン）の[note_view_interruptor](https://misskey-hub.net/ja/docs/for-developers/plugin/plugin-api-reference/#pluginregister_note_view_interruptorfn)は不具合の影響により現在一時的に無効化されています。
+- Misskey Web投稿フォームのプレビュー切り替えは「...」メニュー内に配置されました
+
+### Client
+
+- Feat: 画像にウォーターマークを付与できるようになりました
+- Feat: 画像の加工ができるようになりました(実験的)
+- Enhance: ノートのリアクション一覧で、押せるリアクションを優先して表示できるようにするオプションを追加
+- Enhance: 全てのチャットメッセージを既読にできるように(設定→その他)
+- Enhance: ミュートした絵文字をデバイス間で同期できるように
+- Fix: ドライブファイルの選択が不安定な問題を修正
+- Fix: コントロールパネルのファイル欄などのデザインが崩れている問題を修正
+- Fix: ユーザーの検索結果を追加で読み込むことができない問題を修正
+- Fix: タッチ操作時にチャートのツールチップが消えなくなる場合がある問題を修正
+- Fix: ウェルカムタイムラインでリアクションが表示されない問題を修正
+- Fix: デッキのタイムラインカラムで新着ノート時のサウンドが再生されない問題を修正
+
+### Server
+
+- Feat: 全てのチャットメッセージを既読にするAPIを追加(chat/read-all)
+- Fix: アカウント削除が正常に行われないことがあった問題を修正
+- Fix: outboxのページネーションが正しく行われない問題を修正
+
+### Misskey.js
+
 - Fix: misskey-jsの drive/file/create でファイルアップロードができない問題を修正
 
 ## 2025.6.0
 
 ### Client
+
 - Enhance: 非同期的なコンポーネントの読み込み時のハンドリングを強化
 - Fix: リアクションの一部の絵文字が重複して表示されることがある問題を修正
 - Fix: 非利用者に対するユーザー作成コンテンツの公開範囲が全て非公開になっている場合にログインできない問題を修正
 
 ### Server
+
 - Fix: 非利用者に対するユーザー作成コンテンツの公開範囲が全て非公開になっている場合でもusers/showを許可するように
 
 ## 2025.5.1
 
 ### Note
+
 - 設定ファイルの以下の項目がコントロールパネルから設定するようになりました
   - signToActivityPubGet
   - proxyRemoteFiles
@@ -190,34 +551,36 @@
     - 許可しないかどうかではなく、許可するかどうかの設定(allowExternalApRedirect)になりました
 
 ### General
+
 - Feat: 非ログインでサーバーを閲覧された際に、サーバー内のコンテンツを非公開にすることができるようになりました
   - モデレーションが行き届きにくい不適切なリモートコンテンツなどが、自サーバー経由で図らずもインターネットに公開されてしまうことによるトラブル防止などに役立ちます
   - 「全て公開(今までの挙動)」「ローカルのコンテンツだけ公開(=サーバー内で受信されたリモートのコンテンツは公開しない)」「何も公開しない」から選択できます
   - デフォルト値は「ローカルのコンテンツだけ公開」になっています
 - Feat: ロールでアップロード可能なファイル種別を設定可能になりました
-	- デフォルトは**テキスト、JSON、画像、動画、音声ファイル**になっています。zipなど、その他の種別のファイルは含まれていないため、必要に応じて設定を変更してください。
-	- 場合によってはファイル種別を正しく検出できないことがあります(特にテキストフォーマット)。その場合、ファイル種別は application/octet-stream と見做されます。
-		- したがって、それらの種別不明ファイルを許可したい場合は application/octet-stream を指定に追加してください。
+ 	- デフォルトは**テキスト、JSON、画像、動画、音声ファイル**になっています。zipなど、その他の種別のファイルは含まれていないため、必要に応じて設定を変更してください。
+ 	- 場合によってはファイル種別を正しく検出できないことがあります(特にテキストフォーマット)。その場合、ファイル種別は application/octet-stream と見做されます。
+  		- したがって、それらの種別不明ファイルを許可したい場合は application/octet-stream を指定に追加してください。
 - Feat: プレビュー先がリダイレクトを伴う場合、リダイレクト先のコンテンツを取得しに行くか否かを設定できるように(#16043)
 - Enhance: UIのアイコンデータの読み込みを軽量化
 
 ### Client
+
 - Feat: ドライブのUIが強化されました
   - 複数のファイルをまとめて移動できるようになりました
 - Feat: ファイルのアップロードUIが一新されました
   - アップロード前にファイル情報を確認できるようになりました
-	- 圧縮の品質を選択できるようになりました
-	- アップロードに失敗したときに再試行できるようになりました
-	- アップロード前に画像のクロッピングを行えるようになりました
-	- ファイルサイズのチェックは圧縮後の実際にアップロードされるサイズで行われるようになりました
-	- ファイルのアップロードを中断できるようになりました
+   	- 圧縮の品質を選択できるようになりました
+   	- アップロードに失敗したときに再試行できるようになりました
+   	- アップロード前に画像のクロッピングを行えるようになりました
+   	- ファイルサイズのチェックは圧縮後の実際にアップロードされるサイズで行われるようになりました
+   	- ファイルのアップロードを中断できるようになりました
 - Feat: サーバー初期設定ウィザードが実装されました
   - 簡単なウィザードに従うだけで、サーバーに最適な設定が適用されます
 - Feat: Websocket接続を行わずにMisskeyを利用するNo Websocketモードが実装されました(beta)
   - サーバーのパフォーマンス向上に寄与することが期待されます
-	- 何らの理由によりWebsocket接続が行えない環境でも快適に利用可能です
+   	- 何らの理由によりWebsocket接続が行えない環境でも快適に利用可能です
   - 従来のWebsocket接続を行うモードはリアルタイムモードとして再定義されました
-	- チャットなど、一部の機能は引き続き設定に関わらずWebsocket接続が行われます
+   	- チャットなど、一部の機能は引き続き設定に関わらずWebsocket接続が行われます
 - Feat: 絵文字をミュート可能にする機能
   - 絵文字（ユニコードの絵文字・カスタム絵文字）毎にミュートし、不可視化することができるようになりました
 - Feat: モバイルデバイスで折りたたまれたUIの展開表示に全画面ページを使用できるように(実験的)
@@ -227,14 +590,14 @@
 - Enhance: 招待されているが参加していないルームを開いたときに、招待を承認するかどうか尋ねるように
 - Enhance: リプライ元にアンケートがあることが表示されるように
 - Enhance: ノートのサーバー情報のデザインを改善・パフォーマンス向上  
-  (Based on https://github.com/taiyme/misskey/pull/198, https://github.com/taiyme/misskey/pull/211, https://github.com/taiyme/misskey/pull/283)
+  (Based on <https://github.com/taiyme/misskey/pull/198>, <https://github.com/taiyme/misskey/pull/211>, <https://github.com/taiyme/misskey/pull/283>)
 - Enhance: ユーザー設定でURLプレビューを無効化できるように
 - Enhance: ヒントとコツを追加
 - Enhance: ヒントとコツを再表示できるように
 - Enhance: AiScriptからtoastを表示する関数 `Mk:toast` を追加
 - Enhance: シンタックスハイライトのエンジンをJavaScriptベースのものに変更
   - フロントエンドの読み込みサイズを軽量化しました
-	- ほとんどの言語のハイライトは問題なく行えますが、互換性の問題により一部の言語が正常にハイライトできなくなる可能性があります。詳しくは https://shiki.style/references/engine-js-compat をご覧ください。
+   	- ほとんどの言語のハイライトは問題なく行えますが、互換性の問題により一部の言語が正常にハイライトできなくなる可能性があります。詳しくは <https://shiki.style/references/engine-js-compat> をご覧ください。
 - Fix: チャットに動画ファイルを送付すると、動画の表示が崩れてしまい視聴出来ない問題を修正
 - Fix: アカウント依存かつ初期状態である設定値をサーバー同期しようとした際に正しくコンフリクト検出されない問題を修正
 - Fix: "時計"ウィジェット(Clock)において、Transparent設定が有効でも、その背景が透過されない問題を修正
@@ -242,6 +605,7 @@
 - Fix: Twitchのクリップがプレイヤーで再生できない問題を修正
 
 ### Server
+
 - Enhance: リストやフォローをエクスポートする際にリプライを含むかどうかの情報を含むように
 - Enhance: チャットルームの最大メンバー数を30人から50人に調整
 - Enhance: ノートのレスポンスにアンケートが添付されているかどうかを示すフラグ`hasPoll`を追加
@@ -259,9 +623,11 @@
 ## 2025.5.0
 
 ### Note
+
 - DockerのNode.jsが22.15.0に更新されました
 
 ### Client
+
 - Feat: マウスで中ボタンドラッグによりタイムラインを引っ張って更新できるように
   - アクセシビリティ設定からオフにすることもできます
 - Enhance: タイムラインのパフォーマンスを向上
@@ -271,6 +637,7 @@
 - Fix: ユーザーポップアップでエラーが生じてもインジケーターが表示され続けてしまう問題を修正
 
 ### Server
+
 - Enhance: 凍結されたユーザのノートが各種タイムラインで表示されないように `#15775`
 - Enhance: 連合先のソフトウェア及びバージョン名により配信停止を行えるように `#15727`
 - Enhance: 2025.4.1 で追加されたインデックスの再生成をノートの追加しながら行えるようになりました。 `#15915`
@@ -287,9 +654,10 @@
 ## 2025.4.1
 
 ### General
+
 - Feat: bull-boardに代わるジョブキューの管理ツールが実装されました
 - Feat: アップロード可能な最大ファイルサイズをロールごとに設定可能に
-	- デフォルトで10MBになっています
+ 	- デフォルトで10MBになっています
 - Enhance: チャットの新規メッセージをプッシュ通知するように
 - Enhance: サーバーブロックの対象になっているサーバーについて、当該サーバーのユーザーや既知投稿を見えないように
 - Enhance: 依存関係の更新
@@ -297,6 +665,7 @@
 - Fix: セキュリティに関する修正
 
 ### Client
+
 - Feat: チャットウィジェットを追加
 - Feat: デッキにチャットカラムを追加
 - Feat: タイトルバーを表示できるように
@@ -314,9 +683,10 @@
 - Fix: タイムラインでノートが重複して表示されることがあるのを修正
 
 ### Server
+
 - Enhance: ジョブキューの成功/失敗したジョブも一定数・一定期間保存するようにし、後から問題を調査することを容易に
 - Enhance: フォローしているユーザーならフォロワー限定投稿のノートでもアンテナで検知できるように  
-	(Cherry-picked from https://github.com/yojo-art/cherrypick/pull/568 and https://github.com/team-shahu/misskey/pull/38)
+ (Cherry-picked from <https://github.com/yojo-art/cherrypick/pull/568> and <https://github.com/team-shahu/misskey/pull/38>)
 - Enhance: ユーザーごとにノートの表示が高速化するように
 - Fix: システムアカウントの名前がサーバー名と同期されない問題を修正
 - Fix: 大文字を含むユーザの URL で照会された場合に 404 エラーを返す問題 #15813
@@ -326,6 +696,7 @@
 ## 2025.4.0
 
 ### General
+
 - Feat: チャット(ダイレクトメッセージ)がリニューアルして復活しました
   - 既存のDM機能よりも便利で効率的な実装になっています
   - チャットを受け付ける相手を制限可能です
@@ -342,13 +713,14 @@
 - Enhance: セキュリティを強化するため、ジョブキューのダッシュボード(bull-board)統合が削除されました。
   - Misskeyネイティブでダッシュボードを実装予定です
 - Enhance: フロントエンドのエラートラッキングができるように
-	- `.config/default.yml`中の項目`sentryForFrontend`を適宜設定してください。
-	- 外部サービスであるSentryへエラー情報が送信されます。ご利用の地域の法令に従い、適切なプライバシーポリシーを策定の上で運用してください。
+ 	- `.config/default.yml`中の項目`sentryForFrontend`を適宜設定してください。
+ 	- 外部サービスであるSentryへエラー情報が送信されます。ご利用の地域の法令に従い、適切なプライバシーポリシーを策定の上で運用してください。
 - Enhance: ミュートしているユーザーをユーザー検索の結果から除外するように
 - Enhance: アンテナでセンシティブなチャンネルのノートを除外できるように `#14177`
 - Fix: 通知のページネーションで２つ以上読み込めなくなることがある問題を修正
 
 ### Client
+
 - Feat: 設定の管理が強化されました
   - 内部処理が一新され、安定性とパフォーマンスが向上しました
   - 全てのクライアント設定がエクスポート(バックアップ)/インポート対象に含まれるようになりました
@@ -369,7 +741,7 @@
   - 設定情報の移行は自動で行われますが、何らかの理由で失敗した場合、設定→その他→旧設定情報を移行 で再試行可能です
   - 過去に作成されたバックアップデータとは現在互換性がありませんのでご注意ください
 - Feat: 画面を重ねて表示するオプションを実装(実験的)
-	- 設定 → その他 → 実験的機能 → Enable stacking router view
+ 	- 設定 → その他 → 実験的機能 → Enable stacking router view
 - Enhance: プラグインの管理が強化されました
   - インストール/アンインストール/設定の変更時にリロード不要になりました
 - Enhance: ログアウト時、ブラウザに保存されたWebクライアントのデータを全て消去するように
@@ -395,6 +767,7 @@
   - デッキUIでカラムを中央寄せにし、メインカラムの左右にウィジェットカラムを配置し、ナビゲーションバーを上部に表示することである程度クラシックUIを再現できます
 
 ### Server
+
 - Enhance 全体的なパフォーマンス向上
 - Fix: プロフィール追加情報で無効なURLに入力された場合に照会エラーを出るのを修正
 - Fix: ActivityPubリクエストURLチェック実装は仕様に従っていないのを修正
@@ -405,27 +778,31 @@
 ## 2025.3.1
 
 ### General
+
 - pnpmをv10に更新
 - Corepackを削除
 
 ### Client
+
 - Feat: 設定の検索を追加(実験的)
 - Enhance: 設定項目の再配置
 
 ### Server
+
 - Fix: DBマイグレーション際にシステムアカウントのユーザーID判定が正しくない問題を修正
 - Fix: user.featured列が状況によってJSON文字列になっていたのを修正
-
 
 ## 2025.3.0
 
 ### General
+
 - Enhance: プロキシアカウントをシステムアカウントとして作成するように
 - Enhance: OAuthで外部アプリからロゴが提供されている場合、それを表示できるように  
-  書式は https://indieauth.spec.indieweb.org/20220212/#example-2 に準じます。
+  書式は <https://indieauth.spec.indieweb.org/20220212/#example-2> に準じます。
 - Fix: システムアカウントが削除できる問題を修正
 
 ### Client
+
 - Enhance: モデレーターがセンシティブ設定を変更する際に確認ダイアログを出すように
 - Enhance: 「UIのアニメーションを減らす」で画面上のエフェクトも減らせるように
 - Enhance: 投稿フォームにおける、メディアの添付可能個数のカウントを反転しました
@@ -434,19 +811,21 @@
 - Fix: 投稿ダイアログがサイズ限界を超えた際にスクロールできない問題を修正
 
 ### Server
+
 - Fix: 特定のケースでActivityPubの処理がデッドロックになることがあるのを修正
 - Fix: S3互換オブジェクトストレージでファイルのアップロードに失敗することがある問題を修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/895)
-
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/895>)
 
 ## 2025.2.1
 
 ### General
+
 - Feat: アクセストークン発行時に通知するように
 - Feat: 実験的なGoogleAnalyticsサポートを追加
 - 依存関係の更新
 
 ### Client
+
 - Feat: 投稿フォームで画像をプレビュー可能に
 - Enhance: 投稿フォームの「迷惑になる可能性があります」のダイアログを表示する条件においてCWを考慮するように
 - Enhance: アンテナ、リスト等の名前をカラム名のデフォルト値にするように `#13992`
@@ -457,7 +836,7 @@
 - Enhance: コントロールパネルのユーザ検索で入力された情報をページ遷移で損なわないように `#15437`
 - Enhance: CWの注釈で入力済みの文字数を表示
 - Enhance: ノート検索ページのデザイン調整  
-  (Cherry-picked from https://github.com/taiyme/misskey/pull/273)
+  (Cherry-picked from <https://github.com/taiyme/misskey/pull/273>)
 - Fix: ノートページで、クリップ一覧が表示されないことがある問題を修正
 - Fix: コンディショナルロールを手動で割り当てできる導線を削除 `#13529`
 - Fix: 埋め込みプレイヤーから外部ページに移動できない問題を修正
@@ -469,12 +848,13 @@
 - 翻訳の更新
 
 ### Server
+
 - Enhance: 成り済まし対策として、ActivityPub照会された時にリモートのリダイレクトを拒否できるように (config.disallowExternalApRedirect)
 - Fix: `following/invalidate`でフォロワーを解除しようとしているユーザーの情報を返すように
 - Fix: オブジェクトストレージの設定でPrefixを設定していなかった場合nullまたは空文字になる問題を修正
 - Fix: HTTPプロキシとその除外設定を行った状態でカスタム絵文字の一括インポートをしたとき、除外設定が効かないのを修正( #8766 )
 - Fix: pgroongaでの検索時にはじめのキーワードのみが検索に使用される問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/886)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/886>)
 - Fix: メールアドレスの形式が正しくなければ以降の処理を行わないように
 - Fix: `update-meta`でobjectStoragePrefixにS3_SAFEかつURL-safeでない文字列を使えないように
 - Fix: クリップの説明欄を更新する際に空にできない問題を修正
@@ -483,12 +863,14 @@
 ## 2025.2.0
 
 ### General
+
 - Fix: Docker のビルドに失敗する問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/883)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/883>)
 
 ### Client
+
 - Fix: パスキーでパスワードレスログインが出来ない問題を修正
-- Fix: 一部環境でセンシティブなファイルを含むノートの非表示が効かない問題 
+- Fix: 一部環境でセンシティブなファイルを含むノートの非表示が効かない問題
 - Fix: データセーバー有効時にもユーザーページの「ファイル」タブで画像が読み込まれてしまう問題を修正
 - Fix: MFMの `sparkle` エフェクトが正しく表示されない問題を修正
 - Fix: ページのURLにスラッシュが含まれている場合にページが正しく表示されない問題を修正
@@ -498,12 +880,14 @@
 - Playが実装されたため、ページ機能の「ソースを見る」は削除されました
 
 ### Server
+
 - Enhance: ページのURLに使用可能な文字を限定するように
 - Fix: 個別お知らせページのmetaタグ出力の条件が間違っていたのを修正
 
 ## 2025.1.0
 
 ### Note
+
 - [重要] ノート検索プロバイダの追加に伴い、configファイル（default.ymlなど）の構成が少し変わります.
   - 新しい設定項目"fulltextSearch.provider"が追加されました. sqlLike, sqlPgroonga, meilisearchのいずれかを設定出来ます.
   - すでにMeilisearchをお使いの場合、 **"fulltextSearch.provider"を"meilisearch"に設定する必要** があります.
@@ -511,19 +895,21 @@
 - 【開発者向け】従来の開発モードでHMRが機能しない問題が修正されたため、バックエンド・フロントエンド分離型の開発モードが削除されました。開発環境においてconfigの変更が必要となる可能性があります。
 
 ### General
+
 - Feat: カスタム絵文字管理画面をリニューアル #10996
-	* β版として公開のため、旧画面も引き続き利用可能です
+ 	- β版として公開のため、旧画面も引き続き利用可能です
 
 ### Client
+
 - Enhance: PC画面でチャンネルが複数列で表示されるように  
-  (Cherry-picked from https://github.com/Otaku-Social/maniakey/pull/13)
+  (Cherry-picked from <https://github.com/Otaku-Social/maniakey/pull/13>)
 - Enhance: 照会に失敗した場合、その理由を表示するように
 - Enhance: ワードミュートで検知されたワードを表示できるように
 - Enhance: リモートのノートのリンクをコピーできるように
 - Enhance: 連合がホワイトリスト化・無効化されているサーバー向けのデザイン修正
 - Enhance: AiScriptのセーブデータを明示的に削除する関数`Mk:remove`を追加
 - Enhance: ノートの添付ファイルを一覧で遡れる「ファイル」タブを追加  
-  (Based on https://github.com/Otaku-Social/maniakey/pull/14)
+  (Based on <https://github.com/Otaku-Social/maniakey/pull/14>)
 - Enhance: AiScriptの拡張API関数において引数の型チェックをより厳格に
 - Enhance: クエリパラメータでuiを一時的に変更できるように #15240
 - Enhance: リモート絵文字のインポート時に詳細を確認できるように #15336
@@ -531,46 +917,47 @@
 - Fix: サーバー情報メニューに区切り線が不足していたのを修正
 - Fix: ノートがログインしているユーザーしか見れない場合にログインダイアログを閉じるとその後の動線がなくなる問題を修正
 - Fix: 公開範囲がホームのノートの埋め込みウィジェットが読み込まれない問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/803)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/803>)
 - Fix: 絵文字管理画面で一部の絵文字が表示されない問題を修正
 - Fix: プラグイン `register_note_view_interruptor` でノートのサーバー情報の書き換えができない問題を修正
 - Fix: Botプロテクションの設定変更時は実際に検証を通過しないと保存できないように( #15137 )
 - Fix: ノート検索が使用できない場合でもチャンネルのノート検索欄がでていた問題を修正
 - Fix: `Ui:C:select`で値の変更が画面に反映されない問題を修正
 - Fix: MiAuth認可画面で、認可処理に失敗した場合でもコールバックURLに遷移してしまう問題を修正  
-  (Cherry-picked from https://github.com/TeamNijimiss/misskey/commit/800359623e41a662551d774de15b0437b6849bb4)
+  (Cherry-picked from <https://github.com/TeamNijimiss/misskey/commit/800359623e41a662551d774de15b0437b6849bb4>)
 - Fix: ノート作成画面でファイルの添付可能個数を超えてもノートボタンが押せていた問題を修正
 - Fix: 「アカウントを管理」画面で、ユーザー情報の取得に失敗したアカウント（削除されたアカウントなど）が表示されない問題を修正
 - Fix: MacOSでChrome系ブラウザを使用している場合に、Misskeyを閉じた際に他のタブのオーディオ機能と干渉する問題を修正
 - Fix: 言語データのキャッシュ状況によっては、埋め込みウィジェットが正しく起動しない問題を修正
 - Fix: 「削除して編集」でノートの引用を解除出来なかった問題を修正( #14476 )
 - Fix: RSSウィジェットが正しく表示されない問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/857)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/857>)
 - Fix: ワードミュートの保存失敗時にAPIエラーが握りつぶされる事があるのを修正
 - Fix: アンケートでリモートの絵文字が正しく描画できない問題の修正
-  (Cherry-picked from https://github.com/yojo-art/cherrypick/pull/153)
+  (Cherry-picked from <https://github.com/yojo-art/cherrypick/pull/153>)
 - Fix: 非ログイン時のサーバー概要画面のメニューボタンが押せないことがあるのを修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/656)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/656>)
 - Fix: URLにはじめから`#pswp`が含まれている場合に画像ビューワーがブラウザの戻るボタンで閉じられない問題を修正
 - Fix: ロール作成画面で設定できるアイコンデコレーションの最大取付個数を16に制限
 - Fix: Firefox Nightlyなどでアイコンが読み込めない問題を修正
 
 ### Server
+
 - Enhance: pg_bigmが利用できるよう、ノートの検索をILIKE演算子でなくLIKE演算子でLOWER()をかけたテキストに対して行うように
 - Enhance: ノート検索の選択肢としてpgroongaに対応 ( #14730 )
 - Enhance: チャート更新時にDBに同時接続しないように  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/830)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/830>)
 - Enhance: config(default.yml)からSQLログ全文を出力するか否かを設定可能に ( #15266 )
 - Fix: ユーザーのプロフィール画面をアドレス入力などで直接表示した際に概要タブの描画に失敗する問題の修正( #15032 )
 - Fix: 起動前の疎通チェックが機能しなくなっていた問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/737)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/737>)
 - Fix: ノートの閲覧にログイン必須にしてもFeedでノートが表示されてしまう問題を修正
 - Fix: 絵文字の連合でライセンス欄を相互にやり取りするように ( #10859, #14109 )
 - Fix: ロックダウンされた期間指定のノートがStreaming経由でLTLに出現するのを修正 ( #15200 )
 - Fix: disableClustering設定時の初期化ロジックを調整( #15223 )
 - Fix: URLとURIが異なるエンティティの照会に失敗する問題を修正( #15039 )
 - Fix: ActivityPubリクエストかどうかの判定が正しくない問題を修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/869)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/869>)
 - Fix: `/api/pages/update`にて`name`を指定せずにリクエストするとエラーが発生する問題を修正
 - Fix: AIセンシティブ判定が arm64 環境で動作しない問題を修正
 - Fix: 非Misskey系のソフトウェアからHTML`<ruby>`タグを含むノートを受信した場合、MFMの読み仮名（ルビ）文法に変換して表示
@@ -578,16 +965,19 @@
 - Fix: `/api.json`のレスポンスが2回目のリクエスト以降おかしくなる問題を修正
 
 ### Misskey.js
+
 - Feat: allow setting `binaryType` of WebSocket connection
 
 ## 2024.11.0
 
 ### Note
+
 - Node.js 20.xは非推奨になりました。Node.js 22.x (LTS)の利用を推奨します。
   - なお、Node.js 23.xは対応していません。
 - DockerのNode.jsが22.11.0に更新されました
 
 ### General
+
 - Feat: コンテンツの表示にログインを必須にできるように
 - Feat: 過去のノートを非公開化/フォロワーのみ表示可能にできるように
 - Enhance: 依存関係の更新
@@ -595,8 +985,9 @@
 - Fix: お知らせ作成時に画像URL入力欄を空欄に変更できないのを修正 ( #14976 )
 
 ### Client
+
 - Enhance: Bull DashboardでRelationship Queueの状態も確認できるように  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/751)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/751>)
 - Enhance: ドライブでソートができるように
 - Enhance: アイコンデコレーション管理画面の改善
 - Enhance: 「単なるラッキー」の取得条件を変更
@@ -609,29 +1000,30 @@
 - Enhance: 個別お知らせページではMetaタグを出力するように
 - Enhance: ノート詳細画面にロールのバッジを表示
 - Enhance: 過去に送信したフォローリクエストを確認できるように  
-  (Based on https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/663)
+  (Based on <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/663>)
 - Enhance: サイドバーを簡単に展開・折りたたみできるように ( #14981 )
 - Enhance: リノートメニューに「リノートの詳細」を追加
 - Enhance: 非ログイン状態でMisskeyを開いた際のパフォーマンスを向上
 - Fix: 通知の範囲指定の設定項目が必要ない通知設定でも範囲指定の設定がでている問題を修正
 - Fix: Turnstileが失敗・期限切れした際にも成功扱いとなってしまう問題を修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/768)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/768>)
 - Fix: デッキのタイムラインカラムで「センシティブなファイルを含むノートを表示」設定が使用できなかった問題を修正
 - Fix: Encode RSS urls with escape sequences before fetching allowing query parameters to be used
 - Fix: リンク切れを修正
 - Fix: ノート投稿ボタンにホバー時のスタイルが適用されていないのを修正  
-  (Cherry-picked from https://github.com/taiyme/misskey/pull/305)
+  (Cherry-picked from <https://github.com/taiyme/misskey/pull/305>)
 - Fix: メールアドレス登録有効化時の「完了」ダイアログボックスの表示条件を修正
 - Fix: 画面幅が狭い環境でデザインが崩れる問題を修正  
-	(Cherry-picked from https://github.com/MisskeyIO/misskey/pull/815)
+ (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/815>)
 - Fix: TypeScriptの型チェック対象ファイルを限定してビルドを高速化するように  
-	(Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/725)
+ (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/725>)
 
 ### Server
+
 - Enhance: DockerのNode.jsを22.11.0に更新
 - Enhance: 起動前の疎通チェックで、DBとメイン以外のRedisの疎通確認も行うように  
-  (Based on https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/588)  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/715)
+  (Based on <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/588>)  
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/715>)
 - Enhance: リモートユーザーの照会をオリジナルにリダイレクトするように
 - Fix: sharedInboxが無いActorに紐づくリモートユーザーを照会できない
 - Fix: Aproving request from GtS appears with some delay
@@ -639,56 +1031,63 @@
 - Fix: Nested proxy requestsを検出した際にブロックするように
   [ghsa-gq5q-c77c-v236](https://github.com/misskey-dev/misskey/security/advisories/ghsa-gq5q-c77c-v236)
 - Fix: 招待コードの発行可能な残り数算出に使用すべきロールポリシーの値が違う問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/706)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/706>)
 - Fix: 連合への配信時に、acctの大小文字が区別されてしまい正しくメンションが処理されないことがある問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/711)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/711>)
 - Fix: ローカルユーザーへのメンションを含むノートが連合される際に正しいURLに変換されないことがある問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/712)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/712>)
 - Fix: FTT無効時にユーザーリストタイムラインが使用できない問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/709)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/709>)
 - Fix: User Webhookテスト機能のMock Payloadを修正  
 - Fix: アカウント削除のモデレーションログが動作していないのを修正 (#14996)  
 - Fix: リノートミュートが新規投稿通知に対して作用していなかった問題を修正
 - Fix: Inboxの処理で生じるエラーを誤ってActivityとして処理することがある問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/730)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/730>)
 - Fix: セキュリティに関する修正
 
 ### Misskey.js
+
 - Fix: Stream初期化時、別途WebSocketを指定する場合の型定義を修正
 
 ## 2024.10.1
 
 ### Note
+
 - スパム対策として、モデレータ権限を持つユーザのアクティビティが7日以上確認できない場合は自動的に招待制へと切り替え（コントロールパネル -> モデレーション -> "誰でも新規登録できるようにする"をオフに変更）るようになりました。 ( #13437 )
-	- 切り替わった際はモデレーターへお知らせとして通知されます。登録をオープンな状態で継続したい場合は、コントロールパネルから再度設定を行ってください。
+ 	- 切り替わった際はモデレーターへお知らせとして通知されます。登録をオープンな状態で継続したい場合は、コントロールパネルから再度設定を行ってください。
 
 ### General
+
 - Feat: ユーザーの名前に禁止ワードを設定できるように
 
 ### Client
+
 - Enhance: タイムライン表示時のパフォーマンスを向上
 - Enhance: アーカイブした個人宛のお知らせを表示・編集できるように
 - Enhance: l10nの更新
 - Fix: メールアドレス不要でCaptchaが有効な場合にアカウント登録完了後自動でのログインに失敗する問題を修正
 
 ### Server
+
 - Feat: モデレータ権限を持つユーザが全員7日間活動しなかった場合は自動的に招待制へと切り替えるように ( #13437 )
 - Enhance: 個人宛のお知らせは「わかった」を押すと自動的にアーカイブされるように
 - Fix: `admin/emoji/update`エンドポイントのidのみ指定した時不正なエラーが発生するバグを修正
 - Fix: RBT有効時、リノートのリアクションが反映されない問題を修正
 - Fix: キューのエラーログを簡略化するように  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/649)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/649>)
 
 ## 2024.10.0
 
 ### Note
+
 - セキュリティ向上のため、サーバー初期設定時に使用する初期パスワードを設定できるようになりました。今後Misskeyサーバーを新たに設置する際には、初回の起動前にコンフィグファイルの`setupPassword`をコメントアウトし、初期パスワードを設定することをおすすめします。（すでに初期設定を完了しているサーバーについては、この変更に伴い対応する必要はありません）  
   - ホスティングサービスを運営している場合は、コンフィグファイルを構築する際に`setupPassword`をランダムな値に設定し、ユーザーに通知するようにシステムを更新することをおすすめします。
   - なお、初期パスワードが設定されていない場合でも初期設定を行うことが可能です（UI上で初期パスワードの入力欄を空欄にすると続行できます）。
 - ユーザーデータを読み込む際の型が一部変更されました。
-	- `twoFactorEnabled`, `usePasswordLessLogin`, `securityKeys`: 自分とモデレーター以外のユーザーからは取得できなくなりました
+ 	- `twoFactorEnabled`, `usePasswordLessLogin`, `securityKeys`: 自分とモデレーター以外のユーザーからは取得できなくなりました
 
 ### General
+
 - Feat: サーバー初期設定時に初期パスワードを設定できるように
 - Feat: 通報にモデレーションノートを残せるように
 - Feat: 通報の解決種別を設定できるように
@@ -700,12 +1099,14 @@
 - Fix: 連合のホワイトリストが正常に登録されない問題を修正
 
 ### Client
+
 - Enhance: デザインの調整
 - Enhance: ログイン画面の認証フローを改善
 - Fix: クライアント上での時間ベースの実績獲得動作が実績獲得後も発動していた問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/657)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/657>)
 
 ### Server
+
 - Enhance: セキュリティ向上のため、ログイン時にメール通知を行うように
 - Enhance: 自分とモデレーター以外のユーザーから二要素認証関連のデータが取得できないように
 - Enhance: 通報および通報解決時に送出されるSystemWebhookにユーザ情報を含めるように ( #14697 )
@@ -714,20 +1115,22 @@
 ## 2024.9.0
 
 ### General
+
 - Feat: ノート単体・ユーザーのノート・クリップのノートの埋め込み機能
-  - 埋め込みコードやウェブサイトへの実装方法の詳細は https://misskey-hub.net/docs/for-users/features/embed/ をご覧ください
+  - 埋め込みコードやウェブサイトへの実装方法の詳細は <https://misskey-hub.net/docs/for-users/features/embed/> をご覧ください
 - Feat: パスキーでログインボタンを実装 (#14574)
 - Feat: フォローされた際のメッセージを設定できるように
 - Feat: 連合をホワイトリスト制にできるように
 - Feat: UserWebhookとSystemWebhookのテスト送信機能を追加 (#14445)
 - Feat: モデレーターはユーザーにかかわらずファイルが添付されているノートを検索できるように  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/680)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/680>)
 - Feat: データエクスポートが完了した際に通知を発行するように
 - Enhance: ユーザーによるコンテンツインポートの可否をロールポリシーで制御できるように
 - Enhance: 依存関係の更新
 - Enhance: l10nの更新
 
 ### Client
+
 - Enhance: サイズ制限を超過するファイルをアップロードしようとした際にエラーを出すように
 - Enhance: アイコンデコレーション管理画面にプレビューを追加
 - Enhance: コントロールパネル内のファイル一覧でセンシティブなファイルを区別しやすく
@@ -740,39 +1143,42 @@
 - Fix: コントロールパネル内のAp requests内のチャートの表示がおかしかった問題を修正
 - Fix: 月の違う同じ日はセパレータが表示されないのを修正
 - Fix: タッチ画面でレンジスライダーを操作するとツールチップが複数表示される問題を修正  
-  (Cherry-picked from https://github.com/taiyme/misskey/pull/265)
+  (Cherry-picked from <https://github.com/taiyme/misskey/pull/265>)
 - Fix: 縦横比が極端なカスタム絵文字を表示する際にレイアウトが崩れる箇所があるのを修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/725)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/725>)
 - Fix: 設定変更時のリロード確認ダイアログが複数個表示されることがある問題を修正
 - Fix: ファイルの詳細ページのファイルの説明で改行が正しく表示されない問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/commit/bde6bb0bd2e8b0d027e724d2acdb8ae0585a8110)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/commit/bde6bb0bd2e8b0d027e724d2acdb8ae0585a8110>)
 - Fix: 一部画面のページネーションが動作しにくくなっていたのを修正 ( #12766 , #11449 )
 
 ### Server
+
 - Feat: Misskey® Reactions Boost Technology™ (RBT)により、リアクションの作成負荷を低減することが可能に
 - Fix: アンテナの書き込み時にキーワードが与えられなかった場合のエラーをApiErrorとして投げるように
   - この変更により、公式フロントエンドでは入力の不備が内部エラーとして報告される代わりに一般的なエラーダイアログで報告されます
 - Fix: ファイルがサイズの制限を超えてアップロードされた際にエラーを返さなかった問題を修正
 - Fix: 外部ページを解析する際に、ページに紐づけられた関連リソースも読み込まれてしまう問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/commit/26e0412fbb91447c37e8fb06ffb0487346063bb8)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/commit/26e0412fbb91447c37e8fb06ffb0487346063bb8>)
 - Fix: Continue importing from file if single emoji import fails
 - Fix: `Retry-After`ヘッダーが送信されなかった問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/commit/8a982c61c01909e7540ff1be9f019df07c3f0624)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/commit/8a982c61c01909e7540ff1be9f019df07c3f0624>)
 - Fix: サーバーサイドのDOM解析完了時にリソースを開放するように  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/634)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/634>)
 - Fix: `<link rel="alternate">`を追って照会するのはOKレスポンスが返却された場合のみに  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/633)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/633>)
 - Fix: メールにスタイルが適用されていなかった問題を修正
 
 ## 2024.8.0
 
 ### General
+
 - Enhance: モデレーターはすべてのユーザーのフォロー・フォロワーの一覧を見られるように
 - Enhance: アカウントの削除のモデレーションログを残すように
 - Enhance: 不適切なページ、ギャラリー、Playを管理者権限で削除できるように
 - Fix: リモートユーザのフォロー・フォロワーの一覧が非公開設定の場合も表示できてしまう問題を修正
 
 ### Client
+
 - Enhance: 「自分のPlay」ページにおいてPlayが非公開かどうかが一目でわかるように
 - Enhance: 不適切なページ、ギャラリー、Playを通報できるように
 - Fix: Play編集時に公開範囲が「パブリック」にリセットされる問題を修正
@@ -783,6 +1189,7 @@
 - Fix: 特定の条件下でノートの削除ボタンが出ないのを修正
 
 ### Server
+
 - Enhance: 照会時にURLがhtmlかつheadタグ内に`rel="alternate"`, `type="application/activity+json"`の`link`タグがある場合に追ってリンク先を照会できるように
 - Enhance: 凍結されたアカウントのフォローリクエストを表示しないように
 - Fix: WSの`readAllNotifications` メッセージが `body` を持たない場合に動作しない問題 #14374
@@ -790,25 +1197,27 @@
   - これにより、プッシュ通知が有効な同条件下の環境において、プッシュ通知が常に発生してしまう問題も修正されます。
 - Fix: Play各種エンドポイントの返り値に`visibility`が含まれていない問題を修正
 - Fix: サーバー情報取得の際にモデレーター限定の情報が取得できないことがあるのを修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/582)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/582>)
 - Fix: 公開範囲がダイレクトのノートをユーザーアクティビティのチャート生成に使用しないように  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/679)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/679>)
 - Fix: ActivityPubのエンティティタイプ判定で不明なタイプを受け取った場合でも処理を継続するように
   - キュー処理のつまりが改善される可能性があります
 - Fix: リバーシの対局設定の変更が反映されないのを修正
 - Fix: 無制限にストリーミングのチャンネルに接続できる問題を修正
 - Fix: ベースロールのポリシーを変更した際にモデログに記録されないのを修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/700)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/700>)
 - Fix: Prevent memory leak from memory caches (#14310)
 - Fix: More reliable memory cache eviction (#14311)
 
 ## 2024.7.0
 
 ### Note
+
 - デッキUIの新着ノートをサウンドで通知する機能の追加（v2024.5.0）に伴い、以前から動作しなくなっていたクライアント設定内の「アンテナ受信」「チャンネル通知」サウンドを削除しました。
 - Streaming APIにて入力が不正な場合にはそのメッセージを無視するようになりました。 #14251
 
 ### General
+
 - Feat: 通報を受けた際、または解決した際に、予め登録した宛先に通知を飛ばせるように(mail or webhook) #13705
 - Feat: ユーザーのアイコン/バナーの変更可否をロールで設定可能に
   - 変更不可となっていても、設定済みのものを解除してデフォルト画像に戻すことは出来ます
@@ -823,6 +1232,7 @@
 - 依存関係の更新
 
 ### Client
+
 - Feat: ユーザーページから「このユーザーのノートを検索」できるように (#14128)
 - Feat: 検索ページはクエリを受け付けるようになりました (#14128)
 - Enhance: 検索ページのUI改善 (#14128)
@@ -830,9 +1240,9 @@
 - Enhance: 非ログイン時に他サーバーに遷移するアクションを追加
 - Enhance: 非ログイン時のハイライトTLのデザインを改善
 - Enhance: フロントエンドのアクセシビリティ改善  
-  (Based on https://github.com/taiyme/misskey/pull/226)
+  (Based on <https://github.com/taiyme/misskey/pull/226>)
 - Enhance: サーバー情報ページ・お問い合わせページを改善  
-  (Cherry-picked from https://github.com/taiyme/misskey/pull/238)
+  (Cherry-picked from <https://github.com/taiyme/misskey/pull/238>)
 - Enhance: AiScriptを0.19.0にアップデート
 - Enhance: Allow negative delay for MFM animation elements (`tada`, `jelly`, `twitch`, `shake`, `spin`, `jump`, `bounce`, `rainbow`)
 - Enhance: センシティブなメディアを開く際に確認ダイアログを出せるように
@@ -841,27 +1251,27 @@
 - Enhance: 検索(ノート/ユーザー)において、照会を行うかどうか、ハッシュタグのノート/ユーザー一覧ページを表示するかどうかの確認ダイアログを出すように
 - Enhance: 検索(ノート/ユーザー)で `@` から始まる文字列(`@user@host`など)を入力すると、そのユーザーを照会できるように
 - Enhance: ドライブのファイル・フォルダをドラッグしなくても移動できるように  
-  (Cherry-picked from https://github.com/nafu-at/misskey/commit/b89c2af6945c6a9f9f10e83f54d2bcf0f240b0b4, https://github.com/nafu-at/misskey/commit/8a7d710c6acb83f50c83f050bd1423c764d60a99)
+  (Cherry-picked from <https://github.com/nafu-at/misskey/commit/b89c2af6945c6a9f9f10e83f54d2bcf0f240b0b4>, <https://github.com/nafu-at/misskey/commit/8a7d710c6acb83f50c83f050bd1423c764d60a99>)
 - Enhance: デッキのアンテナ・リスト選択画面からそれぞれを新規作成できるように
 - Enhance: ブラウザのコンテキストメニューを使用できるように
 - Enhance: 連合の「連合中」,「購読中」,「配信中」に対してブロックしているサーバー、配信停止しているサーバーを含めないように
 - Fix: `/about#federation` ページなどで各インスタンスのチャートが表示されなくなっていた問題を修正
 - Fix: ユーザーページの追加情報のラベルを投稿者のサーバーの絵文字で表示する (#13968)
 - Fix: リバーシの対局を正しく共有できないことがある問題を修正
-- Fix: コントロールパネルでベースロールのポリシーを編集してもUI上では変更が反映されない問題を修正 
+- Fix: コントロールパネルでベースロールのポリシーを編集してもUI上では変更が反映されない問題を修正
 - Fix: アンテナの編集画面のボタンに隙間を追加
 - Fix: テーマプレビューが見れない問題を修正
 - Fix: ショートカットキーが連打できる問題を修正  
-  (Cherry-picked from https://github.com/taiyme/misskey/pull/234)
+  (Cherry-picked from <https://github.com/taiyme/misskey/pull/234>)
 - Fix: MkSignin.vueのcredentialRequestからReactivityを削除（ProxyがPasskey認証処理に渡ることを避けるため）
 - Fix: 「アニメーション画像を再生しない」がオンのときでもサーバーのバナー画像・背景画像がアニメーションしてしまう問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/574)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/574>)
 - Fix: Twitchの埋め込みが開けない問題を修正
 - Fix: 子メニューの高さがウィンドウからはみ出ることがある問題を修正
 - Fix: 個人宛てのダイアログ形式のお知らせが即時表示されない問題を修正
 - Fix: 一部の画像がセンシティブ指定されているときに画面に何も表示されないことがあるのを修正
 - Fix: リアクションしたユーザー一覧のユーザー名がはみ出る問題を修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/672)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/672>)
 - Fix: `/share`ページにおいて絵文字ピッカーを開くことができない問題を修正
 - Fix: deck uiの通知音が重なる問題 (#14029)
 - Fix: ダイレクト投稿の"削除して編集"において、宛先が保持されていなかった問題を修正
@@ -877,6 +1287,7 @@
 - Fix: サウンドにドライブの音声を使用している際にドライブの音声が再生できなくなると設定が変更できなくなる問題を修正
 
 ### Server
+
 - Feat: レートリミット制限に引っかかったときに`Retry-After`ヘッダーを返すように (#13949)
 - Enhance: エンドポイント`clips/update`の必須項目を`clipId`のみに
 - Enhance: エンドポイント`admin/roles/update`の必須項目を`roleId`のみに
@@ -904,41 +1315,44 @@
 
   また、自分自身のアカウントもサジェストされるようになりました。
 - Fix: 一般ユーザーから見たユーザーのバッジの一覧に公開されていないものが含まれることがある問題を修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/652)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/652>)
 - Fix: ユーザーのリアクション一覧でミュート/ブロックが機能していなかった問題を修正
 - Fix: FTT有効時にリモートユーザーのノートがHTLにキャッシュされる問題を修正
 - Fix: 一部の通知がローカル上のリモートユーザーに対して行われていた問題を修正
 - Fix: エラーメッセージの誤字を修正 (#14213)
 - Fix: ソーシャルタイムラインにローカルタイムラインに表示される自分へのリプライが表示されない問題を修正
 - Fix: リノートのミュートが適用されるまでに時間がかかることがある問題を修正  
-  (Cherry-picked from https://github.com/Type4ny-Project/Type4ny/commit/e9601029b52e0ad43d9131b555b614e56c84ebc1)
+  (Cherry-picked from <https://github.com/Type4ny-Project/Type4ny/commit/e9601029b52e0ad43d9131b555b614e56c84ebc1>)
 - Fix: Steaming APIが不正なデータを受けた場合の動作が不安定である問題 #14251
 - Fix: `users/search`において `@` から始まる文字列が与えられた際の処理が正しくなかった問題を修正
   - 名前や自己紹介に `@` から始まる文言が含まれるユーザーも検索できるようになります
 - Fix: 一部のMisskey以外のソフトウェアからファイルを受け取れない問題
-  (Cherry-picked from https://github.com/Secineralyr/misskey.dream/pull/73/commits/652eaff1e8aa00b890d71d2e1e52c263c1e67c76)
+  (Cherry-picked from <https://github.com/Secineralyr/misskey.dream/pull/73/commits/652eaff1e8aa00b890d71d2e1e52c263c1e67c76>)
   - NOTE: `drive_file`の`url`, `uri`, `src`の上限が512から1024に変更されます
-	  Migrationではカラム定義の変更のみが行われます。
-		サーバー管理者は各サーバーの必要に応じ`drive_file` `("uri")`に対するインデックスを張りなおすことでより安定しDBの探索が行われる可能性があります。詳細 は [GitHub](https://github.com/misskey-dev/misskey/pull/14323#issuecomment-2257562228)で確認可能です
+   Migrationではカラム定義の変更のみが行われます。
+  サーバー管理者は各サーバーの必要に応じ`drive_file` `("uri")`に対するインデックスを張りなおすことでより安定しDBの探索が行われる可能性があります。詳細 は [GitHub](https://github.com/misskey-dev/misskey/pull/14323#issuecomment-2257562228)で確認可能です
 - Fix: 自分のフォロワー限定投稿に対するリプライがホームタイムラインで見えないことが有る問題を修正
 - Fix: フォローしていないユーザによるフォロワー限定投稿に対するリプライがソーシャルタイムラインで表示されることがある問題を修正
 
 ### Misskey.js
+
 - Feat: `/drive/files/create` のリクエストに対応（`multipart/form-data`に対応）
 - Feat: `/admin/role/create` のロールポリシーの型を修正
 
 ## 2024.5.0
 
 ### Note
+
 - コントロールパネル内にあるサマリープロキシの設定個所がセキュリティから全般へ変更となります。
 - 悪意のある第三者がリモートユーザーになりすましたアクティビティを受け取れてしまう問題を修正しました。詳しくは[GitHub security advisory](https://github.com/misskey-dev/misskey/security/advisories/GHSA-2vxv-pv3m-3wvj)をご覧ください。
 - 管理者向け権限 `read:admin:show-users` は `read:admin:show-user` に統合されました。必要に応じてAPIトークンを再発行してください。
 
 ### General
+
 - Feat: エラートラッキングにSentryを使用できるようになりました
 - Enhance: URLプレビューの有効化・無効化を設定できるように #13569
 - Enhance: アンテナでBotによるノートを除外できるように  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/545)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/545>)
 - Enhance: クリップのノート数を表示するように
 - Enhance: コンディショナルロールの条件として以下を新たに追加 (#13667)
   - 猫ユーザーか
@@ -955,9 +1369,10 @@
 - Fix: みつけるのアンケート欄にてチャンネルのアンケートが含まれてしまう問題を修正
 
 ### Client
+
 - Feat: アップロードするファイルの名前をランダム文字列にできるように
 - Feat: 個別のお知らせにリンクで飛べるように  
-  (Based on https://github.com/MisskeyIO/misskey/pull/639)
+  (Based on <https://github.com/MisskeyIO/misskey/pull/639>)
 - Enhance: 自分のノートの添付ファイルから直接ファイルの詳細ページに飛べるように
 - Enhance: 広告がMisskeyと同一ドメインの場合はRouterで遷移するように
 - Enhance: リアクション・いいねの総数を表示するように
@@ -987,9 +1402,9 @@
 - Fix: 周年の実績が閏年を考慮しない問題を修正
 - Fix: ローカルURLのプレビューポップアップが左上に表示される
 - Fix: WebGL2をサポートしないブラウザで「季節に応じた画面の演出」が有効になっているとき、Misskeyが起動できなくなる問題を修正  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/459)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/459>)
 - Fix: ページタイトルでローカルユーザーとリモートユーザーの区別がつかない問題を修正  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/528)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/528>)
 - Fix: コードブロックのシンタックスハイライトで使用される定義ファイルをCDNから取得するように #13177
   - CDNから取得せずMisskey本体にバンドルする場合は`pacakges/frontend/vite.config.ts`を修正してください。
 - Fix: タイムゾーンによっては、「今日誕生日のフォロー中ユーザー」ウィジェットが正しく動作しない問題を修正
@@ -1006,19 +1421,20 @@
 - Fix: ファイルを5つ以上添付してもテキストがないとノートが折りたたまれない問題を修正
 
 ### Server
+
 - Enhance: エンドポイント`antennas/update`の必須項目を`antennaId`のみに
 - Enhance: misskey-dev/summaly@5.1.0の取り込み（プレビュー生成処理の効率化）
 - Enhance: ドライブのファイルがNSFWかどうか個別に連合されるように (#13756)
   - 可能な場合、ノートの添付ファイルのセンシティブ判定がファイル単位になります
 - Fix: リモートから配送されたアクティビティにJSON-LD compactionをかける
 - Fix: フォローリクエストを作成する際に既存のものは削除するように  
-  (Cherry-picked from https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/440)
+  (Cherry-picked from <https://activitypub.software/TransFem-org/Sharkey/-/merge_requests/440>)
 - Fix: エンドポイント`notes/translate`のエラーを改善
 - Fix: CleanRemoteFilesProcessorService report progress from 100% (#13632)
 - Fix: 一部の音声ファイルが映像ファイルとして扱われる問題を修正
 - Fix: リプライのみの引用リノートと、CWのみの引用リノートが純粋なリノートとして誤って扱われてしまう問題を修正
 - Fix: 登録にメール認証が必須になっている場合、登録されているメールアドレスを削除できないように  
-  (Cherry-picked from https://github.com/MisskeyIO/misskey/pull/606)
+  (Cherry-picked from <https://github.com/MisskeyIO/misskey/pull/606>)
 - Fix: Add Cache-Control to Bull Board
 - Fix: nginx経由で/files/にRangeリクエストされた場合に正しく応答できないのを修正
 - Fix: 一部のタイムラインのストリーミングでインスタンスミュートが効かない問題を修正
@@ -1035,23 +1451,27 @@
 ## 2024.3.1
 
 ### General
+
 -
 
 ### Client
+
 - Fix: 絵文字関係の不具合を修正 (#13485)
   - 履歴に残っている or ピン留めされた絵文字がコントロールパネルより削除されていた際にリアクションデッキが表示できなくなる
   - Unicode絵文字が履歴に残っている or ピン留めされているとリアクションデッキが表示できなくなる
 - Fix: カスタム絵文字の画像読み込みに失敗した際はテキストではなくダミー画像を表示 #13487
 
 ### Server
+
 -
 
 ## 2024.3.0
 
 ### General
+
 - Enhance: 投稿者のロールに応じて、一つのノートに含むことのできるメンションとダイレクト投稿の宛先の人数に上限を設定できるように
-  * デフォルトのメンション上限は20アカウントに設定されます。（管理者はベースロールの設定で変更可能です。）
-  * 連合の問い合わせに応答しないサーバーのリモートユーザーへのメンションは、上限の人数に含めない実装になっています。
+  - デフォルトのメンション上限は20アカウントに設定されます。（管理者はベースロールの設定で変更可能です。）
+  - 連合の問い合わせに応答しないサーバーのリモートユーザーへのメンションは、上限の人数に含めない実装になっています。
 - Enhance: 通知がミュート、凍結を考慮するようになりました
 - Enhance: サーバーごとにモデレーションノートを残せるように
 - Enhance: コンディショナルロールの条件に「マニュアルロールへのアサイン」を追加
@@ -1060,6 +1480,7 @@
 - Fix: ダイレクトなノートに対してはダイレクトでしか返信できないように
 
 ### Client
+
 - Enhance: ノート作成画面のファイル添付メニューの区切り線の位置を調整
 - Fix: syuilo/misskeyの時代からあるインスタンスが改変されたバージョンであると誤認識される問題
 - Fix: MFMのオートコンプリートが出るべき状況で出ないことがある問題を修正
@@ -1071,10 +1492,11 @@
 - Fix: ユーザの情報のポップアップが消えなくなることがある問題を修正
 
 ### Server
+
 - Enhance: エンドポイント`flash/update`の`flashId`以外のパラメータは必須ではなくなりました
 - Fix: nodeinfoにenableMcaptchaとenableTurnstileが無いのを修正
 - Fix: 破損した通知をクライアントに送信しないように
-	* 通知欄が無限にリロードされる問題が改善する可能性があります
+ 	- 通知欄が無限にリロードされる問題が改善する可能性があります
 - Fix: 禁止キーワードを含むノートがDelayed Queueに追加されて再処理される問題を修正
 - Fix: 自分がフォローしていないアカウントのフォロワー限定ノートが閲覧できることがある問題を修正
 - Fix: タイムラインのオプションで「リノートを表示」を無効にしている際、投票のみの引用リノートが流れてこない問題を修正
@@ -1101,8 +1523,8 @@
 - Feat: [mCaptcha](https://github.com/mCaptcha/mCaptcha)のサポートを追加
 - Feat: Add support for TrueMail
 - Feat: AGPLv3ライセンスに誤って違反するのを防止する機能を追加
- 	- 管理者がrepositoryUrlを変更したり、またはソースコードを直接頒布することを選択できるようになります
- 	- 本体のソースコードに改変を加えた際に、ライセンスに基づく適切な案内を表示します
+  - 管理者がrepositoryUrlを変更したり、またはソースコードを直接頒布することを選択できるようになります
+  - 本体のソースコードに改変を加えた際に、ライセンスに基づく適切な案内を表示します
 - Enhance: モデレーターはすべてのユーザーのリアクション一覧を見られるように
 - Fix: リストライムラインの「リノートを表示」が正しく機能しない問題を修正
 - Fix: リモートユーザーのリアクション一覧がすべて見えてしまうのを修正
@@ -1129,7 +1551,7 @@
 - Enhance: チャンネルノートの場合は詳細ページからその前後のノートを見れるように
 - Enhance: 季節に応じた画面の演出を南半球でも利用できるように
 - Enhance: タイムラインフィルターの設定をすべて保持できるように
- 	- 今までの「TLに他の人への返信を含める」設定は一旦リセットされます
+  - 今までの「TLに他の人への返信を含める」設定は一旦リセットされます
 - Enhance: タイムラインフィルターに「センシティブなファイルを含むノートを表示」を追加
 - Enhance: ノート作成画面のファイル添付メニューから直接ファイルを削除できるように
 - Enhance: MFMの属性でオートコンプリートが使用できるように #12735
@@ -1270,7 +1692,7 @@
 - Enhance: ノートプレビューに「内容を隠す」が反映されるように
 - Enhance: データセーバーでコードハイライトの読み込みを削減できるように
 - Enhance: データセーバーの適用範囲を個別で設定できるように
- 	- 従来のデータセーバーの設定はリセットされます
+  - 従来のデータセーバーの設定はリセットされます
 - Enhance: タイムライン上のタブからリスト、アンテナ、チャンネルの管理ページにジャンプできるように
 - Enhance: ユーザー名、プロフィール、お知らせ、ページの編集画面でMFMや絵文字のオートコンプリートが使用できるように
 - Enhance: プロフィール、お知らせの編集画面でMFMのプレビューを表示できるように
@@ -1278,8 +1700,8 @@
 - Enhance: リアクションの表示幅制限を設定可能に
 - Enhance: Unicode 15.0のサポート
 - Enhance: コードブロックのハイライト機能を利用するには言語を明示的に指定させるように
- 	- MFMでコードブロックを利用する際に意図しないハイライトが起こらないようになりました
- 	- 逆に、MFMでコードハイライトを利用したい際は言語を明示的に指定する必要があります  
+  - MFMでコードブロックを利用する際に意図しないハイライトが起こらないようになりました
+  - 逆に、MFMでコードハイライトを利用したい際は言語を明示的に指定する必要があります  
  （例: ` ```js ` → Javascript, ` ```ais ` → AiScript）
 - Enhance: 絵文字などのオートコンプリートでShift+Tabを押すと前の候補を選択できるように
 - Enhance: チャンネルに新規の投稿がある場合にバッジを表示させる
@@ -1345,9 +1767,9 @@
 ### Client
 
 - Enhance: MFMでルビを振れるように
- 	- 例: `$[ruby 三須木 みすき]`
+  - 例: `$[ruby 三須木 みすき]`
 - Enhance: MFMでUNIX時間を指定して日時を表示できるように
- 	- 例: `$[unixtime 1701356400]`
+  - 例: `$[unixtime 1701356400]`
 - Enhance: プラグインでエラーが発生した場合のハンドリングを強化
 - Enhance: 細かなUIのブラッシュアップ
 - Fix: 効果音が再生されるとデバイスで再生している動画や音声が停止する問題を修正 #12339
@@ -1379,10 +1801,10 @@
 ### General
 
 - Feat: アイコンデコレーション機能
- 	- サーバーで用意された画像をアイコンに重ねることができます
- 	- 画像のテンプレートはこちらです: <https://misskey-hub.net/brand-assets/>
-  		- 最大でも黄色いエリア内にデコレーションを収めることを推奨します。
-  		- 画像は512x512pxを推奨します。
+  - サーバーで用意された画像をアイコンに重ねることができます
+  - 画像のテンプレートはこちらです: <https://misskey-hub.net/brand-assets/>
+    - 最大でも黄色いエリア内にデコレーションを収めることを推奨します。
+    - 画像は512x512pxを推奨します。
 - Feat: チャンネル設定にリノート／引用リノートの可否を設定できる項目を追加
 - Enhance: アカウント登録時のメールアドレス認証に30分の有効期限を設定
   - 有効期限が切れた後であれば、登録時に使用した招待コードを再度利用できるように変更しました。
@@ -1397,12 +1819,12 @@
 ### Client
 
 - Feat: プラグイン・テーマを外部サイトから直接インストールできるようになりました
- 	- 外部サイトでの実装が必要です。詳細は Misskey Hub をご覧ください
+  - 外部サイトでの実装が必要です。詳細は Misskey Hub をご覧ください
    <https://misskey-hub.net/docs/for-developers/publish-on-your-website/>
 - Feat: 通知をグルーピングして表示するオプション(オプトアウト)
 - Feat: Misskeyの基本的なチュートリアルを実装
 - Feat: スワイプしてタイムラインを再読込できるように
- 	- PCの場合は右上のボタンからでも再読込できます
+  - PCの場合は右上のボタンからでも再読込できます
 - Enhance: タイムラインの自動更新を無効にできるように
 - Enhance: コードのシンタックスハイライトエンジンをShikiに変更
   - AiScriptのシンタックスハイライトに対応
@@ -1434,7 +1856,7 @@
 - Enhance: RedisへのTLのキャッシュ(FTT)をオフにできるように
 - Enhance: フォローしているチャンネルをフォロー解除した時（またはその逆）、タイムラインに反映される間隔を改善
 - Enhance: プロフィールの自己紹介欄のMFMが連合するようになりました
- 	- 相手がMisskey v2023.11.0以降である必要があります
+  - 相手がMisskey v2023.11.0以降である必要があります
 - Enhance: チャンネル取得時のパフォーマンスを向上
 - Enhance: AP: ApplicationタイプのアカウントをisBotとして扱うように
 - Fix: リストTLに自分のフォロワー限定投稿が含まれない問題を修正
@@ -1498,7 +1920,7 @@
 
 - 2023.9.2で導入されたノート編集機能はクオリティの高い実装が困難であることが判明したため撤回されました
 - アップデートを行うと、タイムラインが一時的にリセットされます
- 	- アンテナ内のノートも含む
+  - アンテナ内のノートも含む
 - ソフトミュート設定はクライアントではなくサーバー側に保存されるようになったため、アップデートを行うとソフトミュートの設定がリセットされます
 
 ### Changes
@@ -1512,10 +1934,10 @@
 - Feat: ユーザーリスト内のメンバーごとに他ユーザーへの返信をユーザーリストタイムラインに含めるか設定可能になりました
 - Feat: ユーザーごとのハイライト
 - Feat: プライバシーポリシー・運営者情報（Impressum）の指定が可能になりました
- 	- プライバシーポリシーはサーバー登録時に同意確認が入ります
+  - プライバシーポリシーはサーバー登録時に同意確認が入ります
 - Feat: タイムラインがリアルタイム更新中に広告を挿入できるようになりました
- 	- デフォルトは無効
- 	- 頻度はコントロールパネルから設定できます。運営中のサーバーのTLの流速を見て、最適な値を指定してください。
+  - デフォルトは無効
+  - 頻度はコントロールパネルから設定できます。運営中のサーバーのTLの流速を見て、最適な値を指定してください。
 - Enhance: ソフトワードミュートとハードワードミュートは統合されました
 - Enhance: モデレーションログ機能の強化
 - Enhance: ローカリゼーションの更新
@@ -1526,8 +1948,8 @@
 ### Client
 
 - Feat: 「ファイルの詳細」ページを追加
- 	- ドライブのファイルの拡大プレビューができるように
- 	- ファイルが添付されたノートの一覧が表示できるように
+  - ドライブのファイルの拡大プレビューができるように
+  - ファイルが添付されたノートの一覧が表示できるように
 - Enhance: 二要素認証のバックアップコード一覧をテキストファイルでダウンロード可能に
 - Enhance: 動画再生時のデフォルトボリュームを30%に
 - Fix: リアクションしたユーザ一覧のUIが稀に左上に残ってしまう不具合を修正
@@ -1569,7 +1991,7 @@
 ### General
 
 - Feat: ノートの編集をできるように
- 	- ロールで編集可否を設定可能
+  - ロールで編集可否を設定可能
 - Feat: 通知を種類ごとに 全員から受け取る/フォロー中のユーザーのみ受け取る/フォロワーのみ受け取る/相互のみ受け取る/指定したリストのメンバーのみ受け取る/受け取らない から選べるように
 - Enhance: タイムラインからRenoteを除外するオプションを追加
 - Enhance: ユーザーページのノート一覧でRenoteを除外できるように
@@ -1614,14 +2036,14 @@
 
 - Feat: OAuth 2.0のサポート
 - Feat: お知らせ機能の強化
- 	- ユーザー個別のお知らせを作成可能に
- 	- お知らせのバナー表示やダイアログ表示が可能に
- 	- お知らせのアイコンを設定可能に
+  - ユーザー個別のお知らせを作成可能に
+  - お知らせのバナー表示やダイアログ表示が可能に
+  - お知らせのアイコンを設定可能に
 - Feat: チャンネルをセンシティブ指定できるようになりました
- 	- センシティブチャンネルのNoteのReNoteはデフォルトでHome TLに流れるようになりました
- 	- センシティブチャンネルのノートはユーザープロフィールに表示されません
+  - センシティブチャンネルのNoteのReNoteはデフォルトでHome TLに流れるようになりました
+  - センシティブチャンネルのノートはユーザープロフィールに表示されません
 - Feat: 二要素認証のバックアップコードが生成されるようになりました
- 	- ref. <https://github.com/MisskeyIO/misskey/pull/121>
+  - ref. <https://github.com/MisskeyIO/misskey/pull/121>
 - Feat: 二要素認証でパスキーをサポートするようになりました
 - Feat: 指定したユーザーが投稿したときに通知できるようになりました
 - Feat: プロフィールでのリンク検証
@@ -1631,7 +2053,7 @@
 - Enhance: サーバー名の略称が設定できるようになりました
 - Enhance: アンテナの受信ソースに指定したユーザを除外するものを追加
 - Enhance: 二要素認証設定時のセキュリティを強化
- 	- パスワード入力が必要な操作を行う際、二要素認証が有効であれば確認コードの入力も必要になりました
+  - パスワード入力が必要な操作を行う際、二要素認証が有効であれば確認コードの入力も必要になりました
 - Enhance: manifest.jsonをオーバーライド可能に
 - Enhance: 依存関係の更新
 - Enhance: ローカリゼーションの更新
@@ -1639,12 +2061,12 @@
 ### Client
 
 - Feat: 任意のユーザーリストをタイムラインページにピン留めできるように
- 	- 設定->クライアント設定->全般 から設定可能です
+  - 設定->クライアント設定->全般 から設定可能です
 - Feat: Playで直接投稿フォームを埋め込めるように(`Ui:C:postForm`)
 - Feat: クライアントを起動している間、デバイスの画面が自動でオフになるのを防ぐオプションを追加
 - Feat: 新しい実績を追加
 - Enhance: ノート詳細ページでリノート一覧、リアクション一覧タブを追加
- 	- ノートのメニューからは当該項目は消えました
+  - ノートのメニューからは当該項目は消えました
 - Enhance: センシティブなメディアを目立たせる設定を追加
 - Enhance: プロフィールにその人が作ったPlayの一覧出せるように
 - Enhance: メニューのスイッチの動作を改善
@@ -1822,7 +2244,7 @@
 - カスタム絵文字ごとにセンシティブフラグを設定できるように
 - センシティブなカスタム絵文字のリアクションを受け入れない設定が可能に
 - タイムラインにフォロイーの行った他人へのリプライを含めるかどうかの設定をアカウントに保存するのをやめるように
- 	- 今後はAPI呼び出し時およびストリーミング接続時に設定するようになります
+  - 今後はAPI呼び出し時およびストリーミング接続時に設定するようになります
 - リストを公開できるようになりました
 
 ### Client
@@ -1831,7 +2253,7 @@
 - 開発者モードを追加
 - AiScriptを0.13.3に更新
 - Deck UIを使用している場合、`/`以外にアクセスした際にZen UIで表示するように
- 	- メインカラムを設置していない場合の問題を解決
+  - メインカラムを設置していない場合の問題を解決
 - ハッシュタグのノート一覧ページから、そのハッシュタグで投稿するボタンを追加
 - アカウント初期設定ウィザードに戻るボタンを追加
 - アカウントの初期設定ウィザードにあとでボタンを追加
@@ -1914,12 +2336,12 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
     （デスクトップ表示ではusernameの右側のボタンからも追加可能）
 - チャンネルに色を設定できるようになりました。各ノートに設定した色のインジケーターが表示されます。
 - チャンネルをアーカイブできるようになりました。
- 	- アーカイブすると、チャンネル一覧や検索結果に表示されなくなり、新たな書き込みもできなくなります。
+  - アーカイブすると、チャンネル一覧や検索結果に表示されなくなり、新たな書き込みもできなくなります。
 - アンテナのエクスポート・インポートができるようになりました
 - ロールタイムラインをロールごとに表示するかどうかの選択できるようになりました。
- 	- デフォルトがオフになるので、ロールタイムラインを表示する場合はオンにしてください。
+  - デフォルトがオフになるので、ロールタイムラインを表示する場合はオンにしてください。
 - ロールに強制的にNSFWを付与するポリシーを追加
- 	- アップロード済みのファイルはNSFWにならない為注意してください。
+  - アップロード済みのファイルはNSFWにならない為注意してください。
 - モデレーションノートがユーザーのプロフィールページからも閲覧および編集できるようになりました。
 - カスタム絵文字のライセンスを複数でセットできるようになりました。
 - 管理者が予約ユーザー名を設定できるようになりました。
@@ -1965,7 +2387,7 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 ### General
 
 - 指定したロールを持つユーザーのノートのみが流れるロールタイムラインを追加
- 	- Deckのカラムとしても追加可能
+  - Deckのカラムとしても追加可能
 - カスタム絵文字関連の改善
   - ノートなどに含まれるemojis（populateEmojiの結果）は（プロキシされたURLではなく）オリジナルのURLを指すように
   - MFMでx3/x4もしくはscale.x/yが2.5以上に指定されていた場合にはオリジナル品質の絵文字を使用するように
@@ -2066,8 +2488,8 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 - 広告・お知らせが新規登録時に増殖しないように
 -　「にゃああああああああああああああ！！！！！！！！！！！！」 (`isCat`) 有効時にアバターに表示される猫耳について挙動を変更
   - 「UIにぼかし効果を使用」 (`useBlurEffect`) で次の挙動が有効になります
- 	  - 猫耳のアバター内部部分をぼかしでマスク表示してより猫耳っぽく見えるように
-   	- 「UIのアニメーションを減らす」 (`reduceAnimation`) で猫耳を撫でられなくなります
+    - 猫耳のアバター内部部分をぼかしでマスク表示してより猫耳っぽく見えるように
+    - 「UIのアニメーションを減らす」 (`reduceAnimation`) で猫耳を撫でられなくなります
 - Add Minimizing ("folding") of windows
 - 「データセーバー」モードを追加
 - 非NSFWメディアが隠れている際にも「閲覧注意」が出てしまう問題を修正
@@ -2075,7 +2497,7 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 ### Server
 
 - PostgreSQLのレプリケーション対応
- 	- 設定ファイルの `dbReplications` および `dbSlaves` にて設定できます
+  - 設定ファイルの `dbReplications` および `dbSlaves` にて設定できます
 - イベント用Redisを別サーバーに分離できるように
 - ジョブキュー用Redisを別サーバーに分離できるように
 - サーバーの全体的なパフォーマンスを向上
@@ -2154,9 +2576,9 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 - ジョブキューの再試行をワンクリックでできるように
 - AiScriptを0.13.1に更新
 - oEmbedをサポートしているウェブサイトのプレビューができるように
- 	- YouTubeをoEmbedでロードし、プレビューで共有ボタンを押すとOSの共有画面がでるように
- 	- ([FirefoxでSpotifyのプレビューを開けるとフルサイズじゃなくプレビューサイズだけ再生できる問題](https://bugzilla.mozilla.org/show_bug.cgi?id=1792395)があります)
- 	- (すでにブラウザーでキャッシュされたリンクに対しては以前のプレビュー行動が行われてます。その場合、ブラウザーのキャッシュをクリアしてまた試してください。)
+  - YouTubeをoEmbedでロードし、プレビューで共有ボタンを押すとOSの共有画面がでるように
+  - ([FirefoxでSpotifyのプレビューを開けるとフルサイズじゃなくプレビューサイズだけ再生できる問題](https://bugzilla.mozilla.org/show_bug.cgi?id=1792395)があります)
+  - (すでにブラウザーでキャッシュされたリンクに対しては以前のプレビュー行動が行われてます。その場合、ブラウザーのキャッシュをクリアしてまた試してください。)
 - プロフィールで設定した情報が削除できない問題を修正
 - ロールで広告を無効にするとadmin/adsでプレビューがでてこない問題を修正
 - /api-consoleページにアクセスすると404が出る問題を修正
@@ -2636,9 +3058,9 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 ### Notable features
 
 - ロール機能
- 	- 従来より柔軟にユーザーのポリシーを管理できます。例えば、「インスタンスのパトロンはアンテナを30個まで作れる」「基本的にLTLは見れないが、許可した人だけ見れる」「招待制インスタンスだけどユーザーなら誰でも他者を招待できる」のような運用はもちろん、「ローカルユーザーかつアカウント作成から1日未満のユーザーはパブリックな投稿を行えない」のように複数条件を組み合わせて、自動でロールを付与する設定も可能です。
+  - 従来より柔軟にユーザーのポリシーを管理できます。例えば、「インスタンスのパトロンはアンテナを30個まで作れる」「基本的にLTLは見れないが、許可した人だけ見れる」「招待制インスタンスだけどユーザーなら誰でも他者を招待できる」のような運用はもちろん、「ローカルユーザーかつアカウント作成から1日未満のユーザーはパブリックな投稿を行えない」のように複数条件を組み合わせて、自動でロールを付与する設定も可能です。
 - Misskey Play
- 	- 従来の動的なPagesに代わる、新しいプラットフォームです。動的なコンテンツ(アプリケーション)に特化していて、Pagesに比べてはるかに柔軟なアプリケーションを作成可能です。
+  - 従来の動的なPagesに代わる、新しいプラットフォームです。動的なコンテンツ(アプリケーション)に特化していて、Pagesに比べてはるかに柔軟なアプリケーションを作成可能です。
 
 ### Changes
 
@@ -2646,19 +3068,19 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 
 - Node.js 18.x or later is required
 - PostgreSQL 15.x is required
- 	- Misskey not using 15 specific features at 13.0.0, but may do so in the future.
- 	- Docker環境でPostgreSQLのアップデートを行う際のガイドはこちら: <https://github.com/misskey-dev/misskey/pull/9641#issue-1536336620>
+  - Misskey not using 15 specific features at 13.0.0, but may do so in the future.
+  - Docker環境でPostgreSQLのアップデートを行う際のガイドはこちら: <https://github.com/misskey-dev/misskey/pull/9641#issue-1536336620>
 - Elasticsearchのサポートが削除されました
- 	- 代わりに今後任意の検索プロバイダを設定できる仕組みを構想しています。その仕組みを使えば今まで通りElasticsearchも利用できます
+  - 代わりに今後任意の検索プロバイダを設定できる仕組みを構想しています。その仕組みを使えば今まで通りElasticsearchも利用できます
 - Yarnからpnpmに移行されました
   corepackの有効化を推奨します: `sudo corepack enable`
 - インスタンスブロックはサブドメインにも適用されるようになります
 - ロールの導入に伴い、いくつかの機能がロールと統合されました
- 	- モデレーターはロールに統合されました。今までのモデレーター情報は失われるため、予めモデレーター一覧を記録しておき、アップデート後にモデレーターロールを作りアサインし直してください。
- 	- サイレンスはロールに統合されました。今までのユーザーは恩赦されるため、予めサイレンス一覧を記録しておくのをおすすめします。
- 	- ユーザーごとのドライブ容量設定はロールに統合されました。
- 	- インスタンスデフォルトのドライブ容量設定はロールに統合されました。アップデート後、ベースロールもしくはコンディショナルロールでドライブ容量を編集してください。
- 	- LTL/GTLの解放状態はロールに統合されました。
+  - モデレーターはロールに統合されました。今までのモデレーター情報は失われるため、予めモデレーター一覧を記録しておき、アップデート後にモデレーターロールを作りアサインし直してください。
+  - サイレンスはロールに統合されました。今までのユーザーは恩赦されるため、予めサイレンス一覧を記録しておくのをおすすめします。
+  - ユーザーごとのドライブ容量設定はロールに統合されました。
+  - インスタンスデフォルトのドライブ容量設定はロールに統合されました。アップデート後、ベースロールもしくはコンディショナルロールでドライブ容量を編集してください。
+  - LTL/GTLの解放状態はロールに統合されました。
 - Dockerの実行をrootで行わないようにしました。Dockerかつオブジェクトストレージを使用していない場合は`chown -hR 991.991 ./files`を実行してください。
   <https://github.com/misskey-dev/misskey/pull/9560>
 
@@ -2668,10 +3090,10 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 - アンケートに投票された際に通知が作成されなくなりました
 - ノートの数式埋め込みが削除されました
 - 新たに動的なPagesを作ることはできなくなりました
- 	- 代わりにAiScriptを用いてより柔軟に動的なコンテンツを作成できるMisskey Play機能が実装されています。
+  - 代わりにAiScriptを用いてより柔軟に動的なコンテンツを作成できるMisskey Play機能が実装されています。
 - AiScriptが0.12.2にアップデートされました
- 	- 0.12.xの変更点についてはこちら <https://github.com/syuilo/aiscript/blob/master/CHANGELOG.md#0120>
- 	- 0.12.x未満のプラグインは読み込むことはできません
+  - 0.12.xの変更点についてはこちら <https://github.com/syuilo/aiscript/blob/master/CHANGELOG.md#0120>
+  - 0.12.x未満のプラグインは読み込むことはできません
 - iOS15以下のデバイスはサポートされなくなりました
 - Firefox110以下はサポートされなくなりました
   - 109でもContainerQueriesのフラグを有効にする事で問題なく使用できます
@@ -2679,11 +3101,11 @@ Meilisearchの設定に`index`が必要になりました。値はMisskeyサー�
 #### For app developers
 
 - API: metaのレスポンスに`emojis`プロパティが含まれなくなりました
- 	- カスタム絵文字一覧情報を取得するには、`emojis`エンドポイントにリクエストします
+  - カスタム絵文字一覧情報を取得するには、`emojis`エンドポイントにリクエストします
 - API: カスタム絵文字エンティティに`url`プロパティが含まれなくなりました
- 	- 絵文字画像を表示するには、`<instance host>/emoji/<emoji name>.webp`にリクエストすると画像が返ります。
- 	- e.g. `https://p1.a9z.dev/emoji/misskey.webp`
- 	- remote: `https://p1.a9z.dev/emoji/syuilo_birth_present@mk.f72u.net.webp`
+  - 絵文字画像を表示するには、`<instance host>/emoji/<emoji name>.webp`にリクエストすると画像が返ります。
+  - e.g. `https://p1.a9z.dev/emoji/misskey.webp`
+  - remote: `https://p1.a9z.dev/emoji/syuilo_birth_present@mk.f72u.net.webp`
 - API: `user`および`note`エンティティに`emojis`プロパティが含まれなくなりました
 - API: `user`エンティティに`avatarColor`および`bannerColor`プロパティが含まれなくなりました
 - API: `instance`エンティティに`latestStatus`、`lastCommunicatedAt`、`latestRequestSentAt`プロパティが含まれなくなりました
@@ -3124,7 +3546,7 @@ same as 12.112.0
 - 連合チャートにPub&Subを追加 @syuilo
 - 連合チャートにActiveを追加 @syuilo
 - デフォルトで10秒以上時間がかかるデータベースへのクエリは中断されるように @syuilo
- 	- 設定ファイルの`db.extra`に`statement_timeout`を設定することでタイムアウト時間を変更できます
+  - 設定ファイルの`db.extra`に`statement_timeout`を設定することでタイムアウト時間を変更できます
 - Client: スプラッシュスクリーンにインスタンスのアイコンを表示するように @syuilo
 
 ### Bugfixes
@@ -3209,12 +3631,12 @@ same as 12.112.0
 ### Improvements
 
 - チャートエンジンの強化 @syuilo
- 	- テーブルサイズの削減
- 	- notes/instance/perUserNotesチャートに添付ファイル付きノートの数を追加
- 	- activeUsersチャートに新しい項目を追加
- 	- federationチャートに新しい項目を追加
- 	- apRequestチャートを追加
- 	- networkチャート廃止
+  - テーブルサイズの削減
+  - notes/instance/perUserNotesチャートに添付ファイル付きノートの数を追加
+  - activeUsersチャートに新しい項目を追加
+  - federationチャートに新しい項目を追加
+  - apRequestチャートを追加
+  - networkチャート廃止
 - クライアント: 自インスタンス情報ページでチャートを見れるように @syuilo
 - クライアント: デバイスの種類を手動指定できるように @syuilo
 - クライアント: UIのアイコンを更新 @syuilo
@@ -3496,7 +3918,7 @@ same as 12.112.0
 
 - クライアント: コントロールパネルのパフォーマンスを改善
 - クライアント: 自分のリアクション一覧を見れるように
- 	- 設定により、リアクション一覧を全員に公開することも可能
+  - 設定により、リアクション一覧を全員に公開することも可能
 - クライアント: ユーザー検索の精度を強化
 - クライアント: 新しいライトテーマを追加
 - クライアント: 新しいダークテーマを追加
@@ -3517,7 +3939,7 @@ same as 12.112.0
 
 - 連合の考慮に問題があることなどが分かったため、モデレーターをブロックできない仕様を廃止しました
 - データベースにログを保存しないようになりました
- 	- ログを永続化したい場合はsyslogを利用してください
+  - ログを永続化したい場合はsyslogを利用してください
 
 ## 12.92.0 (2021/10/16)
 
@@ -3555,9 +3977,9 @@ same as 12.112.0
 ### Changes
 
 - 保守性やユーザビリティの観点から、Misskeyのコマンドラインオプションが削除されました。
- 	- 必要であれば、代わりに環境変数で設定することができます
+  - 必要であれば、代わりに環境変数で設定することができます
 - MFM: パフォーマンス、保守性、構文誤認識抑制の観点から、旧関数構文のサポートが削除されました。
- 	- 旧構文(`[foo bar]`)を使用せず、現行の構文(`$[foo bar]`)を使用してください。
+  - 旧構文(`[foo bar]`)を使用せず、現行の構文(`$[foo bar]`)を使用してください。
 
 ## 12.91.0 (2021/09/22)
 
@@ -3567,7 +3989,7 @@ same as 12.112.0
 - ActivityPub: add resolver check for blocked instance
 - ActivityPub: deliverキューのメモリ使用量を削減
 - API: 管理者用アカウント削除APIを実装(/admin/accounts/delete)
- 	- リモートユーザーの削除も可能に
+  - リモートユーザーの削除も可能に
 - アカウントが凍結された場合に、凍結された旨を表示してからログアウトするように
 - 凍結されたアカウントにログインしようとしたときに、凍結されている旨を表示するように
 - リスト、アンテナタイムラインを個別ページとして分割
@@ -3595,14 +4017,14 @@ same as 12.112.0
 ### Improvements
 
 - 藍モード、および藍ウィジェット
- 	- クライアントに藍ちゃんを召喚することができるようになりました。
+  - クライアントに藍ちゃんを召喚することができるようになりました。
 - URLからのアップロード, APの添付ファイル, 外部ファイルのプロキシ等では、Privateアドレス等へのリクエストは拒否されるようになりました。
- 	- developmentで動作している場合は、この制限は適用されません。
- 	- Proxy使用時には、この制限は適用されません。
+  - developmentで動作している場合は、この制限は適用されません。
+  - Proxy使用時には、この制限は適用されません。
   Proxy使用時に同等の制限を行いたい場合は、Proxy側で設定を行う必要があります。
- 	- `default.yml`にて`allowedPrivateNetworks`にCIDRを追加することにより、宛先ネットワークを指定してこの制限から除外することが出来ます。
+  - `default.yml`にて`allowedPrivateNetworks`にCIDRを追加することにより、宛先ネットワークを指定してこの制限から除外することが出来ます。
 - アップロード, ダウンロード出来るファイルサイズにハードリミットが適用されるようになりました。(約250MB)
- 	- `default.yml`にて`maxFileSize`を変更することにより、制限値を変更することが出来ます。
+  - `default.yml`にて`maxFileSize`を変更することにより、制限値を変更することが出来ます。
 
 ### Bugfixes
 
@@ -3658,7 +4080,7 @@ same as 12.112.0
 ### Improvements
 
 - ブロックの挙動を改修
- 	- ブロックされたユーザーがブロックしたユーザーに対してアクション出来ないようになりました。詳細はドキュメントをご確認ください。
+  - ブロックされたユーザーがブロックしたユーザーに対してアクション出来ないようになりました。詳細はドキュメントをご確認ください。
 - UIデザインの調整
 - データベースのインデックスを最適化
 - Proxy使用時にKeep-Aliveをサポート
@@ -3692,7 +4114,7 @@ same as 12.112.0
 ### Improvements
 
 - ドキュメントの更新
- 	- ドキュメントにchangelogを追加
+  - ドキュメントにchangelogを追加
 - ぼかし効果のオプションを追加
 - Vueを3.2.1に更新
 - UIの調整
