@@ -93,5 +93,8 @@
 			"@sentry-internal/node-cpu-profiler",
 			"exifreader"
 		]
+	},
+	"volta": {
+		"node": "22.21.1"
 	}
 }
