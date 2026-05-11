@@ -10,7 +10,6 @@ import { type FastifyServerOptions } from 'fastify';
 import type * as Sentry from '@sentry/node';
 import type * as SentryVue from '@sentry/vue';
 import type { RedisOptions } from 'ioredis';
-import type { ManifestChunk } from 'vite';
 
 type RedisOptionsSource = Partial<RedisOptions> & {
 	host: string;
@@ -63,7 +62,7 @@ type Source = {
 		apiKey: string;
 		ssl?: boolean;
 		index: string;
-		scope?: "local" | "global" | string[];
+		scope?: 'local' | 'global' | string[];
 	};
 	sentryForBackend?: { options: Partial<Sentry.NodeOptions>; enableNodeProfiling: boolean; };
 	sentryForFrontend?: {
@@ -90,7 +89,7 @@ type Source = {
 	id: string;
 
 	outgoingAddress?: string;
-	outgoingAddressFamily?: "ipv4" | "ipv6" | "dual";
+	outgoingAddressFamily?: 'ipv4' | 'ipv6' | 'dual';
 
 	deliverJobConcurrency?: number;
 	inboxJobConcurrency?: number;
@@ -135,28 +134,24 @@ export type Config = {
 		extra?: { [x: string]: string };
 	};
 	dbReplications: boolean | undefined;
-	dbSlaves:
-		| {
-				host: string;
-				port: number;
-				db: string;
-				user: string;
-				pass: string;
-		  }[]
-		| undefined;
+	dbSlaves: {
+		host: string;
+		port: number;
+		db: string;
+		user: string;
+		pass: string;
+	}[] | undefined;
 	fulltextSearch?: {
 		provider?: FulltextSearchProvider;
 	};
-	meilisearch:
-		| {
-				host: string;
-				port: string;
-				apiKey: string;
-				ssl?: boolean;
-				index: string;
-				scope?: "local" | "global" | string[];
-		  }
-		| undefined;
+	meilisearch: {
+		host: string;
+		port: string;
+		apiKey: string;
+		ssl?: boolean;
+		index: string;
+		scope?: 'local' | 'global' | string[];
+	} | undefined;
 	proxy: string | undefined;
 	proxySmtp: string | undefined;
 	proxyBypassHosts: string[] | undefined;
@@ -165,7 +160,7 @@ export type Config = {
 	clusterLimit: number | undefined;
 	id: string;
 	outgoingAddress: string | undefined;
-	outgoingAddressFamily: "ipv4" | "ipv6" | "dual" | undefined;
+	outgoingAddressFamily: 'ipv4' | 'ipv6' | 'dual' | undefined;
 	deliverJobConcurrency: number | undefined;
 	inboxJobConcurrency: number | undefined;
 	relationshipJobConcurrency: number | undefined;
@@ -193,10 +188,9 @@ export type Config = {
 	authUrl: string;
 	driveUrl: string;
 	userAgent: string;
-	frontendEntry: ManifestChunk;
 	frontendManifestExists: boolean;
-	frontendEmbedEntry: ManifestChunk;
 	frontendEmbedManifestExists: boolean;
+	rootDir: string;
 	mediaProxy: string;
 	externalMediaProxyEnabled: boolean;
 	videoThumbnailGenerator: string | null;
@@ -216,10 +210,9 @@ export type Config = {
 	perUserNotificationsMaxCount: number;
 	deactivateAntennaThreshold: number;
 	pidFile: string;
-	misskeyBlockMentionsFromUnfamiliarRemoteUsers: boolean;
 };
 
-export type FulltextSearchProvider = "sqlLike" | "sqlPgroonga" | "meilisearch";
+export type FulltextSearchProvider = 'sqlLike' | 'sqlPgroonga' | 'meilisearch';
 
 const _filename = fileURLToPath(import.meta.url);
 const _dirname = dirname(_filename);
@@ -255,41 +248,32 @@ export function loadConfig(): Config {
 
 	const frontendManifestExists = fs.existsSync(resolve(projectBuiltDir, '_frontend_vite_/manifest.json'));
 	const frontendEmbedManifestExists = fs.existsSync(resolve(projectBuiltDir, '_frontend_embed_vite_/manifest.json'));
-	const frontendManifest = frontendManifestExists ?
-		JSON.parse(fs.readFileSync(resolve(projectBuiltDir, '_frontend_vite_/manifest.json'), 'utf-8'))
-		: { 'src/_boot_.ts': { file: null } };
-	const frontendEmbedManifest = frontendEmbedManifestExists ?
-		JSON.parse(fs.readFileSync(resolve(projectBuiltDir, '_frontend_embed_vite_/manifest.json'), 'utf-8'))
-		: { 'src/boot.ts': { file: null } };
 
 	const config = JSON.parse(fs.readFileSync(compiledConfigFilePath, 'utf-8')) as Source;
 
-	const url = tryCreateUrl(config.url ?? process.env.MISSKEY_URL ?? "");
+	const url = tryCreateUrl(config.url ?? process.env.MISSKEY_URL ?? '');
 	const version = meta.version;
 	const host = url.host;
 	const hostname = url.hostname;
-	const scheme = url.protocol.replace(/:$/, "");
-	const wsScheme = scheme.replace("http", "ws");
+	const scheme = url.protocol.replace(/:$/, '');
+	const wsScheme = scheme.replace('http', 'ws');
 
-	const dbDb = config.db.db ?? process.env.DATABASE_DB ?? "";
-	const dbUser = config.db.user ?? process.env.DATABASE_USER ?? "";
-	const dbPass = config.db.pass ?? process.env.DATABASE_PASSWORD ?? "";
+	const dbDb = config.db.db ?? process.env.DATABASE_DB ?? '';
+	const dbUser = config.db.user ?? process.env.DATABASE_USER ?? '';
+	const dbPass = config.db.pass ?? process.env.DATABASE_PASSWORD ?? '';
 
-	const externalMediaProxy = config.mediaProxy
-		? config.mediaProxy.endsWith("/")
-			? config.mediaProxy.substring(0, config.mediaProxy.length - 1)
-			: config.mediaProxy
+	const externalMediaProxy = config.mediaProxy ?
+		config.mediaProxy.endsWith('/') ? config.mediaProxy.substring(0, config.mediaProxy.length - 1) : config.mediaProxy
 		: null;
 	const internalMediaProxy = `${scheme}://${host}/proxy`;
 	const redis = convertRedisOptions(config.redis, host);
 
 	return {
 		version,
-		publishTarballInsteadOfProvideRepositoryUrl:
-			!!config.publishTarballInsteadOfProvideRepositoryUrl,
+		publishTarballInsteadOfProvideRepositoryUrl: !!config.publishTarballInsteadOfProvideRepositoryUrl,
 		setupPassword: config.setupPassword,
 		url: url.origin,
-		port: config.port ?? Number.parseInt(process.env.PORT ?? "", 10),
+		port: config.port ?? parseInt(process.env.PORT ?? '', 10),
 		socket: config.socket,
 		trustProxy: config.trustProxy ?? [
 			'10.0.0.0/8',
@@ -316,18 +300,10 @@ export function loadConfig(): Config {
 		fulltextSearch: config.fulltextSearch,
 		meilisearch: config.meilisearch,
 		redis,
-		redisForPubsub: config.redisForPubsub
-			? convertRedisOptions(config.redisForPubsub, host)
-			: redis,
-		redisForJobQueue: config.redisForJobQueue
-			? convertRedisOptions(config.redisForJobQueue, host)
-			: redis,
-		redisForTimelines: config.redisForTimelines
-			? convertRedisOptions(config.redisForTimelines, host)
-			: redis,
-		redisForReactions: config.redisForReactions
-			? convertRedisOptions(config.redisForReactions, host)
-			: redis,
+		redisForPubsub: config.redisForPubsub ? convertRedisOptions(config.redisForPubsub, host) : redis,
+		redisForJobQueue: config.redisForJobQueue ? convertRedisOptions(config.redisForJobQueue, host) : redis,
+		redisForTimelines: config.redisForTimelines ? convertRedisOptions(config.redisForTimelines, host) : redis,
+		redisForReactions: config.redisForReactions ? convertRedisOptions(config.redisForReactions, host) : redis,
 		sentryForBackend: config.sentryForBackend,
 		sentryForFrontend: config.sentryForFrontend,
 		id: config.id,
@@ -348,25 +324,17 @@ export function loadConfig(): Config {
 		deliverJobMaxAttempts: config.deliverJobMaxAttempts,
 		inboxJobMaxAttempts: config.inboxJobMaxAttempts,
 		mediaProxy: externalMediaProxy ?? internalMediaProxy,
-		externalMediaProxyEnabled:
-			externalMediaProxy !== null && externalMediaProxy !== internalMediaProxy,
-		videoThumbnailGenerator: config.videoThumbnailGenerator
-			? config.videoThumbnailGenerator.endsWith("/")
-				? config.videoThumbnailGenerator.substring(
-						0,
-						config.videoThumbnailGenerator.length - 1,
-					)
-				: config.videoThumbnailGenerator
+		externalMediaProxyEnabled: externalMediaProxy !== null && externalMediaProxy !== internalMediaProxy,
+		videoThumbnailGenerator: config.videoThumbnailGenerator ?
+			config.videoThumbnailGenerator.endsWith('/') ? config.videoThumbnailGenerator.substring(0, config.videoThumbnailGenerator.length - 1) : config.videoThumbnailGenerator
 			: null,
 		userAgent: `Misskey/${version} (${config.url})`,
-		frontendEntry: frontendManifest["src/_boot_.ts"],
 		frontendManifestExists: frontendManifestExists,
-		frontendEmbedEntry: frontendEmbedManifest["src/boot.ts"],
 		frontendEmbedManifestExists: frontendEmbedManifestExists,
+		rootDir,
 		perChannelMaxNoteCacheCount: config.perChannelMaxNoteCacheCount ?? 1000,
 		perUserNotificationsMaxCount: config.perUserNotificationsMaxCount ?? 500,
-		deactivateAntennaThreshold:
-			config.deactivateAntennaThreshold ?? 1000 * 60 * 60 * 24 * 7,
+		deactivateAntennaThreshold: config.deactivateAntennaThreshold ?? (1000 * 60 * 60 * 24 * 7),
 		pidFile: config.pidFile,
 		logging: config.logging,
 	};
@@ -380,10 +348,7 @@ function tryCreateUrl(url: string) {
 	}
 }
 
-function convertRedisOptions(
-	options: RedisOptionsSource,
-	host: string,
-): RedisOptions & RedisOptionsSource {
+function convertRedisOptions(options: RedisOptionsSource, host: string): RedisOptions & RedisOptionsSource {
 	return {
 		...options,
 		password: options.pass,
