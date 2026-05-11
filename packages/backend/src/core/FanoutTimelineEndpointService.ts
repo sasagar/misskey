@@ -24,8 +24,6 @@ import { isChannelRelated } from '@/misc/is-channel-related.js';
 
 type NoteFilter = (note: MiNote) => boolean;
 
-type NoteFilter = (note: MiNote) => boolean;
-
 type TimelineOptions = {
 	untilId: string | null,
 	sinceId: string | null,
