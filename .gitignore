@@ -79,7 +79,5 @@ vite.config.local-dev.ts.timestamp-*
 *.blend4
 *.blend5
 
-.devcontainer/init.sh
-
 # VSCode addon
 .favorites.json
