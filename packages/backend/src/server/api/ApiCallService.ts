@@ -110,7 +110,7 @@ export class ApiCallService implements OnApplicationShutdown {
 		}
 	}
 
-	#onExecError(ep: IEndpoint, data: any, err: Error, userId?: MiUser['id']): void {
+	#onExecError(ep: IEndpoint, data: any, err: Error, user?: MiLocalUser | null): void {
 		if (err instanceof ApiError || err instanceof AuthenticationError) {
 			throw err;
 		} else {
@@ -129,9 +129,19 @@ export class ApiCallService implements OnApplicationShutdown {
 			if (this.Sentry != null) {
 				this.Sentry.captureMessage(`Internal error occurred in ${ep.name}: ${err.message}`, {
 					level: 'error',
-					user: {
-						id: userId,
-					},
+					// ikaskey独自: Sentry の Issue 上でユーザーを特定しやすくするため、ID だけでなく
+					// username などのユーザー情報を一式付与する (upstream は id のみ)
+					user: user ? {
+						id: user.id,
+						username: user.username,
+						host: user.host,
+						name: user.name,
+						isBot: user.isBot,
+						isCat: user.isCat,
+						isLocked: user.isLocked,
+						isSuspended: user.isSuspended,
+						isDeleted: user.isDeleted,
+					} : undefined,
 					extra: {
 						ep: ep.name,
 						ps: data,
@@ -445,10 +455,10 @@ export class ApiCallService implements OnApplicationShutdown {
 			return await this.Sentry.startSpan({
 				name: 'API: ' + ep.name,
 			}, () => ep.exec(data, user, token, file, request.ip, request.headers)
-				.catch((err: Error) => this.#onExecError(ep, data, err, user?.id)));
+				.catch((err: Error) => this.#onExecError(ep, data, err, user)));
 		} else {
 			return await ep.exec(data, user, token, file, request.ip, request.headers)
-				.catch((err: Error) => this.#onExecError(ep, data, err, user?.id));
+				.catch((err: Error) => this.#onExecError(ep, data, err, user));
 		}
 	}
 
