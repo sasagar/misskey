@@ -140,7 +140,6 @@ export class ApiCallService implements OnApplicationShutdown {
 				} : undefined,
 				extra: {
 					ep: ep.name,
-					ps: data,
 					e: {
 						message: err.message,
 						code: err.name,
