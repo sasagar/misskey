@@ -377,7 +377,9 @@ export class ApPersonService implements OnModuleInit {
 					movedToUri: person.movedTo,
 					movedAt: person.movedTo ? new Date() : null,
 					alsoKnownAs: toArray(person.alsoKnownAs),
-					isExplorable: person.discoverable,
+					// ikaskey独自: discoverable が null の actor で NOT NULL 制約違反になるのを防ぐ
+					// (DB DEFAULT が true なので、フィールド省略時と同じ true に寄せる)
+					isExplorable: person.discoverable ?? true,
 					username: person.preferredUsername,
 					usernameLower: person.preferredUsername?.toLowerCase(),
 					host,
@@ -569,7 +571,8 @@ export class ApPersonService implements OnModuleInit {
 			isLocked: person.manuallyApprovesFollowers,
 			movedToUri: person.movedTo ?? null,
 			alsoKnownAs: person.alsoKnownAs ? toArray(person.alsoKnownAs) : null,
-			isExplorable: person.discoverable,
+			// ikaskey独自: discoverable が null の actor で NOT NULL 制約違反になるのを防ぐ (createPerson 側と同様)
+			isExplorable: person.discoverable ?? true,
 			...(await this.resolveAvatarAndBanner(exist, person.icon, person.image).catch(() => ({}))),
 		} as Partial<MiRemoteUser> & Pick<MiRemoteUser, 'isBot' | 'isCat' | 'isLocked' | 'movedToUri' | 'alsoKnownAs' | 'isExplorable'>;
 
